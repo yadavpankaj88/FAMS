@@ -2,6 +2,7 @@
 
 Public Class frmFAMSMain
 
+    Dim objCashReceipt As frmReports
     Dim objLedgerMaster As frmLedgerAccountManage
     Dim objCashBBMaster As frmCashBankAccountManage
     Dim objCashRecV As frmCashRecV
@@ -65,7 +66,7 @@ Public Class frmFAMSMain
         legerAcc = New LedgerAccountHelper
     End Sub
 
-    Sub New(institutionDetails As InstitutionMasterData)
+    Sub New(ByVal institutionDetails As InstitutionMasterData)
         ' TODO: Complete member initialization 
 
         Try
@@ -152,7 +153,7 @@ Public Class frmFAMSMain
     Private m_ChildFormNumber As Integer
 
 
-    Private Sub mnuLedgeAccMaster_Click(sender As Object, e As EventArgs) Handles mnuLedgeAccMaster.Click
+    Private Sub mnuLedgeAccMaster_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuLedgeAccMaster.Click
         lblActivity.Text = "View"
         objLedgerMaster = New frmLedgerAccountManage
         mainBindingNavigator.BindingSource = objLedgerMaster.bindingSourceCtrl
@@ -662,5 +663,28 @@ Public Class frmFAMSMain
 
     Private Sub BindingNavigatorMoveNextItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BindingNavigatorMoveNextItem.Click
         '   mainBindingNavigator.BindingSource.MoveNext()
+    End Sub
+
+    Private Sub mnuCashBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCashBookRpt.Click
+        lblActivity.Text = "View"
+        objCashReceipt = New frmReports
+        mainBindingNavigator.BindingSource = Nothing
+        Me.pnlMenu.Visible = False
+        Me.pnlNavigator.Visible = True
+        pnlNavigator.Enabled = True
+        EnableNavToolBar()
+        ShowNewForm(objCashReceipt, Nothing)
+    End Sub
+
+    Private Sub mnuSelectiveBankAccountRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectiveBankAccountRpt.Click
+
+    End Sub
+
+    Private Sub mnuConsolidatedBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuConsolidatedBankBookRpt.Click
+
+    End Sub
+
+    Private Sub mnuCombinedCashBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCombinedCashBankBookRpt.Click
+
     End Sub
 End Class

@@ -256,7 +256,7 @@
                 daybook.DMInstCd = InstitutionMasterData.XInstCode.Trim
                 daybook.DMInstTyp = InstitutionMasterData.XInstType.Trim
                 daybook.DMFinYear = InstitutionMasterData.XFinYr.Trim
-
+                daybook.DMBranchCode = "01"
                 daybookHelper.SaveDaybooks(daybook)
                 MessageBox.Show("Data updated Successfully")
 

@@ -22,7 +22,7 @@ Partial Class frmAddVoucher
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.LabelVoucherDate = New System.Windows.Forms.Label()
         Me.DatePickerVoucherDate = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -65,7 +65,6 @@ Partial Class frmAddVoucher
         Me.TextBoxChequeNo = New System.Windows.Forms.TextBox()
         Me.LabelNarration = New System.Windows.Forms.Label()
         Me.TextBoxNarration = New System.Windows.Forms.TextBox()
-
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
@@ -263,8 +262,6 @@ Partial Class frmAddVoucher
         Me.panelVoucherControls.Controls.Add(Me.LabelChequeDate)
         Me.panelVoucherControls.Controls.Add(Me.LabelChequeNo)
         Me.panelVoucherControls.Controls.Add(Me.TextBoxChequeNo)
-        'Me.panelVoucherControls.Controls.Add(Me.LabelNarration)
-        'Me.panelVoucherControls.Controls.Add(Me.TextBoxNarration)
         Me.panelVoucherControls.Location = New System.Drawing.Point(10, 92)
         Me.panelVoucherControls.Name = "panelVoucherControls"
         Me.panelVoucherControls.Size = New System.Drawing.Size(923, 342)
@@ -307,9 +304,9 @@ Partial Class frmAddVoucher
         'Amount
         '
         Me.Amount.DataPropertyName = "Amount"
-        DataGridViewCellStyle3.Format = "N2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.Amount.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Format = "N2"
+        DataGridViewCellStyle1.NullValue = Nothing
+        Me.Amount.DefaultCellStyle = DataGridViewCellStyle1
         Me.Amount.HeaderText = "Amount"
         Me.Amount.Name = "Amount"
         '
@@ -452,7 +449,7 @@ Partial Class frmAddVoucher
         Me.TextBoxChequeNo.Name = "TextBoxChequeNo"
         Me.TextBoxChequeNo.Size = New System.Drawing.Size(278, 23)
         Me.TextBoxChequeNo.TabIndex = 2
-
+        '
         'LabelNarration
         '
         Me.LabelNarration.AutoSize = True
@@ -467,10 +464,10 @@ Partial Class frmAddVoucher
         Me.TextBoxNarration.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TextBoxNarration.Location = New System.Drawing.Point(619, 95)
         Me.TextBoxNarration.MaxLength = 6
-        Me.TextBoxNarration.Name = "TextBoxChequeNo"
-        'Me.TextBoxNarration.Size = New System.Drawing.Size(278, 23)
-        Me.TextBoxNarration.TabIndex = 10
         Me.TextBoxNarration.Multiline = True
+        Me.TextBoxNarration.Name = "TextBoxNarration"
+        Me.TextBoxNarration.Size = New System.Drawing.Size(100, 20)
+        Me.TextBoxNarration.TabIndex = 10
         '
         'frmAddVoucher
         '

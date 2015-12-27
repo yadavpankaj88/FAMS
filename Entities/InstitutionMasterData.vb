@@ -1,5 +1,6 @@
 ﻿Public Class InstitutionMasterData
 
+
     Public Shared XDate As DateTime
     Public Shared XFinYr As String
     Public XPrevYr As String
@@ -24,7 +25,7 @@
     Public Shared XStartFinYr As DateTime
     Public Shared XEndFinYr As DateTime
 
-    Public Sub UpdateLinkNumber(linkNo As String, VCHRefNo As String, instCode As String)
+    Public Sub UpdateLinkNumber(ByVal linkNo As String, ByVal VCHRefNo As String, ByVal instCode As String)
         Dim query As String = "Update Inst_Master Set Inst_Link_No=@LinkNo,Inst_Vch_Ref_No=@VchRefNo where Inst_Cd=@InstCd"
         Dim helper As DataHelper = New DataHelper()
         Dim params As Dictionary(Of String, Object) = New Dictionary(Of String, Object)()
@@ -58,7 +59,7 @@
         Return dt
     End Function
 
-    Public Sub SetGlobalVariables(dr As DataRowView)
+    Public Sub SetGlobalVariables(ByVal dr As DataRowView)
         InstitutionMasterData.XInstCode = dr("Inst_Cd").ToString
         Me.XInstCloseYear = dr("Inst_Cls_Yr").ToString
         InstitutionMasterData.XInstType = dr("Inst_Typ").ToString
@@ -66,7 +67,7 @@
         Me.XInstRegNumber = dr("Inst_80G_Reg_No").ToString
         Me.XPrincipalName = dr("Inst_Prin_Nm").ToString
         Me.XPrincipalDesignation = dr("Inst_Prin_Dsgn").ToString
-        'Me.XFAMDate = Convert.ToDateTime(dr("Inst_FAM_Dt").ToString)
+        Me.XFAMDate = Convert.ToDateTime(dr("Inst_FAM_Dt").ToString)
     End Sub
 
     Public Function GetNextInstitutionVoucherReferenceNumber() As Int64

@@ -75,6 +75,10 @@ Partial Class frmFAMSMain
         Me.mnuRandQ = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuUtilities = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlNavigator = New System.Windows.Forms.Panel()
+        Me.mnuCashBookRpt = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSelectiveBankAccountRpt = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuConsolidatedBankBookRpt = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuCombinedCashBankBookRpt = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.mainBindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mainBindingNavigator.SuspendLayout()
         Me.pnlDetails.SuspendLayout()
@@ -482,6 +486,7 @@ Partial Class frmFAMSMain
         'mnuRandQ
         '
         Me.mnuRandQ.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.mnuRandQ.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCashBookRpt, Me.mnuSelectiveBankAccountRpt, Me.mnuConsolidatedBankBookRpt, Me.mnuCombinedCashBankBookRpt})
         Me.mnuRandQ.Name = "mnuRandQ"
         Me.mnuRandQ.Size = New System.Drawing.Size(110, 20)
         Me.mnuRandQ.Text = "Reports & Queries"
@@ -503,6 +508,30 @@ Partial Class frmFAMSMain
         Me.pnlNavigator.TabIndex = 17
         Me.pnlNavigator.Visible = False
         '
+        'mnuCashBookRpt
+        '
+        Me.mnuCashBookRpt.Name = "mnuCashBookRpt"
+        Me.mnuCashBookRpt.Size = New System.Drawing.Size(271, 22)
+        Me.mnuCashBookRpt.Text = "Selective Cash Book"
+        '
+        'mnuSelectiveBankAccountRpt
+        '
+        Me.mnuSelectiveBankAccountRpt.Name = "mnuSelectiveBankAccountRpt"
+        Me.mnuSelectiveBankAccountRpt.Size = New System.Drawing.Size(271, 22)
+        Me.mnuSelectiveBankAccountRpt.Text = "Bank Book of Selective Bank Account"
+        '
+        'mnuConsolidatedBankBookRpt
+        '
+        Me.mnuConsolidatedBankBookRpt.Name = "mnuConsolidatedBankBookRpt"
+        Me.mnuConsolidatedBankBookRpt.Size = New System.Drawing.Size(271, 22)
+        Me.mnuConsolidatedBankBookRpt.Text = "Consolidated Bank Book"
+        '
+        'mnuCombinedCashBankBookRpt
+        '
+        Me.mnuCombinedCashBankBookRpt.Name = "mnuCombinedCashBankBookRpt"
+        Me.mnuCombinedCashBankBookRpt.Size = New System.Drawing.Size(271, 22)
+        Me.mnuCombinedCashBankBookRpt.Text = "Combined Cash & Bank Book"
+        '
         'frmFAMSMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 14.0!)
@@ -516,7 +545,7 @@ Partial Class frmFAMSMain
         Me.Name = "frmFAMSMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds
         Me.Text = "CASCADE – Financial Accounting Module Developed by ASTUTE Information Management " & _
-    "Solutions, C.B.D.Belapur, Navi Mumbai – Contact 98193-12456"
+            "Solutions, C.B.D.Belapur, Navi Mumbai – Contact 98193-12456"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.mainBindingNavigator, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mainBindingNavigator.ResumeLayout(False)
@@ -582,5 +611,9 @@ Partial Class frmFAMSMain
     Friend WithEvents ToolStripButtonConfirm As System.Windows.Forms.ToolStripButton
     Friend WithEvents lblBankBalance As System.Windows.Forms.Label
     Friend WithEvents lblCashBalance As System.Windows.Forms.Label
+    Friend WithEvents mnuCashBookRpt As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuSelectiveBankAccountRpt As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuConsolidatedBankBookRpt As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuCombinedCashBankBookRpt As System.Windows.Forms.ToolStripMenuItem
 
 End Class
