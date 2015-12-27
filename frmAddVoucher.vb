@@ -8,7 +8,12 @@
     Private parentForm As frmFAMSMain
     Private ledgerAccBalance As Double
     Dim firsttime As Boolean = False
-   
+    ''' <summary>
+    ''' Test comment added to test git
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Property VoucherType() As String
         Get
             Return _Voucher_Type
