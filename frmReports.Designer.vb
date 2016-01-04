@@ -35,7 +35,7 @@ Partial Class frmReports
         Me.crystalRptVwr.Dock = System.Windows.Forms.DockStyle.Fill
         Me.crystalRptVwr.Location = New System.Drawing.Point(0, 0)
         Me.crystalRptVwr.Name = "crystalRptVwr"
-        Me.crystalRptVwr.ReportSource = Me.rptCashBook1
+        Me.crystalRptVwr.ReportSource = Me.CashReceipt1
         Me.crystalRptVwr.Size = New System.Drawing.Size(927, 466)
         Me.crystalRptVwr.TabIndex = 0
         '
@@ -46,7 +46,7 @@ Partial Class frmReports
         Me.ClientSize = New System.Drawing.Size(927, 466)
         Me.Controls.Add(Me.crystalRptVwr)
         Me.Name = "frmReports"
-        Me.Text = "frmCashReceipt"
+        Me.Text = "Report"
         Me.ResumeLayout(False)
 
     End Sub

@@ -667,8 +667,25 @@ Public Class frmFAMSMain
     End Sub
 
     Private Sub mnuCashBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCashBookRpt.Click
+        ShowReport("CashBook")
+    End Sub
+
+    Private Sub mnuSelectiveBankAccountRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectiveBankAccountRpt.Click
+        ShowReport("BankBook")
+    End Sub
+
+    Private Sub mnuConsolidatedBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuConsolidatedBankBookRpt.Click
+        ShowReport("GeneralLedger")
+    End Sub
+
+    Private Sub mnuCombinedCashBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCombinedCashBankBookRpt.Click
+        ShowReport("TrialBalance")
+    End Sub
+
+    Private Sub ShowReport(mode As String)
         lblActivity.Text = "View"
         objCashReceipt = New frmReports
+        objCashReceipt.SetControls(mode)
         mainBindingNavigator.BindingSource = Nothing
         Me.pnlMenu.Visible = False
         Me.pnlNavigator.Visible = True
@@ -677,15 +694,4 @@ Public Class frmFAMSMain
         ShowNewForm(objCashReceipt, Nothing)
     End Sub
 
-    Private Sub mnuSelectiveBankAccountRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectiveBankAccountRpt.Click
-
-    End Sub
-
-    Private Sub mnuConsolidatedBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuConsolidatedBankBookRpt.Click
-
-    End Sub
-
-    Private Sub mnuCombinedCashBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCombinedCashBankBookRpt.Click
-
-    End Sub
 End Class
