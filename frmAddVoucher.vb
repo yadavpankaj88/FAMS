@@ -403,6 +403,8 @@
                     MessageBox.Show(mandatoryFields + " are compulsory for saving voucher")
                     Return False
                 Else
+                    Dim IsSuccessFull As Boolean = True
+                    Dim InValidLedgerCode As Boolean = False
                     header.VH_Cr_Dr = ComboBoxCreditDebit.SelectedItem.ToString()
                     If BalanceValidation(header.VH_Cr_Dr) Then
 
@@ -427,51 +429,83 @@
 
                         header.VH_Acc_Cd = DirectCast(ComboBoxDaybookSelect.Items(ComboBoxDaybookSelect.SelectedIndex), DataRowView)("DM_Acc_Cd").ToString()
                         header.VH_Lgr_Cd = "00"
-                        header.VH_Brn_Cd = ""
+                        header.VH_Brn_Cd = "HO"
                         Dim instMaster As InstitutionMasterData = New InstitutionMasterData()
                         Dim vchRefNo As Int64 = instMaster.GetNextInstitutionVoucherReferenceNumber()
                         header.VH_VCH_Ref_No = vchRefNo.ToString().PadLeft(6, "0")
 
 
-                        helper.SaveVoucherHeader(header)
+
 
                         Dim i As Integer = 0
-                        For Each dgRows As DataGridViewRow In dgvVoucherDetails.Rows
-                            If Not dgRows.Cells("DebitCr").Value = String.Empty And Not dgRows.Cells("Amount").EditedFormattedValue = String.Empty And Not dgRows.Cells("LedgerAccount").Value = String.Empty Then
-                                i = i + 1
-                                Dim drcr As String = dgRows.Cells("DebitCr").Value.ToString()
-                                Dim amount As String = dgRows.Cells("Amount").EditedFormattedValue
-                                Dim ledgerAccount As String = dgRows.Cells("LedgerAccount").EditedFormattedValue
-                                Dim voucherDetail As VoucherDetails = New VoucherDetails()
-                                voucherDetail.VD_Fin_Yr = InstitutionMasterData.XFinYr
-                                voucherDetail.VD_Inst_Cd = InstitutionMasterData.XInstCode
-                                voucherDetail.VD_Inst_Typ = InstitutionMasterData.XInstType
-                                voucherDetail.VD_Dbk_Cd = ComboBoxDaybookSelect.SelectedValue
-                                voucherDetail.VD_Trn_Typ = TransactionType
-                                voucherDetail.VD_Lgr_Cd = "00"
-                                voucherDetail.VD_Lnk_No = txtLinkVoucherNumber.Text
-                                voucherDetail.VD_Narr = dgRows.Cells("VoucherDesc").EditedFormattedValue
-                                voucherDetail.VD_Cr_Dr = drcr
-                                voucherDetail.VD_ABS_Amt = amount
-                                voucherDetail.VD_Amt = IIf(drcr = "Cr", Decimal.Parse(amount), Decimal.Parse(amount) * -1)
-                                voucherDetail.VD_Ref_No = txtRefNumber.Text
-                                voucherDetail.VD_Ref_Dt = DateTimeReferenceDate.Value
-                                voucherDetail.VD_Seq_No = i.ToString().PadLeft(3, "0")
-                                voucherDetail.VD_Acc_Cd = ledgerAccount
-                                voucherDetail.VD_Brn_Cd = ""
-                                voucherDetail.VD_Ent_By = "TUser"
-                                voucherDetail.VD_Vch_Ref_No = vchRefNo.ToString().PadLeft(6, "0")
-                                helper.SaveVoucherDetail(voucherDetail)
-                            End If
-                        Next
+                        If dgvVoucherDetails.Rows.Count > 0 Then
+                            For Each dgRows As DataGridViewRow In dgvVoucherDetails.Rows
+                                Try
+                                    If Not dgRows.Cells("DebitCr").Value = String.Empty And Not dgRows.Cells("Amount").EditedFormattedValue = String.Empty And Not dgRows.Cells("LedgerAccount").Value = String.Empty And Not dgRows.Cells("RefDate").EditedFormattedValue = String.Empty And Not dgRows.Cells("RefNo").EditedFormattedValue = String.Empty Then
+                                        i = i + 1
+                                        Dim drcr As String = dgRows.Cells("DebitCr").Value.ToString()
+                                        Dim amount As String = dgRows.Cells("Amount").EditedFormattedValue
+                                        Dim ledgerAccount As String = dgRows.Cells("LedgerAccount").EditedFormattedValue
 
-                        If Me._mode = "add" Then
-                            instMaster.UpdateLinkNumber(txtLinkVoucherNumber.Text.Trim(), vchRefNo, InstitutionMasterData.XInstCode)
+                                        Dim lgrHelper As LedgerAccountHelper = New LedgerAccountHelper()
+                                        Dim dt As DataTable = lgrHelper.GetAccountDetails(ledgerAccount)
+                                        If dt IsNot Nothing Then
+                                            If dt.Rows.Count < 1 Then
+                                                IsSuccessFull = False
+                                                InValidLedgerCode = True
+                                                Exit For
+                                            End If
+                                        End If
+
+                                        Dim voucherDetail As VoucherDetails = New VoucherDetails()
+                                        voucherDetail.VD_Fin_Yr = InstitutionMasterData.XFinYr
+                                        voucherDetail.VD_Inst_Cd = InstitutionMasterData.XInstCode
+                                        voucherDetail.VD_Inst_Typ = InstitutionMasterData.XInstType
+                                        voucherDetail.VD_Dbk_Cd = ComboBoxDaybookSelect.SelectedValue
+                                        voucherDetail.VD_Trn_Typ = TransactionType
+                                        voucherDetail.VD_Lgr_Cd = "00"
+                                        voucherDetail.VD_Lnk_No = txtLinkVoucherNumber.Text
+                                        voucherDetail.VD_Narr = dgRows.Cells("VoucherDesc").EditedFormattedValue
+                                        voucherDetail.VD_Cr_Dr = drcr
+                                        voucherDetail.VD_ABS_Amt = amount
+                                        voucherDetail.VD_Amt = IIf(drcr = "Cr", Decimal.Parse(amount), Decimal.Parse(amount) * -1)
+                                        voucherDetail.VD_Ref_No = dgRows.Cells("RefNo").EditedFormattedValue
+                                        voucherDetail.VD_Ref_Dt = Convert.ToDateTime(dgRows.Cells("RefDate").EditedFormattedValue)
+                                        voucherDetail.VD_Seq_No = i.ToString().PadLeft(3, "0")
+                                        voucherDetail.VD_Acc_Cd = ledgerAccount
+                                        voucherDetail.VD_Brn_Cd = "HO"
+                                        voucherDetail.VD_Ent_By = "TUser"
+                                        voucherDetail.VD_Vch_Ref_No = vchRefNo.ToString().PadLeft(6, "0")
+                                        helper.SaveVoucherDetail(voucherDetail)
+                                    End If
+                                Catch ex As Exception
+                                    IsSuccessFull = False
+                                End Try
+                            Next
+                        Else
+                            IsSuccessFull = False
+                        End If
+
+                        If (IsSuccessFull And i > 0) Then
+                            helper.SaveVoucherHeader(header)
+
+                            If Me._mode = "add" Then
+                                instMaster.UpdateLinkNumber(txtLinkVoucherNumber.Text.Trim(), vchRefNo, InstitutionMasterData.XInstCode)
+                            End If
+                        Else
+                            If InValidLedgerCode Then
+                                MessageBox.Show("Invalid ledger code for one of the voucher details entry")
+                            ElseIf Not IsSuccessFull Then
+                                MessageBox.Show("Error occured while saving voucher details")
+                            ElseIf i <= 0 Then
+                                MessageBox.Show("Please enter atleast one valid voucher details entry")
+                            End If
+                            Return False
                         End If
                     Else
-                        Return False
+                            Return False
                     End If
-                End If
+                    End If
             End If
             ClearControls()
             Return True

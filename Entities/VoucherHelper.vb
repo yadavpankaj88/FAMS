@@ -75,7 +75,7 @@ Public Class VoucherHelper
     Public Sub DeleteConfirmedVoucher(ByVal linkvoucherno As String)
         Dim deleteQuery As String
         Try
-            deleteQuery = "delete from CG_Ledger where Lgr_Lnk_No='" + linkvoucherno + "'"
+            deleteQuery = "delete from " + InstitutionMasterData.XInstType + "_Ledger where Lgr_Lnk_No='" + linkvoucherno + "'"
             Dim dataHelper As DataHelper = New DataHelper()
             dataHelper.ExecuteNonQuery(deleteQuery, CommandType.Text)
         Catch ex As Exception
@@ -105,13 +105,13 @@ Public Class VoucherHelper
     End Sub
 
     Public Sub SaveVoucherDetail(ByVal voucherdetail As VoucherDetails)
-        Dim detailSaveQuery = "If(Exists(select 'x' from CG_Voucher_Detail where VD_Lnk_No=@VD_Lnk_No and VD_Seq_No=@VD_Seq_No)) " &
+        Dim detailSaveQuery = "If(Exists(select 'x' from " + InstitutionMasterData.XInstType + "_Voucher_Detail where VD_Lnk_No=@VD_Lnk_No and VD_Seq_No=@VD_Seq_No)) " &
         " Begin " &
-        "Update CG_Voucher_Detail Set VD_Ref_No=@VD_Ref_No,VD_Ref_Dt=@VD_Ref_Dt,VD_Narr=@VD_Narr,VD_Acc_Cd=@VD_Acc_Cd,VD_Amt=@VD_Amt," &
+        "Update " + InstitutionMasterData.XInstType + "_Voucher_Detail Set VD_Ref_No=@VD_Ref_No,VD_Ref_Dt=@VD_Ref_Dt,VD_Narr=@VD_Narr,VD_Acc_Cd=@VD_Acc_Cd,VD_Amt=@VD_Amt," &
         " VD_Cr_Dr=@VD_Cr_Dr,VD_Abs_Amt=@VD_Abs_Amt,VD_Upd_By=@VD_Upd_By,VD_Upd_Dt=GetDate() where VD_Lnk_No=@VD_Lnk_No" &
         " End " &
         " Else " &
-            "Insert into CG_Voucher_Detail(VD_Fin_Yr,VD_Inst_Cd,VD_Inst_Typ,VD_Brn_Cd,VD_Lnk_No,VD_Dbk_Cd,VD_Trn_Typ,VD_Seq_No,VD_Ref_No,VD_VCH_Ref_No,VD_Ref_Dt,VD_Narr,VD_Lgr_Cd,VD_Acc_Cd,VD_Amt,VD_Cr_Dr," &
+            "Insert into " + InstitutionMasterData.XInstType + "_Voucher_Detail(VD_Fin_Yr,VD_Inst_Cd,VD_Inst_Typ,VD_Brn_Cd,VD_Lnk_No,VD_Dbk_Cd,VD_Trn_Typ,VD_Seq_No,VD_Ref_No,VD_VCH_Ref_No,VD_Ref_Dt,VD_Narr,VD_Lgr_Cd,VD_Acc_Cd,VD_Amt,VD_Cr_Dr," &
                                "VD_ABS_Amt,VD_Ent_By,VD_Ent_Dt)values(@VD_Fin_Yr,@VD_Inst_Cd,@VD_Inst_Typ,@VD_Brn_Cd,@VD_Lnk_No,@VD_Dbk_Cd,@VD_Trn_Typ,@VD_Seq_No,@VD_Ref_No,@VD_VCH_Ref_No,@VD_Ref_Dt,@VD_Narr,@VD_Lgr_Cd,@VD_Acc_Cd,@VD_Amt,@VD_Cr_Dr," &
                                 "@VD_Abs_Amt,@VD_Ent_By,GETDATE())"
 
@@ -150,7 +150,7 @@ Public Class VoucherHelper
         Dim query As String = String.Empty
         Dim dtVoucherHeader As DataTable = Nothing
         Try
-            query = String.Format("Select [VH_Ref_No],[VH_Lnk_Dt],[VH_Ref_Dt],[VH_VCH_Dt],[VH_VCH_No],[VH_VCH_Ref_No],[VH_Chq_No],[VH_Chq_Dt],[VH_Amt],[VH_Abs_Amt],[VH_Cr_Dr],[VH_Pty_Nm] from  CG_Voucher_Header where [VH_Lnk_No]='{0}' and [VH_Dbk_Cd]='{1}' and [VH_Trn_Typ]='{2}' and VH_Fin_Yr='2015' ", voucherLinkNumber, daybookCode, transType)
+            query = String.Format("Select [VH_Ref_No],[VH_Lnk_Dt],[VH_Ref_Dt],[VH_VCH_Dt],[VH_VCH_No],[VH_VCH_Ref_No],[VH_Chq_No],[VH_Chq_Dt],[VH_Amt],[VH_Abs_Amt],[VH_Cr_Dr],[VH_Pty_Nm] from  " + InstitutionMasterData.XInstType + "_Voucher_Header where [VH_Lnk_No]='{0}' and [VH_Dbk_Cd]='{1}' and [VH_Trn_Typ]='{2}' and VH_Fin_Yr='2015' ", voucherLinkNumber, daybookCode, transType)
             'query = "Select [VH_Ref_No],[VH_Lnk_Dt],[VH_Ref_Dt],[VH_VCH_Dt],[VH_VCH_No],[VH_VCH_Ref_No],[VH_Chq_No],[VH_Chq_Dt],[VH_Amt],[VH_Abs_Amt],[VH_Cr_Dr],[VH_Pty_Nm] from  Voucher_Header where [VH_Lnk_No]='000000000002' and [VH_Dbk_Cd]='C' and [VH_Trn_Typ]='CR' and VH_Fin_Yr='2015' "
             Dim dataHelper As DataHelper = New DataHelper()
             dtVoucherHeader = dataHelper.ExecuteQuery(query, CommandType.Text, Nothing)
@@ -189,7 +189,7 @@ Public Class VoucherHelper
             End If
             query = String.Format("Select VD_Acc_Cd as 'LedgerAccount',ac.Am_Acc_Nm as 'AccountName',VD_ABS_Amt as 'Amount',VD_Cr_Dr as 'CrDr'" &
                                 ",VD_Ref_No as 'RefNo',VD_Ref_Dt as 'RefDate'," &
-                                " VD_Narr as 'VoucherDesc' from CG_Voucher_Detail vd Inner Join CG_Accounts ac on vd.VD_Acc_Cd=ac.Am_Acc_Cd  where [VD_Lnk_No]='{0}' and [VD_Dbk_Cd]='{1}' and [VD_Trn_Typ]='{2}'",
+                                " VD_Narr as 'VoucherDesc' from " + InstitutionMasterData.XInstType + "_Voucher_Detail vd Inner Join " + InstitutionMasterData.XInstType + "_Accounts ac on vd.VD_Acc_Cd=ac.Am_Acc_Cd  where [VD_Lnk_No]='{0}' and [VD_Dbk_Cd]='{1}' and [VD_Trn_Typ]='{2}'",
                                   voucherLinkNumber, daybookCode, transType)
             dtVoucherDetails = dataHelper.ExecuteQuery(query, CommandType.Text, Nothing)
 
@@ -204,14 +204,14 @@ Public Class VoucherHelper
         Dim dtVoucherList As DataTable = Nothing
         Try
             If currentMode.ToLower() = "view" Then
-                query = String.Format("select VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm,VH_Amt from CG_Voucher_Header " +
+                query = String.Format("select VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm,VH_Amt from " + InstitutionMasterData.XInstType + "_Voucher_Header " +
                     " where VH_Trn_Typ='{0}' and VH_Inst_Cd='{1}' and VH_Inst_Typ='{2}' and VH_Dbk_Cd='{3}'", transType,
                     InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, daybookCode)
                 'query = "select VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm,VH_Amt from " + InstitutionMasterData.XInstType + "_Voucher_Header " + _
                 '    "inner join " + InstitutionMasterData.XInstType + "_Voucher_Detail on " + InstitutionMasterData.XInstType + _
                 '    "_Voucher_Header.VH_Lnk_No=" + InstitutionMasterData.XInstType + "_Voucher_Detail.VD_Lnk_No Where [VH_Trn_Typ]=@tranType"
             Else
-                query = String.Format("select VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm,VH_Amt from CG_Voucher_Header " +
+                query = String.Format("select VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm,VH_Amt from " + InstitutionMasterData.XInstType + "_Voucher_Header " +
                     " where VH_Trn_Typ='{0}' and VH_Inst_Cd='{1}' and VH_Inst_Typ='{2}' and VH_Dbk_Cd='{3}' and VH_Conf_Dt is null and VH_Conf_By is null",
                     transType, InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, daybookCode)
                 'query = "select VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm,VH_Amt from " + InstitutionMasterData.XInstType + "_Voucher_Header " + _
@@ -236,7 +236,7 @@ Public Class VoucherHelper
         query = "Declare @month as int " &
             "set @month=MONTH(GetDate()) " &
             "declare @nextVoucherNumber as int " &
-            "set @nextVoucherNumber=(Select ISNULL(DM_Vch_" + monthNo.ToString().PadLeft(2, "0") + ",0)+1 from CG_Daybooks " &
+            "set @nextVoucherNumber=(Select ISNULL(DM_Vch_" + monthNo.ToString().PadLeft(2, "0") + ",0)+1 from " + InstitutionMasterData.XInstType + "_Daybooks " &
             "where DM_Dbk_Cd=@dbkCd) " &
             "Declare @voucherNumber as varchar(6) " &
             "Set @voucherNumber=(REPLACE(STR(@month, 2), SPACE(1), '0')+" &
@@ -255,9 +255,9 @@ Public Class VoucherHelper
 
         'Dim query As String = String.Empty
 
-        'query = "Update CG_Voucher_Header set VH_Vch_No=@voucherNumber,VH_VCH_Dt=@vchDt,VH_Conf_Dt=GetDate(),VH_Conf_By=@CnfBy " &
+        'query = "Update " + InstitutionMasterData.XInstType + "_Voucher_Header set VH_Vch_No=@voucherNumber,VH_VCH_Dt=@vchDt,VH_Conf_Dt=GetDate(),VH_Conf_By=@CnfBy " &
         '  "where VH_Lnk_No=@linkNo " &
-        '  "Update CG_Voucher_Detail set VD_Vch_No=@voucherNumber,VD_Conf_Dt=GetDate(),VD_Conf_By=@CnfBy " &
+        '  "Update " + InstitutionMasterData.XInstType + "_Voucher_Detail set VD_Vch_No=@voucherNumber,VD_Conf_Dt=GetDate(),VD_Conf_By=@CnfBy " &
         '  "where VD_Lnk_No=@linkNo "
 
 

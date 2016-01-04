@@ -22,7 +22,7 @@ Partial Class frmAddVoucher
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.LabelNarration = New System.Windows.Forms.Label()
         Me.TextBoxNarration = New System.Windows.Forms.TextBox()
         Me.LabelVoucherDate = New System.Windows.Forms.Label()
@@ -184,9 +184,9 @@ Partial Class frmAddVoucher
         'Amount
         '
         Me.Amount.DataPropertyName = "Amount"
-        DataGridViewCellStyle4.Format = "N2"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.Amount.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Format = "N2"
+        DataGridViewCellStyle1.NullValue = Nothing
+        Me.Amount.DefaultCellStyle = DataGridViewCellStyle1
         Me.Amount.HeaderText = "Amount"
         Me.Amount.Name = "Amount"
         '
