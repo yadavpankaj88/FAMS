@@ -1,4 +1,5 @@
 ﻿Public Class frmAddVoucher
+#Region "Private variables"
     Private _Voucher_Type As String
     Private _PayeeReceipt As String
     Private _TrnType As String
@@ -8,12 +9,8 @@
     Private parentForm As frmFAMSMain
     Private ledgerAccBalance As Double
     Dim firsttime As Boolean = False
-    ''' <summary>
-    ''' Test comment added to test git
-    ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
+#End Region
+
     Property VoucherType() As String
         Get
             Return _Voucher_Type
@@ -189,7 +186,7 @@
         If _mode IsNot Nothing Then
             If _mode.ToLower() = "clear" Then
                 ComboBoxDaybookSelect.Enabled = True
-                ButtonNext.Enabled = True
+                'ButtonNext.Enabled = True
 
             End If
 
@@ -211,39 +208,26 @@
     End Sub
 
     Private Sub frmAddVoucher_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-      
+
         If Not String.IsNullOrEmpty(VoucherType) Then
             parentForm.pnlNavigator.Visible = True
             parentForm.pnlMenu.Visible = False
             parentForm.pnlNavigator.Enabled = False
             ComboBoxDaybookSelect.Enabled = True
-            ButtonNext.Visible = True           
-            ButtonNext.Enabled = True
-            
-            Dim dbHelper As DayBooksHelper = New DayBooksHelper()
-            Dim dt As DataTable = dbHelper.GetDaybooksByType(VoucherType)
-            If Not dt Is Nothing Then
-                If dt.Rows.Count > 0 Then
-                    ComboBoxDaybookSelect.DataSource = dt
-                    ComboBoxDaybookSelect.DisplayMember = "DM_Dbk_Nm"
-                    ComboBoxDaybookSelect.ValueMember = "DM_Dbk_Cd"
-                    ' ComboBoxDaybookSelect.SelectedIndex = 0
-                Else
-                    MessageBox.Show("There are no daybooks configured for this transaction type , please configure the daybooks", "Configuration Help",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            'ButtonNext.Visible = True
+            'ButtonNext.Enabled = True
 
-                    ButtonNext.Enabled = False
-                End If
-            End If
+            PupulateDaybookCombo()
+
         End If
 
         If Not String.IsNullOrEmpty(PaymentReceipt) Then
             If PaymentReceipt = "P" Then
-                LabelNameOfPayee.Text = "Name of Payee"               
+                LabelNameOfPayee.Text = "Name of Payee"
                 ComboBoxCreditDebit.Items.Add("Cr")
                 ComboBoxCreditDebit.SelectedIndex = 0
             ElseIf PaymentReceipt = "R" Then
-                LabelNameOfPayee.Text = "Received from" 
+                LabelNameOfPayee.Text = "Received from"
                 ComboBoxCreditDebit.Items.Add("Dr")
                 ComboBoxCreditDebit.SelectedIndex = 0
             End If
@@ -251,22 +235,46 @@
         If VoucherType = "J" Then
             ComboBoxCreditDebit.SelectedIndex = 0
         End If
+
+        SetOperationMode(String.Empty)
+        SetControls(String.Empty)
+
     End Sub
 
-    Private Sub ButtonNext_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ButtonNext.Click
+    Private Sub PupulateDaybookCombo()
+        Dim dbHelper As DayBooksHelper = New DayBooksHelper()
+        Dim dt As DataTable = dbHelper.GetDaybooksByType(VoucherType)
+        If Not dt Is Nothing Then
+            If dt.Rows.Count > 0 Then
+                ComboBoxDaybookSelect.DataSource = dt
+                ComboBoxDaybookSelect.DisplayMember = "DisplayName"
+                ComboBoxDaybookSelect.ValueMember = "DM_Dbk_Cd"
+                ' ComboBoxDaybookSelect.SelectedIndex = 0
+            Else
+                MessageBox.Show("There are no daybooks configured for this transaction type , please configure the daybooks", "Configuration Help",
+                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
-        SplitContainer1.Panel1Collapsed = True
-        SplitContainer1.Panel2Collapsed = False
-        panelVoucherControls.Visible = True
-        LabelVoucherDate.Visible = False
-        DatePickerVoucherDate.Visible = False
-        parentForm.pnlNavigator.Visible = True
-        parentForm.pnlNavigator.Enabled = True
-        parentForm.DisableNavToolBar(frmFAMSMain.NavSettings.Voucher)
-        ComboBoxDaybookSelect.Enabled = False
-        ButtonNext.Enabled = False
-        LabelNameOfPayee.Visible = True
-        TextBoxAmount.Visible = True
+                'ButtonNext.Enabled = False
+            End If
+        End If
+    End Sub
+
+    Private Sub ButtonNext_Click(ByVal sender As Object, ByVal e As EventArgs)
+
+        'SplitContainer1.Panel1Collapsed = True
+        'SplitContainer1.Panel2Collapsed = False
+        'panelVoucherControls.Visible = True
+        'LabelVoucherDate.Visible = False
+        'DatePickerVoucherDate.Visible = False
+        'parentForm.pnlNavigator.Visible = True
+        'parentForm.pnlNavigator.Enabled = True
+        'parentForm.DisableNavToolBar(frmFAMSMain.NavSettings.Voucher)
+        'ComboBoxDaybookSelect.Enabled = False
+        'ButtonNext.Enabled = False
+        'LabelNameOfPayee.Visible = True
+        'TextBoxAmount.Visible = True
+        'SetOperationMode(String.Empty)
+        'SetControls(String.Empty)
 
     End Sub
 
@@ -297,7 +305,7 @@
                     End If
 
                 End If
-                
+
             Else
                 MessageBox.Show("Insufficient Balance cannot confirm voucher !!!", "Insufficient Balance", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
@@ -359,43 +367,43 @@
                 mandatoryFields = "Reference Number"
             End If
 
-                If DateTimeReferenceDate.Value.ToString() = String.Empty Then
-                    mandatoryFields += "   Reference Date"
+            If DateTimeReferenceDate.Value.ToString() = String.Empty Then
+                mandatoryFields += "   Reference Date"
+            End If
+
+            If VoucherType = "B" Then
+                If TextBoxChequeNo.Text = String.Empty Then
+                    mandatoryFields += "  Cheque Number"
+                End If
+                If datepickerChequeDate.Value.ToString() = String.Empty Then
+                    mandatoryFields += "  Cheque date"
                 End If
 
-                If VoucherType = "B" Then
-                    If TextBoxChequeNo.Text = String.Empty Then
-                        mandatoryFields += "  Cheque Number"
-                    End If
-                    If datepickerChequeDate.Value.ToString() = String.Empty Then
-                        mandatoryFields += "  Cheque date"
-                    End If
+            End If
 
+            If TextBoxAmount.Text = String.Empty Then
+                mandatoryFields += " Amount"
+            End If
+
+            Dim crdr As Boolean = False
+
+            If Not ComboBoxCreditDebit.SelectedItem = Nothing Then
+                If Not ComboBoxCreditDebit.SelectedItem = String.Empty Then
+                    crdr = True
                 End If
+            End If
 
-                If TextBoxAmount.Text = String.Empty Then
-                    mandatoryFields += " Amount"
-                End If
+            If Not crdr Then
+                mandatoryFields += "Credit/Debit"
 
-                Dim crdr As Boolean = False
+            End If
 
-                If Not ComboBoxCreditDebit.SelectedItem = Nothing Then
-                    If Not ComboBoxCreditDebit.SelectedItem = String.Empty Then
-                        crdr = True
-                    End If
-                End If
-
-                If Not crdr Then
-                    mandatoryFields += "Credit/Debit"
-
-                End If
-
-            If Not mandatoryFields = String.Empty Then
-                If VoucherType = "B" Or VoucherType = "C" Then
+            If VoucherType = "B" Or VoucherType = "C" Then
+                If Not mandatoryFields = String.Empty Then
                     MessageBox.Show(mandatoryFields + " are compulsory for saving voucher")
                     Return False
-                Else                   
-                        header.VH_Cr_Dr = ComboBoxCreditDebit.SelectedItem.ToString()                   
+                Else
+                    header.VH_Cr_Dr = ComboBoxCreditDebit.SelectedItem.ToString()
                     If BalanceValidation(header.VH_Cr_Dr) Then
 
                         header.VH_Inst_Cd = InstitutionMasterData.XInstCode
@@ -411,7 +419,8 @@
                         header.VH_Amt = IIf(ComboBoxCreditDebit.SelectedItem = "Dr", Decimal.Parse(TextBoxAmount.Text), Decimal.Parse(TextBoxAmount.Text) * -1)
                         header.VH_Dbk_Cd = ComboBoxDaybookSelect.SelectedValue
                         header.VH_Trn_Typ = TransactionType
-                        If datepickerChequeDate.Enabled Then
+
+                        If datepickerChequeDate.Visible Then
                             header.VH_Chq_No = TextBoxChequeNo.Text
                             header.VH_Chq_Dt = datepickerChequeDate.Value
                         End If
@@ -740,8 +749,11 @@
                 Me.dgvVoucherDetails.Visible = False
                 Me.txtLinkVoucherNumber.Enabled = True
                 Me.pnlConfirm.Visible = False
+
+                Me.Text = Me.Text.Split("(")(0).Trim() + " (Operation: View)"
+
                 ComboBoxDaybookSelect.Enabled = False
-                ButtonNext.Enabled = False
+                'ButtonNext.Enabled = False
 
 
             Case "confirm"
@@ -756,11 +768,12 @@
                 Me.txtLinkVoucherNumber.Enabled = True
                 Me.pnlConfirm.Visible = False
                 ComboBoxDaybookSelect.Enabled = False
-                ButtonNext.Enabled = False
+                'ButtonNext.Enabled = False
                 DatePickerVoucherDate.Visible = False
                 LabelVoucherDate.Visible = False
                 ComboBoxDaybookSelect.Enabled = False
 
+                Me.Text = Me.Text.Split("(")(0).Trim() + " (Operation: Confirm)"
 
             Case "delete"
                 ' Me.SplitContainer1.Panel1Collapsed = True
@@ -774,27 +787,26 @@
                 Me.txtLinkVoucherNumber.Enabled = True
                 Me.pnlConfirm.Visible = False
                 ComboBoxDaybookSelect.Enabled = False
-                ButtonNext.Enabled = False
+                'ButtonNext.Enabled = False
+
+                Me.Text = Me.Text.Split("(")(0).Trim() + " (Operation: Delete)"
 
             Case "add"
                 Dim instMaster As InstitutionMasterData = New InstitutionMasterData()
                 txtLinkVoucherNumber.Text = instMaster.GetNextInstitutionLinkNumber().ToString().PadLeft(12, "0")
                 txtLinkVoucherNumber.Enabled = False
+
                 If VoucherType = "B" Then
-                    TextBoxChequeNo.Enabled = True
-                    datepickerChequeDate.Enabled = True
+                    SetChequeControlVisibility(True)
 
                 ElseIf VoucherType = "J" Then
                     TextBoxNameOfPayee.Enabled = False
                     ComboBoxCreditDebit.Enabled = False
                     TextBoxAmount.Enabled = False
-                    TextBoxChequeNo.Enabled = False
-                    datepickerChequeDate.Enabled = False                   
+                    SetChequeControlVisibility(False)
                     TextBoxNarration.Enabled = False
-
                 Else
-                    TextBoxChequeNo.Enabled = False
-                    datepickerChequeDate.Enabled = False
+                    SetChequeControlVisibility(False)
 
                 End If
                 SplitContainer1.Panel2Collapsed = False
@@ -808,6 +820,8 @@
                 DateTimeReferenceDate.Value = InstitutionMasterData.XDate
                 datepickerChequeDate.Value = InstitutionMasterData.XDate
                 firsttime = False
+
+                Me.Text = Me.Text.Split("(")(0).Trim() + " (Operation: Add New)"
 
             Case "edit"
                 txtLinkVoucherNumber.Enabled = True
@@ -835,8 +849,22 @@
                 dgvVoucherDetails.Enabled = True
                 ComboBoxDaybookSelect.Enabled = False
 
+                Me.Text = Me.Text.Split("(")(0).Trim() + " (Operation: Edit)"
+            Case String.Empty
+                Me.Text = Me.Text.Split("(")(0).Trim() + " (Please select operation to be performed)"
+            Case "clear"
+                Me.Text = Me.Text.Split("(")(0).Trim() + " (Please select operation to be performed)"
         End Select
     End Sub
+
+
+    Sub SetChequeControlVisibility(ByVal Visibility As Boolean)
+        TextBoxChequeNo.Visible = Visibility
+        datepickerChequeDate.Visible = Visibility
+        LabelChequeNo.Visible = Visibility
+        LabelChequeDate.Visible = Visibility
+    End Sub
+
 
     Sub SetOperationMode(ByVal pMode As String)
         _mode = pMode
@@ -926,7 +954,7 @@
 
         End Try
     End Sub
-   
+
 
     Private Function BindVoucherDetails() As Boolean
         Dim helper As VoucherHelper = New VoucherHelper()
@@ -983,7 +1011,7 @@
                     dgvVoucherDetails.DataSource = dtVoucherDetails
 
                 End If
-            Else                
+            Else
                 MessageBox.Show("No matching Voucher Entry found")
             End If
         Catch ex As Exception

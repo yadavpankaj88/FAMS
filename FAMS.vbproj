@@ -238,10 +238,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Reports\rptCashBook.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>rptCashBook.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="SelectDaybookVoucher.Designer.vb">
       <DependentUpon>SelectDaybookVoucher.vb</DependentUpon>
@@ -338,6 +338,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Images\edit" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -363,6 +364,7 @@
     <Content Include="FAM_SchemaData_Script27012014.sql" />
     <Content Include="Images\searchIcon.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

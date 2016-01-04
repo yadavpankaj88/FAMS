@@ -15,16 +15,16 @@ Public Class VoucherHelper
 
     End Function
 
-    Public Sub SaveVoucherHeader(voucherHead As VoucherHeader)
-        Dim Query As String = "If(Exists(select 'x' from CG_Voucher_Header where VH_Lnk_No=@VH_Lnk_No)) " &
-        " Begin " &
-        "Update CG_Voucher_Header Set VH_Lnk_Dt=@VH_Lnk_Dt,VH_Pty_Nm=@VH_Pty_Nm,VH_Chq_No=@VH_Chq_No,VH_Chq_Dt=@VH_Chq_Dt,VH_Ref_No=@VH_Ref_No,VH_Ref_Dt=@VH_Ref_Dt," &
-        " VH_Amt=@VH_Amt,VH_Cr_Dr=@VH_Cr_Dr,VH_Abs_Amt=@VH_Abs_Amt,VH_Upd_By=@VH_Upd_By,VH_Upd_Dt=GetDate() where VH_Lnk_No=@VH_Lnk_No" &
-        " End " &
-        " Else " &
-        "Insert into CG_Voucher_Header(VH_Fin_Yr,VH_Inst_Cd,VH_Inst_Typ,VH_Brn_Cd,VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm," &
-        "VH_Dbk_Cd,VH_Trn_Typ,VH_Chq_No,VH_Chq_Dt,VH_Ref_No,VH_VCH_Ref_No,VH_Ref_Dt,VH_Lgr_Cd,VH_Acc_Cd,VH_Amt,VH_Cr_Dr,VH_ABS_Amt,VH_Ent_Dt," &
-        "VH_Ent_By)values(@VH_Fin_Yr,@VH_Inst_Cd,@VH_Inst_Typ,@VH_Brn_Cd,@VH_Lnk_No,@VH_Lnk_Dt,@VH_Pty_Nm,@VH_Dbk_Cd,@VH_Trn_Typ," &
+    Public Sub SaveVoucherHeader(ByVal voucherHead As VoucherHeader)
+        Dim Query As String = "If(Exists(select 'x' from " + InstitutionMasterData.XInstType + "_Voucher_Header where VH_Lnk_No=@VH_Lnk_No)) " & _
+        " Begin " & _
+        "Update " + InstitutionMasterData.XInstType + "_Voucher_Header Set VH_Lnk_Dt=@VH_Lnk_Dt,VH_Pty_Nm=@VH_Pty_Nm,VH_Chq_No=@VH_Chq_No,VH_Chq_Dt=@VH_Chq_Dt,VH_Ref_No=@VH_Ref_No,VH_Ref_Dt=@VH_Ref_Dt," & _
+        " VH_Amt=@VH_Amt,VH_Cr_Dr=@VH_Cr_Dr,VH_Abs_Amt=@VH_Abs_Amt,VH_Upd_By=@VH_Upd_By,VH_Upd_Dt=GetDate() where VH_Lnk_No=@VH_Lnk_No" & _
+        " End " & _
+        " Else " & _
+        "Insert into " + InstitutionMasterData.XInstType + "_Voucher_Header(VH_Fin_Yr,VH_Inst_Cd,VH_Inst_Typ,VH_Brn_Cd,VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm," & _
+        "VH_Dbk_Cd,VH_Trn_Typ,VH_Chq_No,VH_Chq_Dt,VH_Ref_No,VH_VCH_Ref_No,VH_Ref_Dt,VH_Lgr_Cd,VH_Acc_Cd,VH_Amt,VH_Cr_Dr,VH_ABS_Amt,VH_Ent_Dt," & _
+        "VH_Ent_By)values(@VH_Fin_Yr,@VH_Inst_Cd,@VH_Inst_Typ,@VH_Brn_Cd,@VH_Lnk_No,@VH_Lnk_Dt,@VH_Pty_Nm,@VH_Dbk_Cd,@VH_Trn_Typ," & _
         "@VH_Chq_No,@VH_Chq_Dt,@VH_Ref_No,@VH_VCH_Ref_No,@VH_Ref_Dt,@VH_Lgr_Cd,@VH_Acc_Cd,@VH_Amt,@VH_Cr_Dr,@VH_Abs_Amt,GetDate(),@VH_Ent_By)"
 
         Dim dataHelper As DataHelper = New DataHelper()
@@ -56,9 +56,11 @@ Public Class VoucherHelper
 
         params.Add("@VH_Lgr_Cd", voucherHead.VH_Lgr_Cd)
         params.Add("@VH_Acc_Cd", voucherHead.VH_Acc_Cd)
+
         If voucherHead.VH_Cr_Dr = "cr" Then
             voucherHead.VH_Amt = -voucherHead.VH_Amt
         End If
+
         params.Add("@VH_Amt", voucherHead.VH_Amt)
         params.Add("@VH_Cr_Dr", voucherHead.VH_Cr_Dr)
         params.Add("@VH_Abs_Amt", voucherHead.VH_ABS_Amt)
@@ -69,6 +71,7 @@ Public Class VoucherHelper
 
 
     End Sub
+
     Public Sub DeleteConfirmedVoucher(ByVal linkvoucherno As String)
         Dim deleteQuery As String
         Try

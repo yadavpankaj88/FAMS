@@ -70,7 +70,7 @@ Public Class DayBooksHelper
         Dim query As String
         'datahelper.CreateConnection()
         If Not isContra Then
-            query = String.Format("Select RTRIM(DM_Dbk_Nm) as 'DM_Dbk_Nm',RTRIM(DM_Dbk_Cd) as 'DM_Dbk_Cd',DM_Acc_Cd from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Fin_Yr ='{0}' and " + _
+            query = String.Format("Select RTRIM(DM_Dbk_Nm) as 'DM_Dbk_Nm',RTRIM(DM_Dbk_Cd) as 'DM_Dbk_Cd',DM_Acc_Cd,RTRIM(LTRIM(DM_Dbk_Cd))+'-'+RTRIM(LTRIM(DM_Dbk_Nm))+'-'+RTRIM(LTRIM(DM_Acc_Cd)) as 'DisplayName' from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Fin_Yr ='{0}' and " + _
                                               "DM_Inst_Cd='{1}' and DM_Inst_Typ='{2}' and DM_Dbk_Typ='{3}' " + _
                                               "order by DM_Ent_Dt desc", InstitutionMasterData.XFinYr, InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, daybookType)
         Else

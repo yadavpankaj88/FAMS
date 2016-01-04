@@ -415,8 +415,9 @@ Public Class frmFAMSMain
                 Case "frmAddVoucher"
                     'DirectCast(Me.ActiveMdiChild, frmAddVoucher).SplitContainer1.Panel1Collapsed = False
                     'DirectCast(Me.ActiveMdiChild, frmAddVoucher).SplitContainer1.Panel2Collapsed = True
-
                     DirectCast(Me.ActiveMdiChild, frmAddVoucher).ClearControls()
+                    DirectCast(Me.ActiveMdiChild, frmAddVoucher).SetOperationMode("clear")
+                    DirectCast(Me.ActiveMdiChild, frmAddVoucher).SetControls("clear")
 
                     EnableToolStripForVouchers("clear")
                 Case "frmCashBankContraV"
@@ -504,7 +505,7 @@ Public Class frmFAMSMain
                     Dim frmAddVoucher As frmAddVoucher = DirectCast(Me.ActiveMdiChild, frmAddVoucher)
                     If frmAddVoucher IsNot Nothing Then
                         frmAddVoucher.ComboBoxDaybookSelect.Enabled = True
-                        frmAddVoucher.ButtonNext.Enabled = True
+                        'frmAddVoucher.ButtonNext.Enabled = True
                     End If
                 End If
             Case "add"
