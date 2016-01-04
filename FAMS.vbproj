@@ -389,6 +389,7 @@
     <None Include="Images\print.jpg" />
     <None Include="Images\search.jpg" />
     <None Include="Images\delete.jpg" />
+    <Content Include="DBScripts\FAMS.sql" />
     <Content Include="FAMS.vbproj.vspscc" />
     <Content Include="FAM_SchemaData_Script27012014.sql" />
     <Content Include="Images\searchIcon.png" />
