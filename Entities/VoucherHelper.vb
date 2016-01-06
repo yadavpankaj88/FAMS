@@ -62,13 +62,14 @@ Public Class VoucherHelper
         params.Add("@VH_Amt", voucherHead.VH_Amt)
         params.Add("@VH_Cr_Dr", voucherHead.VH_Cr_Dr)
         params.Add("@VH_Abs_Amt", voucherHead.VH_ABS_Amt)
-        params.Add("@VH_Ent_By", "TUser")
-        params.Add("@VH_Upd_By", "TUser")
+        params.Add("@VH_Ent_By", UserLogin.XUserID)
+        params.Add("@VH_Upd_By", UserLogin.XUserID)
         dataHelper.ExecuteNonQuery(Query, CommandType.Text, params)
 
 
 
     End Sub
+
     Public Sub DeleteConfirmedVoucher(ByVal linkvoucherno As String)
         Dim deleteQuery As String
         Try
@@ -79,7 +80,6 @@ Public Class VoucherHelper
             Throw ex
         End Try
     End Sub
-
 
     Public Sub DeleteUnConfirmedVouchers(ByVal linkVoucherNumber As String)
         Dim deleteQuery As String
@@ -134,9 +134,9 @@ Public Class VoucherHelper
         params.Add("@VD_Amt", voucherdetail.VD_Amt)
         params.Add("@VD_Cr_Dr", voucherdetail.VD_Cr_Dr)
         params.Add("@VD_Abs_Amt", voucherdetail.VD_ABS_Amt)
-        params.Add("@VD_Ent_By", voucherdetail.VD_Ent_By)
+        params.Add("@VD_Ent_By", UserLogin.XUserID)
         params.Add("@VD_VCH_Ref_No", voucherdetail.VD_Vch_Ref_No)
-        params.Add("@VD_Upd_By", "TUser")
+        params.Add("@VD_Upd_By", UserLogin.XUserID)
 
         Dim datahelper As DataHelper = New DataHelper()
         datahelper.ExecuteNonQuery(detailSaveQuery, CommandType.Text, params)
@@ -186,7 +186,7 @@ Public Class VoucherHelper
             End If
             query = String.Format("Select VD_Acc_Cd as 'LedgerAccount',ac.Am_Acc_Nm as 'AccountName',VD_ABS_Amt as 'Amount',VD_Cr_Dr as 'CrDr'" &
                                 ",VD_Ref_No as 'RefNo',VD_Ref_Dt as 'RefDate'," &
-                                " VD_Narr as 'VoucherDesc' from CG_Voucher_Detail vd Inner Join CG_Accounts ac on vd.VD_Acc_Cd=ac.Am_Acc_Cd  where [VD_Lnk_No]='{0}' and [VD_Dbk_Cd]='{1}' and [VD_Trn_Typ]='{2}'",
+                                " VD_Narr as 'VoucherDesc', VD_Seq_No as 'SeqNo' from CG_Voucher_Detail vd Inner Join CG_Accounts ac on vd.VD_Acc_Cd=ac.Am_Acc_Cd  where [VD_Lnk_No]='{0}' and [VD_Dbk_Cd]='{1}' and [VD_Trn_Typ]='{2}'",
                                   voucherLinkNumber, daybookCode, transType)
             dtVoucherDetails = dataHelper.ExecuteQuery(query, CommandType.Text, Nothing)
 
@@ -233,7 +233,7 @@ Public Class VoucherHelper
         query = "Declare @month as int " &
             "set @month=MONTH(GetDate()) " &
             "declare @nextVoucherNumber as int " &
-            "set @nextVoucherNumber=(Select ISNULL(DM_Vch_" + monthNo.ToString().PadLeft(2, "0") + ",0)+1 from CG_Daybooks " &
+            "set @nextVoucherNumber=(Select ISNULL(DM_Vch_" + monthNo.ToString().PadLeft(2, "0") + ",0)+1 from " + InstitutionMasterData.XInstType + "_Daybooks " &
             "where DM_Dbk_Cd=@dbkCd) " &
             "Declare @voucherNumber as varchar(6) " &
             "Set @voucherNumber=(REPLACE(STR(@month, 2), SPACE(1), '0')+" &
@@ -244,6 +244,7 @@ Public Class VoucherHelper
         Dim dt As DataTable = New DataTable()
         Dim dHelper As DataHelper = New DataHelper()
         dt = dHelper.ExecuteQuery(query, CommandType.Text, params)
+
         Return dt
     End Function
 
@@ -298,4 +299,14 @@ Public Class VoucherHelper
         Dim dataHelper As DataHelper = New DataHelper()
         dataHelper.ExecuteNonQuery(query, CommandType.Text, params)
     End Sub
+
+    Function GetVoucherCount(ByVal LinkNo As String) As Integer
+        Dim query As String
+        Dim dHelper As DataHelper = New DataHelper()
+        Dim cnt As Integer
+        query = "select count(Lgr_Lnk_No) from CG_Ledger where Lgr_Lnk_No like '%" & LinkNo & "%'  "
+        cnt = dHelper.ExecuteScalar(query, CommandType.Text)
+        Return cnt
+    End Function
+
 End Class

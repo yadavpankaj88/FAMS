@@ -1,4 +1,6 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Text
+
 Public Class DayBooksHelper
     Public Function SaveDaybooks(ByVal daybook As Daybooks)
         Try
@@ -7,12 +9,12 @@ Public Class DayBooksHelper
             Dim saveQuery As String
             saveQuery = "If((Select COUNT('x') from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Dbk_Cd=@dbkcd and DM_Fin_Yr=@finYear and DM_Inst_Cd=@instCode and DM_Inst_Typ=@instTyp)=0)" _
                         & " Begin " _
-                      & "Insert into " + InstitutionMasterData.XInstType + "_Daybooks(DM_Fin_Yr,DM_Inst_Cd,DM_Inst_Typ,DM_Brn_Cd,DM_Dbk_Cd,DM_Dbk_Nm,DM_Dbk_Typ,DM_Acc_Cd,DM_Bnk_Nm,DM_Bnk_Brn,DM_Bnk_AcNo,DM_Bnk_OD,DM_Ent_Dt) " _
-                        & "values(@finYear,@instCode,@instTyp,@brnCd,@dbkcd,@dbkNm,@dbkTyp,@acccd,@bnkNm,@bnkBrn,@bnkAcNo,@bnkOd,GetDate())" _
+                      & "Insert into " + InstitutionMasterData.XInstType + "_Daybooks(DM_Fin_Yr,DM_Inst_Cd,DM_Inst_Typ,DM_Brn_Cd,DM_Dbk_Cd,DM_Dbk_Nm,DM_Dbk_Typ,DM_Acc_Cd,DM_Bnk_Nm,DM_Bnk_Brn,DM_Bnk_AcNo,DM_Bnk_OD,DM_Ent_By,DM_Ent_Dt) " _
+                        & "values(@finYear,@instCode,@instTyp,@brnCd,@dbkcd,@dbkNm,@dbkTyp,@acccd,@bnkNm,@bnkBrn,@bnkAcNo,@bnkOd,@EntBy, GetDate())" _
                      & " End" _
                      & " Else " _
                      & " Update " + InstitutionMasterData.XInstType + "_Daybooks" _
-                     & " Set DM_Acc_Cd=@acccd,DM_Dbk_Typ=@dbkTyp,DM_Bnk_Brn=@bnkBrn,DM_Dbk_Nm=@dbkNm,DM_Bnk_AcNo=@bnkAcNo,DM_Bnk_Nm=@bnkNm,DM_Bnk_OD=@bnkOd,DM_Upd_Dt=GetDate()" _
+                     & " Set DM_Acc_Cd=@acccd,DM_Dbk_Typ=@dbkTyp,DM_Bnk_Brn=@bnkBrn,DM_Dbk_Nm=@dbkNm,DM_Bnk_AcNo=@bnkAcNo,DM_Bnk_Nm=@bnkNm,DM_Bnk_OD=@bnkOd,DM_Upd_By=@UpdateBy,DM_Upd_Dt=GetDate()" _
                      & "  Where DM_Dbk_Cd=@dbkcd and DM_Fin_Yr=@finYear and DM_Inst_Cd=@instCode and DM_Inst_Typ=@instTyp"
 
             Dim parameters As New Dictionary(Of String, Object)()
@@ -28,6 +30,8 @@ Public Class DayBooksHelper
             parameters.Add("@bnkBrn", daybook.DMBankBranch)
             parameters.Add("@bnkAcNo", daybook.DMBankAccNo)
             parameters.Add("@bnkOd", daybook.DMBankOD)
+            parameters.Add("@EntBy", UserLogin.XUserID)
+            parameters.Add("@UpdateBy", UserLogin.XUserID)
             dataHelper.ExecuteNonQuery(saveQuery, CommandType.Text, parameters)
 
 
@@ -87,11 +91,25 @@ Public Class DayBooksHelper
         Dim daybooksDT As New DataTable
         Dim datahelper As New DataHelper
         'datahelper.CreateConnection()
-        Dim query As String = String.Format("Select [DM_Dbk_Typ],[DM_Acc_Cd],[DM_Bnk_Nm],[DM_Bnk_Brn],[DM_Bnk_AcNo],[DM_Bnk_OD] from CG_Daybooks where DM_Dbk_Cd='{0}'", dbk_cd)
+        Dim query As String = String.Format("Select [DM_Dbk_Typ],[DM_Acc_Cd],[DM_Dbk_Nm],[DM_Bnk_Nm],[DM_Bnk_Brn],[DM_Bnk_AcNo],[DM_Bnk_OD] from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Dbk_Cd='{0}'", dbk_cd)
         daybooksDT = datahelper.ExecuteQuery(query, CommandType.Text)
         Return daybooksDT
     End Function
 
-
+    Function CheckDaybookCd(ByVal DaybookID As String) As DataTable
+        Dim query As StringBuilder
+        Dim datahelper As New DataHelper
+        Try
+            query = New StringBuilder()
+            If String.IsNullOrEmpty(DaybookID) Then
+                query.Append(String.Format("select [DM_Dbk_Cd] as DaybookCode,[DM_Dbk_Nm] as DaybookName from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Inst_Cd='{0}' and DM_Inst_Typ='{1}' and DM_Fin_Yr='{2}' ", InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, InstitutionMasterData.XFinYr))
+            Else
+                query.Append(String.Format("select [DM_Dbk_Cd] as DaybookCode,[DM_Dbk_Nm] as DaybookName from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Inst_Cd='{0}' and DM_Inst_Typ='{1}' and DM_Fin_Yr='{2}' and DM_Dbk_Cd like  '%" & DaybookID & "%' ", InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, InstitutionMasterData.XFinYr))
+            End If
+            Return datahelper.ExecuteQuery(query.ToString, CommandType.Text)
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
 
 End Class

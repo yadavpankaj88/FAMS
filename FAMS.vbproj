@@ -26,6 +26,21 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -104,6 +119,8 @@
     <Compile Include="Entities\Ledger.vb" />
     <Compile Include="Entities\LedgerAccountHelper.vb" />
     <Compile Include="Entities\LedgerHelper.vb" />
+    <Compile Include="Entities\User.vb" />
+    <Compile Include="Entities\UserHelper.vb" />
     <Compile Include="Entities\VoucherDetails.vb" />
     <Compile Include="Entities\VoucherHeader.vb" />
     <Compile Include="Entities\VoucherHelper.vb" />
@@ -147,6 +164,18 @@
       <DependentUpon>frmCashPayV.vb</DependentUpon>
     </Compile>
     <Compile Include="frmCashPayV.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFillDaybookCode.Designer.vb">
+      <DependentUpon>frmFillDaybookCode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFillDaybookCode.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFillUserName.Designer.vb">
+      <DependentUpon>frmFillUserName.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFillUserName.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmReports.Designer.vb">
@@ -216,6 +245,18 @@
       <DependentUpon>frmProcessingDateAcceptance.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmSelectDaybook.Designer.vb">
+      <DependentUpon>frmSelectDaybook.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelectDaybook.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUserMaster.Designer.vb">
+      <DependentUpon>frmUserMaster.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUserMaster.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -237,7 +278,7 @@
     <Compile Include="popupHelper.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Reports\rptCashBook.vb">
+    <Compile Include="Images\Reports\rptCashBook.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptCashBook.rpt</DependentUpon>
@@ -247,6 +288,12 @@
       <DependentUpon>SelectDaybookVoucher.vb</DependentUpon>
     </Compile>
     <Compile Include="SelectDaybookVoucher.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserLogin.Designer.vb">
+      <DependentUpon>UserLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserLogin.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -278,6 +325,12 @@
     <EmbeddedResource Include="frmCashPayV.resx">
       <DependentUpon>frmCashPayV.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFillDaybookCode.resx">
+      <DependentUpon>frmFillDaybookCode.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFillUserName.resx">
+      <DependentUpon>frmFillUserName.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmReports.resx">
       <DependentUpon>frmReports.vb</DependentUpon>
@@ -317,6 +370,12 @@
       <DependentUpon>frmProcessingDateAcceptance.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectDaybook.resx">
+      <DependentUpon>frmSelectDaybook.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUserMaster.resx">
+      <DependentUpon>frmUserMaster.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -327,7 +386,7 @@
       <DependentUpon>popupHelper.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\rptCashBook.rpt">
+    <EmbeddedResource Include="Images\Reports\rptCashBook.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptCashBook.vb</LastGenOutput>
     </EmbeddedResource>
@@ -335,9 +394,12 @@
       <DependentUpon>SelectDaybookVoucher.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserLogin.resx">
+      <DependentUpon>UserLogin.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="Entities\app.config" />
     <None Include="Images\edit" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -362,6 +424,23 @@
     <Content Include="FAMS.vbproj.vspscc" />
     <Content Include="FAM_SchemaData_Script27012014.sql" />
     <Content Include="Images\searchIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

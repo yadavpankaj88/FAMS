@@ -1,7 +1,6 @@
 ﻿Imports System.Windows.Forms
 
 Public Class frmFAMSMain
-
     Dim objCashReceipt As frmReports
     Dim objLedgerMaster As frmLedgerAccountManage
     Dim objCashBBMaster As frmCashBankAccountManage
@@ -11,10 +10,11 @@ Public Class frmFAMSMain
     Dim objBankPayV As frmBankPayV
     Dim objCashBankContraV As frmCashBankContraV
     Dim objJournal As frmJournalV
+    Dim objUserMaster As frmUserMaster
     Dim objVoucherAdd As frmAddVoucher
     Private _institutionDetails As InstitutionMasterData
     Dim legerAcc As LedgerAccountHelper
-
+    
     Dim title As String = "CASCADE – Financial Accounting Module Developed by ASTUTE Information Management Solutions, C.B.D.Belapur, Navi Mumbai – Contact 98193-12456"
 
     Public Enum NavSettings
@@ -27,7 +27,6 @@ Public Class frmFAMSMain
     Public Sub SetBalance()
         Me.lblCashBalance.Text = String.Format("Cash Balance : {0}", legerAcc.GetBalance())
     End Sub
-
 
     Property institutionDetailsGlobal() As InstitutionMasterData
         Get
@@ -57,6 +56,7 @@ Public Class frmFAMSMain
     End Property
 
     Dim validateClass As ValidateClass
+
     Sub New()
 
         ' This call is required by the designer.
@@ -91,12 +91,11 @@ Public Class frmFAMSMain
                     Case mnuEDCBank.Name
                         mnuEDCBank.Enabled = True
                     Case Else
-                        item.Enabled = False
+                        item.Enabled = True
                 End Select
             Next
         End If
     End Sub
-
 
     Private Sub ShowNewForm(ByVal sender As Object, ByVal e As EventArgs)
         ' Create a new instance of the child form.
@@ -151,7 +150,6 @@ Public Class frmFAMSMain
     End Sub
 
     Private m_ChildFormNumber As Integer
-
 
     Private Sub mnuLedgeAccMaster_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuLedgeAccMaster.Click
         lblActivity.Text = "View"
@@ -251,6 +249,17 @@ Public Class frmFAMSMain
         Me.lblCashBalance.Text = String.Format("Cash Balance : {0}", legerAcc.GetBalance())
     End Sub
 
+    Private Sub mnuUserMaster_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuUserMaster.Click
+        lblActivity.Text = "View"
+        objUserMaster = New frmUserMaster
+        mainBindingNavigator.BindingSource = objUserMaster.bindingSourceCtrl
+        Me.pnlMenu.Visible = False
+        Me.pnlNavigator.Visible = True
+        pnlNavigator.Enabled = True
+        EnableNavToolBar()
+        ShowNewForm(objUserMaster, Nothing)
+    End Sub
+
     Private Sub mnuJournalV_Click(sender As Object, e As EventArgs) Handles mnuJournalV.Click
         objVoucherAdd = New frmAddVoucher()
         objVoucherAdd.Text = "Journal voucher"
@@ -258,9 +267,7 @@ Public Class frmFAMSMain
         objVoucherAdd.VoucherType = "J"
         objVoucherAdd.TransactionType = "JV"
         ShowNewForm(objVoucherAdd, Nothing)
-        'objJournal = New frmJournalV
-        'objJournal.IsVoucherForm = False
-        'ShowNewForm(objJournal, Nothing)
+        
     End Sub
 
     Private Sub frmFAMSMain_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
@@ -276,7 +283,7 @@ Public Class frmFAMSMain
                 Case "frmCashBankAccountManage"
                     Dim CashBankAccountManage As frmCashBankAccountManage = DirectCast(Me.ActiveMdiChild, frmCashBankAccountManage)
                     CashBankAccountManage.SaveDaybooks()
-                    CashBankAccountManage.Close()
+                    'CashBankAccountManage.Close()
                 Case "frmAddVoucher"
                     If DirectCast(Me.ActiveMdiChild, frmAddVoucher).SaveVoucher() Then
                         Call ToolStripButtonClear_Click(ToolStripButtonClear, Nothing)
@@ -288,10 +295,15 @@ Public Class frmFAMSMain
                     If cashbankContra.SaveVoucher() Then
                         Call ToolStripButtonClear_Click(ToolStripButtonClear, Nothing)
                     End If
+
+                Case "frmUserMaster"
+                    Dim usermaster As frmUserMaster = DirectCast(activeForm, frmUserMaster)
+                    usermaster.SaveUserDetails()
+
                 Case "frmLedgerAccountManage"
                     Dim ledgerAcc As frmLedgerAccountManage = DirectCast(activeForm, frmLedgerAccountManage)
                     ledgerAcc.SaveData()
-                    ledgerAcc.Close()
+                    ' ledgerAcc.Close()
 
             End Select
             EnableNavToolBar()
@@ -305,14 +317,17 @@ Public Class frmFAMSMain
             Select Case activeForm.Name
                 Case "frmCashBankAccountManage"
                     DirectCast(Me.ActiveMdiChild, frmCashBankAccountManage).DeleteDaybooks()
-                    DirectCast(Me.ActiveMdiChild, frmCashBankAccountManage).FillRecords()
+                    'DirectCast(Me.ActiveMdiChild, frmCashBankAccountManage).FillRecords()
                     mainBindingNavigator.Refresh()
 
                 Case "frmLedgerAccountManage"
                     Dim ledgerAcc As frmLedgerAccountManage = DirectCast(activeForm, frmLedgerAccountManage)
                     ledgerAcc.DeleteData()
 
-
+                Case "frmUserMaster"
+                    Dim usermaster As frmUserMaster = DirectCast(activeForm, frmUserMaster)
+                    usermaster.DeleteData()
+                    usermaster.chkUserLocked.Visible = False
 
                 Case "frmAddVoucher"
                     Dim frmAddVoucher As frmAddVoucher = DirectCast(Me.ActiveMdiChild, frmAddVoucher)
@@ -324,6 +339,7 @@ Public Class frmFAMSMain
                     Dim cashbankContra As frmCashBankContraV = DirectCast(activeForm, frmCashBankContraV)
                     cashbankContra.SetControls("delete")
                     EnableToolStripForVouchers("delete")
+
             End Select
 
         End If
@@ -340,7 +356,6 @@ Public Class frmFAMSMain
                     cashbbMaster.TextBoxDayBookCode.Enabled = False
                     cashbbMaster.TextBoxDaybookName.Enabled = False
                     toolstripSave.Enabled = True
-
                     cashbbMaster.EnableBankDetails()
                     DisableNavToolBar(NavSettings.Edit)
                 Case "frmLedgerAccountManage"
@@ -350,6 +365,17 @@ Public Class frmFAMSMain
                     ledgerAcc.txtAccName.Enabled = False
                     toolstripSave.Enabled = True
                     DisableNavToolBar(NavSettings.Edit)
+
+                Case "frmUserMaster"
+                    Dim usermaster As frmUserMaster = DirectCast(activeForm, frmUserMaster)
+                    toolstripSave.Enabled = True
+                    DisableNavToolBar(NavSettings.Edit)
+                    usermaster.EnableDisableControls(True)
+                    usermaster.txtUserID.Enabled = False
+                    usermaster.chkUserLocked.Visible = True
+                    usermaster.lblUserStatus.Visible = False
+
+
                 Case "frmAddVoucher"
                     ' DirectCast(Me.ActiveMdiChild, frmAddVoucher).SplitContainer1.Panel1Collapsed = True
                     'DirectCast(Me.ActiveMdiChild, frmAddVoucher).SplitContainer1.Panel2Collapsed = False
@@ -369,7 +395,7 @@ Public Class frmFAMSMain
         End If
     End Sub
 
-    Private Sub BindingNavigatorAddNewItem_Click(sender As Object, e As EventArgs) Handles toolstripAdd.Click
+    Public Sub BindingNavigatorAddNewItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles toolstripAdd.Click
         Dim activeForm As Form = Me.ActiveMdiChild
         If Not activeForm Is Nothing Then
             lblActivity.Text = "Add"
@@ -395,12 +421,18 @@ Public Class frmFAMSMain
                     Dim cashbankContra As frmCashBankContraV = DirectCast(activeForm, frmCashBankContraV)
                     cashbankContra.SetControls("add")
                     EnableToolStripForVouchers("add")
+
+                Case "frmUserMaster"
+                    Dim userhelper As New UserHelper
+                    Dim usermaster As frmUserMaster = DirectCast(activeForm, frmUserMaster)
+                    EnableToolStripForVouchers("add")
+                    usermaster.SetControls("add")
+
                 Case "frmLedgerAccountManage"
                     Dim ledgerAcc As frmLedgerAccountManage = DirectCast(activeForm, frmLedgerAccountManage)
                     ledgerAcc.EnableDisableControls(True)
                     ledgerAcc.LblLinkedTo.Text = "Not Linked"
                     toolstripSave.Enabled = True
-
                     DisableNavToolBar(NavSettings.Add)
             End Select
 
@@ -550,8 +582,6 @@ Public Class frmFAMSMain
     End Sub
 
     Private Sub frmFAMSMain_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-
-
         Try
             Me.Text = String.Empty
             Me.pnlMenu.Visible = False
@@ -565,19 +595,22 @@ Public Class frmFAMSMain
     Private Sub SelectProcessingDate()
         Dim frmProcessingDate As New frmProcessingDateAcceptance
         Dim frmInstituteSelection As frmInstitutionSelection
+        Dim frmuserlogin As New UserLogin
 
         If frmProcessingDate.ShowDialog = Windows.Forms.DialogResult.OK Then
             Me.lblActivity.Text = "Institution Selection"
             frmInstituteSelection = New frmInstitutionSelection(frmProcessingDate.InstituInformation)
             _institutionDetails = frmInstituteSelection.InstituInformation
+
             If frmInstituteSelection.ShowDialog = Windows.Forms.DialogResult.OK Then
+                frmuserlogin.ShowDialog()
 
                 Me.Text = title
                 Me.pnlMenu.Visible = True
                 Me.pnlDetails.Visible = True
                 pnlNavigator.Visible = False
                 Me.lblInstitution.Text = InstitutionMasterData.XInstName
-                Me.lblUser.Text = String.Format("User ID : {0}", "Saurabh") ''TODO use user data when user master is avaiable.
+                Me.lblUser.Text = String.Format("User : {0}", UserLogin.XUserName) ''TODO use user data when user master is avaiable.
                 Me.lblYear.Text = String.Format("Year : {0}-{1}", InstitutionMasterData.XFinYr, (Convert.ToInt32(InstitutionMasterData.XFinYr) + 1))
                 Me.lblDate.Text = String.Format("Date : {0}", InstitutionMasterData.XDate.ToString("dd-MM-yyyy"))
                 Me.lblActivity.Text = String.Empty
@@ -656,10 +689,7 @@ Public Class frmFAMSMain
             End If
         End If
 
-
-
     End Sub
-
 
     Private Sub BindingNavigatorMoveNextItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BindingNavigatorMoveNextItem.Click
         '   mainBindingNavigator.BindingSource.MoveNext()
@@ -667,13 +697,13 @@ Public Class frmFAMSMain
 
     Private Sub mnuCashBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCashBookRpt.Click
         lblActivity.Text = "View"
-        objCashReceipt = New frmReports
+        Dim objSelectDaybook As New frmSelectDaybook
         mainBindingNavigator.BindingSource = Nothing
         Me.pnlMenu.Visible = False
         Me.pnlNavigator.Visible = True
         pnlNavigator.Enabled = True
         EnableNavToolBar()
-        ShowNewForm(objCashReceipt, Nothing)
+        ShowNewForm(objSelectDaybook, Nothing)
     End Sub
 
     Private Sub mnuSelectiveBankAccountRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectiveBankAccountRpt.Click
@@ -687,4 +717,5 @@ Public Class frmFAMSMain
     Private Sub mnuCombinedCashBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCombinedCashBankBookRpt.Click
 
     End Sub
+
 End Class

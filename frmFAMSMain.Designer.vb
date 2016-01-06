@@ -73,12 +73,12 @@ Partial Class frmFAMSMain
         Me.mnuJournalV = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEDCBank = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuRandQ = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuUtilities = New System.Windows.Forms.ToolStripMenuItem()
-        Me.pnlNavigator = New System.Windows.Forms.Panel()
         Me.mnuCashBookRpt = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSelectiveBankAccountRpt = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuConsolidatedBankBookRpt = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCombinedCashBankBookRpt = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuUtilities = New System.Windows.Forms.ToolStripMenuItem()
+        Me.pnlNavigator = New System.Windows.Forms.Panel()
         CType(Me.mainBindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mainBindingNavigator.SuspendLayout()
         Me.pnlDetails.SuspendLayout()
@@ -366,7 +366,6 @@ Partial Class frmFAMSMain
         'mnuUserMaster
         '
         Me.mnuUserMaster.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mnuUserMaster.Enabled = False
         Me.mnuUserMaster.Name = "mnuUserMaster"
         Me.mnuUserMaster.Size = New System.Drawing.Size(293, 22)
         Me.mnuUserMaster.Text = "User Master"
@@ -491,23 +490,6 @@ Partial Class frmFAMSMain
         Me.mnuRandQ.Size = New System.Drawing.Size(110, 20)
         Me.mnuRandQ.Text = "Reports & Queries"
         '
-        'mnuUtilities
-        '
-        Me.mnuUtilities.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mnuUtilities.Name = "mnuUtilities"
-        Me.mnuUtilities.Size = New System.Drawing.Size(62, 20)
-        Me.mnuUtilities.Text = "Utilities"
-        '
-        'pnlNavigator
-        '
-        Me.pnlNavigator.Controls.Add(Me.mainBindingNavigator)
-        Me.pnlNavigator.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlNavigator.Location = New System.Drawing.Point(0, 74)
-        Me.pnlNavigator.Name = "pnlNavigator"
-        Me.pnlNavigator.Size = New System.Drawing.Size(1173, 27)
-        Me.pnlNavigator.TabIndex = 17
-        Me.pnlNavigator.Visible = False
-        '
         'mnuCashBookRpt
         '
         Me.mnuCashBookRpt.Name = "mnuCashBookRpt"
@@ -531,6 +513,23 @@ Partial Class frmFAMSMain
         Me.mnuCombinedCashBankBookRpt.Name = "mnuCombinedCashBankBookRpt"
         Me.mnuCombinedCashBankBookRpt.Size = New System.Drawing.Size(271, 22)
         Me.mnuCombinedCashBankBookRpt.Text = "Combined Cash & Bank Book"
+        '
+        'mnuUtilities
+        '
+        Me.mnuUtilities.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.mnuUtilities.Name = "mnuUtilities"
+        Me.mnuUtilities.Size = New System.Drawing.Size(62, 20)
+        Me.mnuUtilities.Text = "Utilities"
+        '
+        'pnlNavigator
+        '
+        Me.pnlNavigator.Controls.Add(Me.mainBindingNavigator)
+        Me.pnlNavigator.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlNavigator.Location = New System.Drawing.Point(0, 74)
+        Me.pnlNavigator.Name = "pnlNavigator"
+        Me.pnlNavigator.Size = New System.Drawing.Size(1173, 27)
+        Me.pnlNavigator.TabIndex = 17
+        Me.pnlNavigator.Visible = False
         '
         'frmFAMSMain
         '
