@@ -447,8 +447,9 @@ Public Class frmFAMSMain
                 Case "frmAddVoucher"
                     'DirectCast(Me.ActiveMdiChild, frmAddVoucher).SplitContainer1.Panel1Collapsed = False
                     'DirectCast(Me.ActiveMdiChild, frmAddVoucher).SplitContainer1.Panel2Collapsed = True
-
                     DirectCast(Me.ActiveMdiChild, frmAddVoucher).ClearControls()
+                    DirectCast(Me.ActiveMdiChild, frmAddVoucher).SetOperationMode("clear")
+                    DirectCast(Me.ActiveMdiChild, frmAddVoucher).SetControls("clear")
 
                     EnableToolStripForVouchers("clear")
                 Case "frmCashBankContraV"
@@ -536,7 +537,7 @@ Public Class frmFAMSMain
                     Dim frmAddVoucher As frmAddVoucher = DirectCast(Me.ActiveMdiChild, frmAddVoucher)
                     If frmAddVoucher IsNot Nothing Then
                         frmAddVoucher.ComboBoxDaybookSelect.Enabled = True
-                        frmAddVoucher.ButtonNext.Enabled = True
+                        'frmAddVoucher.ButtonNext.Enabled = True
                     End If
                 End If
             Case "add"
@@ -696,26 +697,40 @@ Public Class frmFAMSMain
     End Sub
 
     Private Sub mnuCashBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCashBookRpt.Click
-        lblActivity.Text = "View"
+        ShowReport("CashBook")
         Dim objSelectDaybook As New frmSelectDaybook
-        mainBindingNavigator.BindingSource = Nothing
+          mainBindingNavigator.BindingSource = Nothing
         Me.pnlMenu.Visible = False
         Me.pnlNavigator.Visible = True
         pnlNavigator.Enabled = True
         EnableNavToolBar()
         ShowNewForm(objSelectDaybook, Nothing)
+
+        ShowNewForm(objSelectDaybook, Nothing)
     End Sub
 
     Private Sub mnuSelectiveBankAccountRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectiveBankAccountRpt.Click
-
+        ShowReport("BankBook")
     End Sub
 
     Private Sub mnuConsolidatedBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuConsolidatedBankBookRpt.Click
-
+        ShowReport("GeneralLedger")
     End Sub
 
     Private Sub mnuCombinedCashBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCombinedCashBankBookRpt.Click
+        ShowReport("TrialBalance")
+    End Sub
 
+    Private Sub ShowReport(mode As String)
+        lblActivity.Text = "View"
+        objCashReceipt = New frmReports
+        objCashReceipt.SetControls(mode)
+        mainBindingNavigator.BindingSource = Nothing
+        Me.pnlMenu.Visible = False
+        Me.pnlNavigator.Visible = True
+        pnlNavigator.Enabled = True
+        EnableNavToolBar()
+        ShowNewForm(objCashReceipt, Nothing)
     End Sub
 
 End Class

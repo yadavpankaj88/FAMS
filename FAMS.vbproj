@@ -278,10 +278,30 @@
     <Compile Include="popupHelper.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Reports\rptCashBook.vb">
     <Compile Include="Images\Reports\rptCashBook.vb">
+    <Compile Include="Reports\rptBankBook.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>rptBankBook.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptCashBook.vb">
       <DependentUpon>rptCashBook.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\rptGeneralLedger.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptGeneralLedger.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\rptTrialBalance.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptTrialBalance.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SelectDaybookVoucher.Designer.vb">
@@ -387,8 +407,20 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Images\Reports\rptCashBook.rpt">
+    <EmbeddedResource Include="Reports\rptBankBook.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptBankBook.vb</LastGenOutput>
+    </EmbeddedResource>
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptCashBook.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptGeneralLedger.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptGeneralLedger.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptTrialBalance.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTrialBalance.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectDaybookVoucher.resx">
       <DependentUpon>SelectDaybookVoucher.vb</DependentUpon>
@@ -400,6 +432,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Entities\app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Images\edit" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -421,6 +454,7 @@
     <None Include="Images\print.jpg" />
     <None Include="Images\search.jpg" />
     <None Include="Images\delete.jpg" />
+    <Content Include="DBScripts\FAMS.sql" />
     <Content Include="FAMS.vbproj.vspscc" />
     <Content Include="FAM_SchemaData_Script27012014.sql" />
     <Content Include="Images\searchIcon.png" />
@@ -442,6 +476,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
