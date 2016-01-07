@@ -2,8 +2,6 @@
 Public Class frmProcessingDateAcceptance
     Dim objInstituionMaster As frmInstitutionSelection
     Dim institutionDetails As InstitutionMasterData
-    Dim validateUser As ValidateClass
-
 
     Public ReadOnly Property InstituInformation
         Get
@@ -17,17 +15,16 @@ Public Class frmProcessingDateAcceptance
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        validateUser = New ValidateClass()
     End Sub
 
     Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
 
-        If (validateUser.CheckProcessingDate(dtpProcessingDate.Value)) Then
+        If (ValidateClass.CheckProcessingDate(dtpProcessingDate.Value)) Then
             institutionDetails = New InstitutionMasterData()
             InstitutionMasterData.XDate = dtpProcessingDate.Value
-            InstitutionMasterData.XFinYr = validateUser.CheckFinancialYear(dtpProcessingDate.Value)
-            validateUser.SetFinancialYear(institutionDetails)
-            validateUser.GetNextandPrevFinancialYear(institutionDetails)
+            InstitutionMasterData.XFinYr = ValidateClass.CheckFinancialYear(dtpProcessingDate.Value)
+            ValidateClass.SetFinancialYear(institutionDetails)
+            ValidateClass.GetNextandPrevFinancialYear(institutionDetails)
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
         Else

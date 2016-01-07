@@ -56,12 +56,10 @@ Public Class frmFAMSMain
         End Set
     End Property
 
-    Dim validateClass As ValidateClass
     Sub New()
 
         ' This call is required by the designer.
         InitializeComponent()
-        validateClass = New ValidateClass
         ' Add any initialization after the InitializeComponent() call.
         legerAcc = New LedgerAccountHelper
     End Sub
@@ -73,7 +71,6 @@ Public Class frmFAMSMain
             InitializeComponent()
             ' _institutionDetails = institutionDetails
             institutionDetailsGlobal = institutionDetails
-            validateClass = New ValidateClass
             EnableDisableMenus()
             legerAcc = New LedgerAccountHelper
             ''mnuInstitutionName.Text = "Institute:" + InstitutionMasterData.XInstName.Trim()

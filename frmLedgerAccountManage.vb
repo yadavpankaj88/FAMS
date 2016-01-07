@@ -1,6 +1,5 @@
 ﻿Public Class frmLedgerAccountManage
 
-    Dim validateAcc As ValidateClass
     Dim ledgerAcc As LedgerAccountHelper
     Dim accCode As String
     Dim account As New Accounts
@@ -15,7 +14,6 @@
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        validateAcc = New ValidateClass
         ledgerAcc = New LedgerAccountHelper
 
         bindingSourceCtrl = New BindingSource
@@ -28,7 +26,6 @@
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        validateAcc = New ValidateClass
         ledgerAcc = New LedgerAccountHelper
         accCode = pAccCode
     End Sub
@@ -92,7 +89,7 @@
     End Sub
 
     Private Sub txtAccCode_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles txtAccCode.Validating
-        If Not validateAcc.CheckAccountCode(txtAccCode.Text) Then
+        If Not ValidateClass.CheckAccountCode(txtAccCode.Text) Then
             txtAccCode.BackColor = Color.Red
             Dim lbl As New Label
             lbl.Text = "1st character should be A,E,I,L "
@@ -282,8 +279,8 @@
     End Sub
 
     Function CheckValidAccountCode() As Boolean
-        If Not validateAcc.CheckAccountCode(txtAccCode.Text) Then
-            txtAccCode.BackColor = Color.Red           
+        If Not ValidateClass.CheckAccountCode(txtAccCode.Text) Then
+            txtAccCode.BackColor = Color.Red
         Else
             txtAccCode.BackColor = Color.White
         End If

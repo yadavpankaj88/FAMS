@@ -7,7 +7,6 @@
     Private daybookHelper As DayBooksHelper
     Private instMaster As InstitutionMasterData
     Private voucherHelper As VoucherHelper
-    Private objValidate As ValidateClass = Nothing
     Private dtVoucherDetails As DataTable
     Private _mode As String
     Sub New()
@@ -20,7 +19,6 @@
         ledgerAcc = New LedgerAccountHelper
         daybookHelper = New DayBooksHelper
         instMaster = New InstitutionMasterData
-        objValidate = New ValidateClass
         voucherHelper = New VoucherHelper
     End Sub
 
@@ -122,7 +120,7 @@
 
     Private Sub AddOperation()
         Try
-            If Not objValidate.CheckComboxSelected(ComboBoxGoesOut.SelectedValue) Then
+            If Not ValidateClass.CheckComboxSelected(ComboBoxGoesOut.SelectedValue) Then
                 ComboBoxGoesOut.Enabled = False
                 SplitContainer1.Panel2Collapsed = False
                 panelVoucherControls.Visible = True
@@ -200,7 +198,7 @@
     End Sub
 
     Private Sub EnableSearchVouchers()
-        If Not objValidate.CheckComboxSelected(ComboBoxGoesOut.SelectedValue) Then
+        If Not ValidateClass.CheckComboxSelected(ComboBoxGoesOut.SelectedValue) Then
             Me.ComboBoxGoesOut.Enabled = False
             Me.SplitContainer1.Panel2Collapsed = False
             panelVoucherControls.Visible = False
@@ -397,7 +395,6 @@
 
     Private Sub ConfirmVoucher()
         Dim helper As VoucherHelper = New VoucherHelper()
-        Dim validate As New ValidateClass
         Dim calculateDiff As Boolean = True
         Dim balanceAmt As Double
         Dim index As Integer
@@ -406,11 +403,11 @@
             If frmParent.lblBankBalance.Visible Then
                 index = frmParent.lblBankBalance.Text.IndexOf(":")
                 balanceAmt = Double.Parse(frmParent.lblBankBalance.Text.Substring(index + 1))
-                calculateDiff = validate.CheckBalance(balanceAmt, Double.Parse(TextBoxAmount.Text))
+                calculateDiff = ValidateClass.CheckBalance(balanceAmt, Double.Parse(TextBoxAmount.Text))
             Else
                 index = frmParent.lblCashBalance.Text.IndexOf(":")
                 balanceAmt = Double.Parse(frmParent.lblCashBalance.Text.Substring(index + 1))
-                calculateDiff = validate.CheckBalance(balanceAmt, Double.Parse(TextBoxAmount.Text))
+                calculateDiff = ValidateClass.CheckBalance(balanceAmt, Double.Parse(TextBoxAmount.Text))
             End If
 
             If calculateDiff Then
@@ -450,7 +447,7 @@
             Else
                 balanceAmount = Double.Parse(frmParent.lblCashBalance.Text.Substring(frmParent.lblCashBalance.Text.IndexOf(":") + 1))
             End If
-            If Not objValidate.CheckBalance(balanceAmount, enteredAmount) Then
+            If Not ValidateClass.CheckBalance(balanceAmount, enteredAmount) Then
                 MessageBox.Show("Insufficient Balance cannot save the voucher")
             End If
         Catch ex As Exception
@@ -555,14 +552,13 @@
     
 
     Private Sub DatePickerVoucherDate_ValueChanged(sender As Object, e As EventArgs) Handles DatePickerVoucherDate.ValueChanged
-        Dim validate As New ValidateClass
         Dim errMessage As String = String.Empty
         Dim datetimePicker As DateTimePicker
 
         Try
             If Not _mode = "view" Or _mode = "delete" Then
                 datetimePicker = DirectCast(sender, DateTimePicker)
-                validate.CheckVoucherDate(datetimePicker.Value, errMessage)
+                ValidateClass.CheckVoucherDate(datetimePicker.Value, errMessage)
 
                 If Not String.IsNullOrEmpty(errMessage) Then
                     MessageBox.Show(errMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -574,14 +570,13 @@
     End Sub
 
     Private Sub datepickerVoucherConfirm_ValueChanged(sender As Object, e As EventArgs) Handles datepickerVoucherConfirm.ValueChanged
-        Dim validate As New ValidateClass
         Dim errMessage As String = String.Empty
         Dim datetimePicker As DateTimePicker
         Dim VoucherDate As DateTimePicker = DirectCast(DatePickerVoucherDate, DateTimePicker)
         Try
             If Not _mode = "view" Then
                 datetimePicker = DirectCast(sender, DateTimePicker)
-                validate.CheckConfirmationdate(datetimePicker.Value, errMessage, VoucherDate.Value)
+                ValidateClass.CheckConfirmationdate(datetimePicker.Value, errMessage, VoucherDate.Value)
 
                 If Not String.IsNullOrEmpty(errMessage) Then
                     MessageBox.Show(errMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -594,7 +589,6 @@
     End Sub
 
     Private Sub datepickerChequeDate_ValueChanged(sender As Object, e As EventArgs) Handles datepickerChequeDate.ValueChanged
-        Dim validate As New ValidateClass
         Dim datetimePicker As DateTimePicker
         Try
             If Not _mode = "view" Then

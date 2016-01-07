@@ -1,6 +1,6 @@
 ﻿Imports System.Text
 
-Public Class ValidateClass
+Public Module ValidateClass
 
     ''' <summary>
     ''' Determines whether the date lies with in the given financial year
@@ -8,7 +8,7 @@ Public Class ValidateClass
     ''' <param name="pProcessingDate"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function CheckProcessingDate(pProcessingDate As DateTime) As Boolean
+    Public Function CheckProcessingDate(ByVal pProcessingDate As DateTime) As Boolean
         If DateTime.Compare(pProcessingDate.Date, DateTime.Now.Date) <= 0 Then
             Return True
         Else
@@ -22,7 +22,7 @@ Public Class ValidateClass
     ''' <param name="pProcessingDate"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function CheckFinancialYear(pProcessingDate As DateTime) As String
+    Public Function CheckFinancialYear(ByVal pProcessingDate As DateTime) As String
         Dim currentYear = pProcessingDate.Year
         Dim prevYear = pProcessingDate.Year - 1
         Dim nextYear = pProcessingDate.Year + 1
@@ -73,7 +73,7 @@ Public Class ValidateClass
     ''' <param name="pFamDate"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function CheckLicenseDate(pProcessingDate As DateTime, pFamDate As DateTime) As Boolean
+    Public Function CheckLicenseDate(ByVal pProcessingDate As DateTime, ByVal pFamDate As DateTime) As Boolean
         If (Date.Compare(pProcessingDate.Date, pFamDate.Date) >= 0) Then
             Return True
         Else
@@ -89,7 +89,7 @@ Public Class ValidateClass
     ''' <param name="pClosingYear"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function CheckFinancialYear(pFinancialYear As String, pClosingYear As String) As Boolean
+    Public Function CheckFinancialYear(ByVal pFinancialYear As String, ByVal pClosingYear As String) As Boolean
         Dim finYear As Integer = Convert.ToInt32(pFinancialYear)
         Dim closingYear As Integer = Convert.ToInt32(pClosingYear)
         If finYear <= closingYear Then
@@ -105,7 +105,7 @@ Public Class ValidateClass
     ''' <param name="pAccCode"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Function CheckAccountCode(pAccCode As String) As Boolean
+    Function CheckAccountCode(ByVal pAccCode As String) As Boolean
         Dim IsValid As Boolean = False
         Dim secondThirdCharacter, lastThreeCharacters As Integer
         Try
@@ -133,7 +133,7 @@ Public Class ValidateClass
         Return IsValid
     End Function
 
-    Function CheckAccName(pAccName As String) As Boolean
+    Function CheckAccName(ByVal pAccName As String) As Boolean
         If String.IsNullOrEmpty(pAccName) Then
             Return False
         Else
@@ -141,25 +141,25 @@ Public Class ValidateClass
         End If
     End Function
 
-    Function CheckNumber(pValue As String) As Boolean
+    Function CheckNumber(ByVal pValue As String) As Boolean
         Return IsNumeric(pValue)
     End Function
 
-    Function CheckReferenceDate(pReferenceDate As DateTime, ByRef pMessage As String, pVoucherDate As DateTime) As Boolean
+    Function CheckReferenceDate(ByVal pReferenceDate As DateTime, ByRef pMessage As String, ByVal pVoucherDate As DateTime) As Boolean
         If DateTime.Compare(pReferenceDate.Date, pVoucherDate.Date) > 0 Then
-            pMessage = "Reference Date cannot be greater than Voucher Date"
+            pMessage = "Reference Date cannot be greater than Voucher Link Date"
             Return False
         Else
             Return True
         End If
     End Function
 
-    Function CheckVoucherDate(pVoucherDate As DateTime, ByRef pMessage As String) As Boolean
+    Function CheckVoucherDate(ByVal pVoucherDate As DateTime, ByRef pMessage As String) As Boolean
         If DateTime.Compare(pVoucherDate.Date, InstitutionMasterData.XDate.Date) > 0 Then
-            pMessage = "Voucher Date cannot be greater than Processing Date"
+            pMessage = "Voucher Link Date cannot be greater than Processing Date"
             Return False
         ElseIf DateTime.Compare(InstitutionMasterData.XDate.AddMonths(-3).Date, pVoucherDate.Date) > 0 Then
-            pMessage = "Voucher Date cannot be 3 months older than Processing Date"
+            pMessage = "Voucher Link Date cannot be 3 months older than Processing Date"
             Return False
         Else
             Return True
@@ -167,12 +167,12 @@ Public Class ValidateClass
     End Function
 
 
-    Function CheckConfirmationdate(pConfirmDate As DateTime, ByRef pMessage As String, pVoucherDate As DateTime) As Boolean
+    Function CheckConfirmationdate(ByVal pConfirmDate As DateTime, ByRef pMessage As String, ByVal pVoucherDate As DateTime) As Boolean
         If DateTime.Compare(pConfirmDate.Date, InstitutionMasterData.XDate.Date) > 0 Then
             pMessage = "Confirmation Date cannot be greater than Processing Date"
             Return False
         ElseIf DateTime.Compare(pConfirmDate.Date, pVoucherDate.Date) < 0 Then
-            pMessage = "Confirmation Date cannot be less than Voucher Date"
+            pMessage = "Confirmation Date cannot be less than Voucher Link Date"
             Return False
         ElseIf pConfirmDate.Date < InstitutionMasterData.XStartFinYr.Date Or pConfirmDate.Date > InstitutionMasterData.XEndFinYr.Date Then
             pMessage = "Confirmation Date must be between" + InstitutionMasterData.XStartFinYr.Date + "and " + InstitutionMasterData.XEndFinYr.Date
@@ -182,7 +182,7 @@ Public Class ValidateClass
         End If
     End Function
 
-    Function CheckBalance(pBalanceAmt As Double, pVoucherAmt As Double) As Boolean
+    Function CheckBalance(ByVal pBalanceAmt As Double, ByVal pVoucherAmt As Double) As Boolean
         If (pVoucherAmt <= pBalanceAmt) Then
             Return True
         Else
@@ -190,7 +190,7 @@ Public Class ValidateClass
         End If
     End Function
 
-    Public Function CheckComboxSelected(pSelectedValue As Object) As Boolean
+    Public Function CheckComboxSelected(ByVal pSelectedValue As Object) As Boolean
         If String.IsNullOrEmpty(pSelectedValue) Then
             Return True
         Else
@@ -198,6 +198,6 @@ Public Class ValidateClass
         End If
     End Function
 
-   
-End Class
+
+End Module
 

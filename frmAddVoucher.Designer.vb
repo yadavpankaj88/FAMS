@@ -26,7 +26,7 @@ Partial Class frmAddVoucher
         Me.LabelNarration = New System.Windows.Forms.Label()
         Me.TextBoxNarration = New System.Windows.Forms.TextBox()
         Me.LabelVoucherDate = New System.Windows.Forms.Label()
-        Me.DatePickerVoucherDate = New System.Windows.Forms.DateTimePicker()
+        Me.DatePickerVoucherLinkDate = New System.Windows.Forms.DateTimePicker()
         Me.txtLinkVoucherNumber = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.panelVoucherControls = New System.Windows.Forms.Panel()
@@ -57,7 +57,7 @@ Partial Class frmAddVoucher
         Me.lblConfirmedVoucherNumber = New System.Windows.Forms.Label()
         Me.lblVoucherNo = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.datepickerVoucherConfirm = New System.Windows.Forms.DateTimePicker()
+        Me.datepickerVoucherDateConfirm = New System.Windows.Forms.DateTimePicker()
         Me.ComboBoxDaybookSelect = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblDaybookName = New System.Windows.Forms.Label()
@@ -100,13 +100,13 @@ Partial Class frmAddVoucher
         Me.LabelVoucherDate.TabIndex = 0
         Me.LabelVoucherDate.Text = "Voucher Link Date"
         '
-        'DatePickerVoucherDate
+        'DatePickerVoucherLinkDate
         '
-        Me.DatePickerVoucherDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DatePickerVoucherDate.Location = New System.Drawing.Point(633, 12)
-        Me.DatePickerVoucherDate.Name = "DatePickerVoucherDate"
-        Me.DatePickerVoucherDate.Size = New System.Drawing.Size(110, 23)
-        Me.DatePickerVoucherDate.TabIndex = 1
+        Me.DatePickerVoucherLinkDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DatePickerVoucherLinkDate.Location = New System.Drawing.Point(633, 12)
+        Me.DatePickerVoucherLinkDate.Name = "DatePickerVoucherLinkDate"
+        Me.DatePickerVoucherLinkDate.Size = New System.Drawing.Size(110, 23)
+        Me.DatePickerVoucherLinkDate.TabIndex = 1
         '
         'txtLinkVoucherNumber
         '
@@ -336,7 +336,7 @@ Partial Class frmAddVoucher
         Me.pnlConfirm.Controls.Add(Me.lblConfirmedVoucherNumber)
         Me.pnlConfirm.Controls.Add(Me.lblVoucherNo)
         Me.pnlConfirm.Controls.Add(Me.Label3)
-        Me.pnlConfirm.Controls.Add(Me.datepickerVoucherConfirm)
+        Me.pnlConfirm.Controls.Add(Me.datepickerVoucherDateConfirm)
         Me.pnlConfirm.Location = New System.Drawing.Point(3, 42)
         Me.pnlConfirm.Name = "pnlConfirm"
         Me.pnlConfirm.Size = New System.Drawing.Size(912, 46)
@@ -378,13 +378,13 @@ Partial Class frmAddVoucher
         Me.Label3.TabIndex = 18
         Me.Label3.Text = "Confirmation Date"
         '
-        'datepickerVoucherConfirm
+        'datepickerVoucherDateConfirm
         '
-        Me.datepickerVoucherConfirm.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datepickerVoucherConfirm.Location = New System.Drawing.Point(630, 16)
-        Me.datepickerVoucherConfirm.Name = "datepickerVoucherConfirm"
-        Me.datepickerVoucherConfirm.Size = New System.Drawing.Size(114, 23)
-        Me.datepickerVoucherConfirm.TabIndex = 19
+        Me.datepickerVoucherDateConfirm.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datepickerVoucherDateConfirm.Location = New System.Drawing.Point(630, 16)
+        Me.datepickerVoucherDateConfirm.Name = "datepickerVoucherDateConfirm"
+        Me.datepickerVoucherDateConfirm.Size = New System.Drawing.Size(114, 23)
+        Me.datepickerVoucherDateConfirm.TabIndex = 19
         '
         'ComboBoxDaybookSelect
         '
@@ -450,7 +450,7 @@ Partial Class frmAddVoucher
         Me.SplitContainer1.Panel2.Controls.Add(Me.panelVoucherControls)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Label1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.txtLinkVoucherNumber)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.DatePickerVoucherDate)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.DatePickerVoucherLinkDate)
         Me.SplitContainer1.Panel2.Controls.Add(Me.LabelVoucherDate)
         Me.SplitContainer1.Panel2Collapsed = True
         Me.SplitContainer1.Size = New System.Drawing.Size(935, 508)
@@ -485,7 +485,7 @@ Partial Class frmAddVoucher
     Friend WithEvents LabelNarration As System.Windows.Forms.Label
     Friend WithEvents TextBoxNarration As System.Windows.Forms.TextBox
     Friend WithEvents LabelVoucherDate As System.Windows.Forms.Label
-    Friend WithEvents DatePickerVoucherDate As System.Windows.Forms.DateTimePicker
+    Friend WithEvents DatePickerVoucherLinkDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtLinkVoucherNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents panelVoucherControls As System.Windows.Forms.Panel
@@ -516,7 +516,7 @@ Partial Class frmAddVoucher
     Friend WithEvents lblConfirmedVoucherNumber As System.Windows.Forms.Label
     Friend WithEvents lblVoucherNo As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents datepickerVoucherConfirm As System.Windows.Forms.DateTimePicker
+    Friend WithEvents datepickerVoucherDateConfirm As System.Windows.Forms.DateTimePicker
     Friend WithEvents ComboBoxDaybookSelect As System.Windows.Forms.ComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents lblDaybookName As System.Windows.Forms.Label

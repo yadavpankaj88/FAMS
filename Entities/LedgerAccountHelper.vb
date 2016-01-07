@@ -36,7 +36,8 @@ Public Class LedgerAccountHelper
             parameters.Add("@AccOB_CR_DR", account.CreditDebit)
             If account.CreditDebit = "CR" Then
                 account.AccOpenBalance = account.AccAbsOpenBalance * -1
-         
+            Else
+                account.AccOpenBalance = account.AccAbsOpenBalance
             End If
             parameters.Add("@AccOpenBal", account.AccOpenBalance)
             parameters.Add("@AccLLYBud", account.AccLLYbudget)
