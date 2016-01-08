@@ -479,6 +479,7 @@ Public Class frmFAMSMain
                 toolstripedit.Enabled = False
                 toolstripDeleteItem.Enabled = False
                 ToolStripButtonConfirm.Enabled = False
+                toolstripSave.Enabled = False
                 BindingNavigatorMoveNextItem.Enabled = False
                 BindingNavigatorMoveFirstItem.Enabled = False
                 BindingNavigatorMoveLastItem.Enabled = False

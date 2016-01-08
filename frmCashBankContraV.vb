@@ -511,7 +511,7 @@
                             Me.pnlConfirm.Visible = True
                             Me.pnlConfirm.Enabled = True
                             ComboBoxGoesInto.Enabled = False
-                            Dim dt As DataTable = voucherHelper.GetNextVoucherNumber(datepickerVoucherConfirm.Value.Month, ComboBoxGoesOut.SelectedValue)
+                            Dim dt As DataTable = voucherHelper.GetNextVoucherNumber(datepickerVoucherConfirm.Value, ComboBoxGoesOut.SelectedValue)
                             If Not dt Is Nothing Then
                                 If dt.Rows.Count > 0 Then
                                     lblVoucherConfNo.Text = String.Format("CT-{0}", dt.Rows(0)(0).ToString())

@@ -22,29 +22,29 @@ Partial Class popupHelper
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.VoucherSelectionGrid = New System.Windows.Forms.DataGridView()
         Me.LedgerCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.VoucherNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.VoucherDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.VoucherNarration = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AccountName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.VoucherSelectionGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'DataGridView1
+        'VoucherSelectionGrid
         '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.AllowUserToDeleteRows = False
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.LedgerCode, Me.VoucherNumber, Me.VoucherDate, Me.VoucherNarration, Me.Amount, Me.AccountName})
-        Me.DataGridView1.Location = New System.Drawing.Point(13, 28)
-        Me.DataGridView1.MultiSelect = False
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(243, 205)
-        Me.DataGridView1.TabIndex = 0
+        Me.VoucherSelectionGrid.AllowUserToAddRows = False
+        Me.VoucherSelectionGrid.AllowUserToDeleteRows = False
+        Me.VoucherSelectionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.VoucherSelectionGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.LedgerCode, Me.VoucherNumber, Me.VoucherDate, Me.VoucherNarration, Me.Amount, Me.AccountName})
+        Me.VoucherSelectionGrid.Location = New System.Drawing.Point(13, 12)
+        Me.VoucherSelectionGrid.MultiSelect = False
+        Me.VoucherSelectionGrid.Name = "VoucherSelectionGrid"
+        Me.VoucherSelectionGrid.ReadOnly = True
+        Me.VoucherSelectionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.VoucherSelectionGrid.Size = New System.Drawing.Size(644, 237)
+        Me.VoucherSelectionGrid.TabIndex = 0
         '
         'LedgerCode
         '
@@ -59,6 +59,7 @@ Partial Class popupHelper
         Me.VoucherNumber.HeaderText = "Link Voucher Number"
         Me.VoucherNumber.Name = "VoucherNumber"
         Me.VoucherNumber.ReadOnly = True
+        Me.VoucherNumber.Width = 150
         '
         'VoucherDate
         '
@@ -66,17 +67,19 @@ Partial Class popupHelper
         Me.VoucherDate.HeaderText = "Link Voucher Date"
         Me.VoucherDate.Name = "VoucherDate"
         Me.VoucherDate.ReadOnly = True
+        Me.VoucherDate.Width = 150
         '
         'VoucherNarration
         '
-        Me.VoucherNarration.DataPropertyName = "VD_Narr"
+        Me.VoucherNarration.DataPropertyName = "vh_pty_nm"
         Me.VoucherNarration.HeaderText = "Narration"
         Me.VoucherNarration.Name = "VoucherNarration"
         Me.VoucherNarration.ReadOnly = True
+        Me.VoucherNarration.Width = 150
         '
         'Amount
         '
-        Me.Amount.DataPropertyName = "VD_Amt"
+        Me.Amount.DataPropertyName = "vh_abs_amt"
         Me.Amount.HeaderText = "Amount"
         Me.Amount.Name = "Amount"
         Me.Amount.ReadOnly = True
@@ -87,22 +90,23 @@ Partial Class popupHelper
         Me.AccountName.HeaderText = "Name"
         Me.AccountName.Name = "AccountName"
         Me.AccountName.ReadOnly = True
+        Me.AccountName.Width = 200
         '
         'popupHelper
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 261)
-        Me.Controls.Add(Me.DataGridView1)
+        Me.ClientSize = New System.Drawing.Size(669, 261)
+        Me.Controls.Add(Me.VoucherSelectionGrid)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "popupHelper"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.VoucherSelectionGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
+    Friend WithEvents VoucherSelectionGrid As System.Windows.Forms.DataGridView
     Friend WithEvents LedgerCode As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents VoucherNumber As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents VoucherDate As System.Windows.Forms.DataGridViewTextBoxColumn

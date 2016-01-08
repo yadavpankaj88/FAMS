@@ -66,15 +66,6 @@
         ' Add any initialization after the InitializeComponent() call.
         ledgerAcc = New LedgerAccountHelper
 
-        AddHandler txtLinkVoucherNumber.LostFocus, AddressOf txtLinkVoucherNumber_LostFocus
-
-        '        AddHandler DatePickerVoucherDate.ValueChanged, AddressOf DateTimeReferenceDate_ValueChanged
-
-
-    End Sub
-
-    Private Sub txtLinkVoucherNumber_LostFocus(ByVal sender As Object, ByVal args As EventArgs)
-        'LinkNumberTextChange(False)
     End Sub
 
     Private Function LinkNumberTextChange(ByVal ShowMessagebox As Boolean) As Boolean
@@ -121,36 +112,24 @@
                                 txtLinkVoucherNumber.Enabled = False
 
                             Case "confirm"
-                                Dim lgdr As Ledger = New Ledger()
-                                Dim lgdrhelper As LedgerHelper = New LedgerHelper()
-                                Dim str As String
+
                                 Me.panelVoucherControls.Visible = True
                                 Me.panelVoucherControls.Enabled = False
                                 Me.dgvVoucherDetails.Visible = True
                                 Me.dgvVoucherDetails.Enabled = False
                                 txtLinkVoucherNumber.Text = txtLinkVoucherNumber.Text.PadLeft(12, "0")
 
-                                Dim vHelper As VoucherHelper = New VoucherHelper()
-                                Dim dt As DataTable = vHelper.GetNextVoucherNumber(datepickerVoucherDateConfirm.Value.Month, ComboBoxDaybookSelect.SelectedValue)
-                                If Not dt Is Nothing Then
-                                    If dt.Rows.Count > 0 Then
-                                        lblConfirmNumber.Text = String.Format(_TrnType + "-{0}", dt.Rows(0)(0).ToString())
-                                        lblConfirmNumber.BackColor = Color.Red
-                                        lblConfirmNumber.ForeColor = Color.White
-                                        txtNextCount.Text = dt.Rows(0)(1).ToString()
-                                    End If
-                                    str = txtLinkVoucherNumber.Text
-                                    Dim ledgercount As Integer = lgdrhelper.GetCountFromLedger(str)
-                                    If ledgercount = 0 Then
-                                        lgdrhelper.AddLedger(str)
-                                        Dim count As Integer = lgdrhelper.GetLedgerCount(str)
-                                        For i As Integer = 0 To count - 1
-                                            lgdrhelper.AddLedgerDetail(str)
-                                        Next
-                                    Else
-                                        If (ShowMessagebox) Then
-                                            MessageBox.Show("Data is already in Ledger")
+                                If (datepickerVoucherDateConfirm.Enabled) Then
+                                    Dim vHelper As VoucherHelper = New VoucherHelper()
+                                    Dim dt As DataTable = vHelper.GetNextVoucherNumber(datepickerVoucherDateConfirm.Value, ComboBoxDaybookSelect.SelectedValue)
+                                    If Not dt Is Nothing Then
+                                        If dt.Rows.Count > 0 Then
+                                            lblConfirmNumber.Text = dt.Rows(0)(0).ToString()
+                                            lblConfirmNumber.BackColor = Color.Red
+                                            lblConfirmNumber.ForeColor = Color.White
+                                            txtNextCount.Text = dt.Rows(0)(1).ToString()
                                         End If
+
                                     End If
                                 End If
 
@@ -316,7 +295,24 @@
             End If
             If calculateDiff Then
                 If (Not String.IsNullOrEmpty(ComboBoxDaybookSelect.SelectedValue) And Not String.IsNullOrEmpty(txtLinkVoucherNumber.Text)) Then
-                    'helper.ConfirmVoucher(ComboBoxDaybookSelect.SelectedValue, txtLinkVoucherNumber.Text, Convert.ToDateTime(datepickerVoucherConfirm.Value.ToString()), lblConfirmNumber.Text.Split("-")(1).Trim(), txtNextCount.Text)
+                    helper.ConfirmCashAndBankVoucher(txtLinkVoucherNumber.Text, datepickerVoucherDateConfirm.Value.ToString(), lblConfirmNumber.Text.Trim())
+
+                    Dim lgdr As Ledger = New Ledger()
+                    Dim lgdrhelper As LedgerHelper = New LedgerHelper()
+
+                    Dim str As String
+                    Str = txtLinkVoucherNumber.Text
+                    Dim ledgercount As Integer = lgdrhelper.GetCountFromLedger(Str)
+                    If ledgercount = 0 Then
+                        lgdrhelper.AddLedger(Str)
+                        Dim count As Integer = lgdrhelper.GetLedgerCount(Str)
+                        For i As Integer = 0 To count - 1
+                            lgdrhelper.AddLedgerDetail(Str)
+                        Next
+                    Else
+                            MessageBox.Show("Data is already in Ledger")
+                    End If
+
                     Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
                     If frmMain IsNot Nothing Then
                         frmMain.SetBalance()
@@ -331,9 +327,7 @@
 
                         End Select
                     End If
-
                 End If
-
             Else
                 MessageBox.Show("Insufficient Balance cannot confirm voucher !!!", "Insufficient Balance", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
@@ -442,29 +436,24 @@
                 End If
             End If
 
-            If Me._mode.ToLower() = "confirm" Then
+            dateValidationMessage = ValidateDates()
 
-                If String.IsNullOrEmpty(datepickerVoucherDateConfirm.Value) Then
-                    MessageBox.Show("Please enter voucher confirmation date ", "", MessageBoxButtons.OK)
+            If Me._mode.ToLower() = "confirm" Then
+                If Not dateValidationMessage = String.Empty Then
+                    MessageBox.Show("Please correct below errors: " + dateValidationMessage)
                     Return False
                 Else
-                    If datepickerVoucherDateConfirm.Value.CompareTo(DatePickerVoucherLinkDate.Value.Date) < 0 Then
-                        MessageBox.Show("Voucher Confirm date cannot be lesser than link voucher date ", "", MessageBoxButtons.OK)
-                        Return False
+                    Dim dlgResult As DialogResult = MessageBox.Show("Are you sure you want to confirm this voucher?", "Confirm?", MessageBoxButtons.YesNo)
+                    If (dlgResult = Windows.Forms.DialogResult.Yes) Then
+                        ConfirmVoucher()
+                        Return True
                     Else
-                        Dim dlgResult As DialogResult = MessageBox.Show("Are you sure you want to confirm this voucher?", "Confirm?", MessageBoxButtons.YesNo)
-                        If (dlgResult = Windows.Forms.DialogResult.Yes) Then
-                            'ConfirmVoucher()
-                            Return True
-                        Else
-                            Return False
-                        End If
+                        Return False
                     End If
                 End If
             End If
 
             mandatoryFields = ValidateForm()
-            dateValidationMessage = ValidateDates()
 
             If VoucherType = "B" Or VoucherType = "C" Then
                 If Not mandatoryFields = String.Empty Then
@@ -628,14 +617,6 @@
                 MessageBox.Show("Amount is not balanced")
                 Return False
             End If
-            ' Dim amount As Decimal = headerValue + detailValues
-
-            'If amount = 0 Then
-            '    MessageBox.Show("Amount is not balanced, difference of " + amount.ToString())
-            '    Return False
-            'End If
-
-            '    Return True
         Else
             MessageBox.Show("Insufficient balance, cannot add the voucher!!", "Insufficient Balance", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return False
@@ -764,7 +745,7 @@
     End Sub
 
     Sub SetControls(ByVal pMode As String)
-
+        lableVoucherStatus.Text = "UN-CONFIRMED"
         If VoucherType = "B" Then
             SetChequeControlVisibility(True)
         ElseIf VoucherType = "J" Then
@@ -789,7 +770,7 @@
                 ComboBoxDaybookSelect.Enabled = False
                 'ButtonNext.Enabled = False
             Case "confirm"
-                Me.SplitContainer1.Panel1Collapsed = True
+                'Me.SplitContainer1.Panel1Collapsed = True
                 Me.SplitContainer1.Panel2Collapsed = False
                 Me.panelVoucherControls.Visible = False
                 Me.LabelVoucherDate.Visible = False
@@ -827,7 +808,6 @@
                 Dim instMaster As InstitutionMasterData = New InstitutionMasterData()
                 txtLinkVoucherNumber.Text = instMaster.GetNextInstitutionLinkNumber().ToString().PadLeft(12, "0")
                 txtLinkVoucherNumber.Enabled = False
-
 
                 If VoucherType = "J" Then
                     TextBoxNameOfPayee.Enabled = False
@@ -901,22 +881,26 @@
             If voucherHeader IsNot Nothing Then
 
                 If (voucherHeader.VH_VCH_Dt IsNot Nothing And voucherHeader.VH_VCH_NO IsNot Nothing) Then
-                    Select Case _mode
-                        Case "delete", "edit"
-                            MessageBox.Show("Voucher is confirmed , no modification/deletion not allowed")
-                            Return False
-                        Case "view"
-                            lblConfirmNumber.BackColor = Color.Red
-                            lblConfirmNumber.ForeColor = Color.White
-                    End Select
+                    If (_mode = "delete" Or _mode = "edit") Then
+                        MessageBox.Show("Voucher is confirmed , no modification/deletion not allowed")
+                        Return False
+                    ElseIf (_mode = "confirm") Then
+                        MessageBox.Show("Voucher is already confirmed")
+                        Return False
+                    End If
                     pnlConfirm.Visible = True
                     pnlConfirm.Enabled = False
                     datepickerVoucherDateConfirm.Value = voucherHeader.VH_VCH_Dt
-                    lblConfirmNumber.Text = String.Format("{0}-{1}", _TrnType, voucherHeader.VH_VCH_NO)
+                    datepickerVoucherDateConfirm.Enabled = False
+                    lblConfirmNumber.Text = voucherHeader.VH_VCH_NO
                     lblConfirmedVoucherNumber.Text = voucherHeader.VH_VCH_Ref_No.ToString()
                     lblConfirmedVoucherNumber.BackColor = Color.Red
                     lblConfirmedVoucherNumber.ForeColor = Color.White
-
+                    lblConfirmNumber.BackColor = Color.Red
+                    lblConfirmNumber.ForeColor = Color.White
+                    lableVoucherStatus.Text = "CONFIRMED"
+                Else
+                    lableVoucherStatus.Text = "UN-CONFIRMED"
                 End If
 
                 If _mode.ToLower() = "confirm" Then
@@ -1009,14 +993,6 @@
                 End If
             End If
         End If
-
-    End Sub
-
-    Private Sub txtLinkVoucherNumber_TextChanged(ByVal sender As Object, ByVal e As EventArgs)
-    End Sub
-
-    Private Sub btnsave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
 
     End Sub
 

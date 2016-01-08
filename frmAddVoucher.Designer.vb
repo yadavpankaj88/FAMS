@@ -22,7 +22,7 @@ Partial Class frmAddVoucher
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.LabelNarration = New System.Windows.Forms.Label()
         Me.TextBoxNarration = New System.Windows.Forms.TextBox()
         Me.LabelVoucherDate = New System.Windows.Forms.Label()
@@ -64,6 +64,8 @@ Partial Class frmAddVoucher
         Me.lblDbkNm = New System.Windows.Forms.Label()
         Me.txtNextCount = New System.Windows.Forms.TextBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lableVoucherStatus = New System.Windows.Forms.Label()
         Me.panelVoucherControls.SuspendLayout()
         CType(Me.dgvVoucherDetails, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlConfirm.SuspendLayout()
@@ -184,9 +186,9 @@ Partial Class frmAddVoucher
         'Amount
         '
         Me.Amount.DataPropertyName = "Amount"
-        DataGridViewCellStyle1.Format = "N2"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.Amount.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.Amount.DefaultCellStyle = DataGridViewCellStyle2
         Me.Amount.HeaderText = "Amount"
         Me.Amount.Name = "Amount"
         '
@@ -422,7 +424,7 @@ Partial Class frmAddVoucher
         '
         'txtNextCount
         '
-        Me.txtNextCount.Location = New System.Drawing.Point(643, 9)
+        Me.txtNextCount.Location = New System.Drawing.Point(450, 7)
         Me.txtNextCount.Name = "txtNextCount"
         Me.txtNextCount.Size = New System.Drawing.Size(100, 22)
         Me.txtNextCount.TabIndex = 7
@@ -437,6 +439,8 @@ Partial Class frmAddVoucher
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lableVoucherStatus)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label4)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtNextCount)
         Me.SplitContainer1.Panel1.Controls.Add(Me.lblDbkNm)
         Me.SplitContainer1.Panel1.Controls.Add(Me.lblDaybookName)
@@ -456,6 +460,23 @@ Partial Class frmAddVoucher
         Me.SplitContainer1.Size = New System.Drawing.Size(935, 508)
         Me.SplitContainer1.SplitterWidth = 5
         Me.SplitContainer1.TabIndex = 22
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(702, 10)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(47, 14)
+        Me.Label4.TabIndex = 8
+        Me.Label4.Text = "Status: "
+        '
+        'lableVoucherStatus
+        '
+        Me.lableVoucherStatus.AutoSize = True
+        Me.lableVoucherStatus.Location = New System.Drawing.Point(749, 10)
+        Me.lableVoucherStatus.Name = "lableVoucherStatus"
+        Me.lableVoucherStatus.Size = New System.Drawing.Size(0, 14)
+        Me.lableVoucherStatus.TabIndex = 9
         '
         'frmAddVoucher
         '
@@ -523,5 +544,7 @@ Partial Class frmAddVoucher
     Friend WithEvents lblDbkNm As System.Windows.Forms.Label
     Friend WithEvents txtNextCount As System.Windows.Forms.TextBox
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
+    Friend WithEvents lableVoucherStatus As System.Windows.Forms.Label
+    Friend WithEvents Label4 As System.Windows.Forms.Label
 
 End Class
