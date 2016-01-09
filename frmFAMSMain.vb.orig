@@ -604,21 +604,17 @@ Public Class frmFAMSMain
             If frmInstituteSelection.ShowDialog = Windows.Forms.DialogResult.OK Then
                 frmuserlogin.ShowDialog()
 
-                If (frmuserlogin.DialogResult = Windows.Forms.DialogResult.OK) Then
-                    Me.Text = title
-                    Me.pnlMenu.Visible = True
-                    Me.pnlDetails.Visible = True
-                    pnlNavigator.Visible = False
-                    Me.lblInstitution.Text = InstitutionMasterData.XInstName
-                    Me.lblUser.Text = String.Format("User : {0}", InstitutionMasterData.XUsrName) ''TODO use user data when user master is avaiable.
-                    Me.lblYear.Text = String.Format("Year : {0}-{1}", InstitutionMasterData.XFinYr, (Convert.ToInt32(InstitutionMasterData.XFinYr) + 1))
-                    Me.lblDate.Text = String.Format("Date : {0}", InstitutionMasterData.XDate.ToString("dd-MM-yyyy"))
-                    Me.lblActivity.Text = String.Empty
-                    Me.lblCashBalance.Text = String.Format("Cash Balance : {0}", legerAcc.GetBalance())
-                    EnableDisableMenus()
-                Else
-                    Me.Close()
-                End If
+                Me.Text = title
+                Me.pnlMenu.Visible = True
+                Me.pnlDetails.Visible = True
+                pnlNavigator.Visible = False
+                Me.lblInstitution.Text = InstitutionMasterData.XInstName
+                Me.lblUser.Text = String.Format("User : {0}", UserLogin.XUserName) ''TODO use user data when user master is avaiable.
+                Me.lblYear.Text = String.Format("Year : {0}-{1}", InstitutionMasterData.XFinYr, (Convert.ToInt32(InstitutionMasterData.XFinYr) + 1))
+                Me.lblDate.Text = String.Format("Date : {0}", InstitutionMasterData.XDate.ToString("dd-MM-yyyy"))
+                Me.lblActivity.Text = String.Empty
+                Me.lblCashBalance.Text = String.Format("Cash Balance : {0}", legerAcc.GetBalance())
+                EnableDisableMenus()
             Else
                 SelectProcessingDate()
             End If
@@ -735,13 +731,4 @@ Public Class frmFAMSMain
         ShowNewForm(objCashReceipt, Nothing)
     End Sub
 
-    Private Sub ReportToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReportToolStripMenuItem.Click
-        Dim objSelectDaybook As New frmSelectDaybook
-        mainBindingNavigator.BindingSource = Nothing
-        Me.pnlMenu.Visible = False
-        Me.pnlNavigator.Visible = True
-        pnlNavigator.Enabled = True
-        EnableNavToolBar()
-        ShowNewForm(objSelectDaybook, Nothing)
-    End Sub
 End Class

@@ -79,6 +79,7 @@ Partial Class frmFAMSMain
         Me.mnuCombinedCashBankBookRpt = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuUtilities = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlNavigator = New System.Windows.Forms.Panel()
+        Me.ReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.mainBindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mainBindingNavigator.SuspendLayout()
         Me.pnlDetails.SuspendLayout()
@@ -485,7 +486,7 @@ Partial Class frmFAMSMain
         'mnuRandQ
         '
         Me.mnuRandQ.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mnuRandQ.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCashBookRpt, Me.mnuSelectiveBankAccountRpt, Me.mnuConsolidatedBankBookRpt, Me.mnuCombinedCashBankBookRpt})
+        Me.mnuRandQ.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCashBookRpt, Me.mnuSelectiveBankAccountRpt, Me.mnuConsolidatedBankBookRpt, Me.mnuCombinedCashBankBookRpt, Me.ReportToolStripMenuItem})
         Me.mnuRandQ.Name = "mnuRandQ"
         Me.mnuRandQ.Size = New System.Drawing.Size(110, 20)
         Me.mnuRandQ.Text = "Reports & Queries"
@@ -530,6 +531,12 @@ Partial Class frmFAMSMain
         Me.pnlNavigator.Size = New System.Drawing.Size(1173, 27)
         Me.pnlNavigator.TabIndex = 17
         Me.pnlNavigator.Visible = False
+        '
+        'ReportToolStripMenuItem
+        '
+        Me.ReportToolStripMenuItem.Name = "ReportToolStripMenuItem"
+        Me.ReportToolStripMenuItem.Size = New System.Drawing.Size(271, 22)
+        Me.ReportToolStripMenuItem.Text = "Report"
         '
         'frmFAMSMain
         '
@@ -614,5 +621,6 @@ Partial Class frmFAMSMain
     Friend WithEvents mnuSelectiveBankAccountRpt As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuConsolidatedBankBookRpt As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuCombinedCashBankBookRpt As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ReportToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

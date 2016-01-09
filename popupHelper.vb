@@ -22,26 +22,28 @@
         Dim dt As DataTable = Nothing
         Select Case _mode
             Case 0
+                Me.Text = "Select Account"
                 Dim ledgerHelper As New LedgerAccountHelper()
-                DataGridView1.Columns("VoucherNumber").Visible = False
-                DataGridView1.Columns("VoucherDate").Visible = False
-                DataGridView1.Columns("VoucherNarration").Visible = False
-                DataGridView1.Columns("Amount").Visible = False
+                VoucherSelectionGrid.Columns("VoucherNumber").Visible = False
+                VoucherSelectionGrid.Columns("VoucherDate").Visible = False
+                VoucherSelectionGrid.Columns("VoucherNarration").Visible = False
+                VoucherSelectionGrid.Columns("Amount").Visible = False
                 dt = ledgerHelper.GetAccountDetails(String.Empty, True)
             Case 1
+                Me.Text = "Vouchers That Can Be Edited/Deleted/Confirmed"
                 Dim voucherHelper As New VoucherHelper
-                DataGridView1.Columns("LedgerCode").Visible = False
-                DataGridView1.Columns("AccountName").Visible = False
+                VoucherSelectionGrid.Columns("LedgerCode").Visible = False
+                VoucherSelectionGrid.Columns("AccountName").Visible = False
                 dt = voucherHelper.GetVoucherList(currentMode, TransType, dbkCode)
         End Select
 
 
-
-        DataGridView1.DataSource = dt
+        VoucherSelectionGrid.AutoGenerateColumns = False
+        VoucherSelectionGrid.DataSource = dt
         skipSelectionChanged = False
     End Sub
 
-    Private Sub DataGridView1_SelectionChanged(sender As Object, e As EventArgs) Handles DataGridView1.SelectionChanged
+    Private Sub DataGridView1_SelectionChanged(ByVal sender As Object, ByVal e As EventArgs) Handles VoucherSelectionGrid.SelectionChanged
 
         'Try
         '    If Not skipSelectionChanged Then
@@ -57,15 +59,15 @@
 
     End Sub
 
-    Private Sub DataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellDoubleClick
+    Private Sub DataGridView1_CellDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles VoucherSelectionGrid.CellDoubleClick
         If Not skipSelectionChanged Then
-            If DataGridView1.SelectedRows.Count > 0 Then
+            If VoucherSelectionGrid.SelectedRows.Count > 0 Then
                 Select Case _mode
                     Case 0
-                        selectedCode = DataGridView1.SelectedRows(0).Cells("LedgerCode").Value.ToString
-                        selectedCodeName = DataGridView1.SelectedRows(0).Cells("AccountName").Value.ToString
+                        selectedCode = VoucherSelectionGrid.SelectedRows(0).Cells("LedgerCode").Value.ToString
+                        selectedCodeName = VoucherSelectionGrid.SelectedRows(0).Cells("AccountName").Value.ToString
                     Case 1
-                        selectedCode = DataGridView1.SelectedRows(0).Cells("VoucherNumber").Value.ToString
+                        selectedCode = VoucherSelectionGrid.SelectedRows(0).Cells("VoucherNumber").Value.ToString
                 End Select
 
                 Me.Close()

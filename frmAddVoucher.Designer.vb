@@ -22,11 +22,11 @@ Partial Class frmAddVoucher
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.LabelNarration = New System.Windows.Forms.Label()
         Me.TextBoxNarration = New System.Windows.Forms.TextBox()
         Me.LabelVoucherDate = New System.Windows.Forms.Label()
-        Me.DatePickerVoucherDate = New System.Windows.Forms.DateTimePicker()
+        Me.DatePickerVoucherLinkDate = New System.Windows.Forms.DateTimePicker()
         Me.txtLinkVoucherNumber = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.panelVoucherControls = New System.Windows.Forms.Panel()
@@ -57,13 +57,15 @@ Partial Class frmAddVoucher
         Me.lblConfirmedVoucherNumber = New System.Windows.Forms.Label()
         Me.lblVoucherNo = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.datepickerVoucherConfirm = New System.Windows.Forms.DateTimePicker()
+        Me.datepickerVoucherDateConfirm = New System.Windows.Forms.DateTimePicker()
         Me.ComboBoxDaybookSelect = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblDaybookName = New System.Windows.Forms.Label()
         Me.lblDbkNm = New System.Windows.Forms.Label()
         Me.txtNextCount = New System.Windows.Forms.TextBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lableVoucherStatus = New System.Windows.Forms.Label()
         Me.panelVoucherControls.SuspendLayout()
         CType(Me.dgvVoucherDetails, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlConfirm.SuspendLayout()
@@ -100,13 +102,13 @@ Partial Class frmAddVoucher
         Me.LabelVoucherDate.TabIndex = 0
         Me.LabelVoucherDate.Text = "Voucher Link Date"
         '
-        'DatePickerVoucherDate
+        'DatePickerVoucherLinkDate
         '
-        Me.DatePickerVoucherDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DatePickerVoucherDate.Location = New System.Drawing.Point(633, 12)
-        Me.DatePickerVoucherDate.Name = "DatePickerVoucherDate"
-        Me.DatePickerVoucherDate.Size = New System.Drawing.Size(110, 23)
-        Me.DatePickerVoucherDate.TabIndex = 1
+        Me.DatePickerVoucherLinkDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DatePickerVoucherLinkDate.Location = New System.Drawing.Point(633, 12)
+        Me.DatePickerVoucherLinkDate.Name = "DatePickerVoucherLinkDate"
+        Me.DatePickerVoucherLinkDate.Size = New System.Drawing.Size(110, 23)
+        Me.DatePickerVoucherLinkDate.TabIndex = 1
         '
         'txtLinkVoucherNumber
         '
@@ -184,9 +186,9 @@ Partial Class frmAddVoucher
         'Amount
         '
         Me.Amount.DataPropertyName = "Amount"
-        DataGridViewCellStyle1.Format = "N2"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.Amount.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.Amount.DefaultCellStyle = DataGridViewCellStyle2
         Me.Amount.HeaderText = "Amount"
         Me.Amount.Name = "Amount"
         '
@@ -336,7 +338,7 @@ Partial Class frmAddVoucher
         Me.pnlConfirm.Controls.Add(Me.lblConfirmedVoucherNumber)
         Me.pnlConfirm.Controls.Add(Me.lblVoucherNo)
         Me.pnlConfirm.Controls.Add(Me.Label3)
-        Me.pnlConfirm.Controls.Add(Me.datepickerVoucherConfirm)
+        Me.pnlConfirm.Controls.Add(Me.datepickerVoucherDateConfirm)
         Me.pnlConfirm.Location = New System.Drawing.Point(3, 42)
         Me.pnlConfirm.Name = "pnlConfirm"
         Me.pnlConfirm.Size = New System.Drawing.Size(912, 46)
@@ -378,13 +380,13 @@ Partial Class frmAddVoucher
         Me.Label3.TabIndex = 18
         Me.Label3.Text = "Confirmation Date"
         '
-        'datepickerVoucherConfirm
+        'datepickerVoucherDateConfirm
         '
-        Me.datepickerVoucherConfirm.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datepickerVoucherConfirm.Location = New System.Drawing.Point(630, 16)
-        Me.datepickerVoucherConfirm.Name = "datepickerVoucherConfirm"
-        Me.datepickerVoucherConfirm.Size = New System.Drawing.Size(114, 23)
-        Me.datepickerVoucherConfirm.TabIndex = 19
+        Me.datepickerVoucherDateConfirm.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datepickerVoucherDateConfirm.Location = New System.Drawing.Point(630, 16)
+        Me.datepickerVoucherDateConfirm.Name = "datepickerVoucherDateConfirm"
+        Me.datepickerVoucherDateConfirm.Size = New System.Drawing.Size(114, 23)
+        Me.datepickerVoucherDateConfirm.TabIndex = 19
         '
         'ComboBoxDaybookSelect
         '
@@ -422,7 +424,7 @@ Partial Class frmAddVoucher
         '
         'txtNextCount
         '
-        Me.txtNextCount.Location = New System.Drawing.Point(643, 9)
+        Me.txtNextCount.Location = New System.Drawing.Point(450, 7)
         Me.txtNextCount.Name = "txtNextCount"
         Me.txtNextCount.Size = New System.Drawing.Size(100, 22)
         Me.txtNextCount.TabIndex = 7
@@ -437,6 +439,8 @@ Partial Class frmAddVoucher
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lableVoucherStatus)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label4)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtNextCount)
         Me.SplitContainer1.Panel1.Controls.Add(Me.lblDbkNm)
         Me.SplitContainer1.Panel1.Controls.Add(Me.lblDaybookName)
@@ -450,12 +454,29 @@ Partial Class frmAddVoucher
         Me.SplitContainer1.Panel2.Controls.Add(Me.panelVoucherControls)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Label1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.txtLinkVoucherNumber)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.DatePickerVoucherDate)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.DatePickerVoucherLinkDate)
         Me.SplitContainer1.Panel2.Controls.Add(Me.LabelVoucherDate)
         Me.SplitContainer1.Panel2Collapsed = True
         Me.SplitContainer1.Size = New System.Drawing.Size(935, 508)
         Me.SplitContainer1.SplitterWidth = 5
         Me.SplitContainer1.TabIndex = 22
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(702, 10)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(47, 14)
+        Me.Label4.TabIndex = 8
+        Me.Label4.Text = "Status: "
+        '
+        'lableVoucherStatus
+        '
+        Me.lableVoucherStatus.AutoSize = True
+        Me.lableVoucherStatus.Location = New System.Drawing.Point(749, 10)
+        Me.lableVoucherStatus.Name = "lableVoucherStatus"
+        Me.lableVoucherStatus.Size = New System.Drawing.Size(0, 14)
+        Me.lableVoucherStatus.TabIndex = 9
         '
         'frmAddVoucher
         '
@@ -485,7 +506,7 @@ Partial Class frmAddVoucher
     Friend WithEvents LabelNarration As System.Windows.Forms.Label
     Friend WithEvents TextBoxNarration As System.Windows.Forms.TextBox
     Friend WithEvents LabelVoucherDate As System.Windows.Forms.Label
-    Friend WithEvents DatePickerVoucherDate As System.Windows.Forms.DateTimePicker
+    Friend WithEvents DatePickerVoucherLinkDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtLinkVoucherNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents panelVoucherControls As System.Windows.Forms.Panel
@@ -516,12 +537,14 @@ Partial Class frmAddVoucher
     Friend WithEvents lblConfirmedVoucherNumber As System.Windows.Forms.Label
     Friend WithEvents lblVoucherNo As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents datepickerVoucherConfirm As System.Windows.Forms.DateTimePicker
+    Friend WithEvents datepickerVoucherDateConfirm As System.Windows.Forms.DateTimePicker
     Friend WithEvents ComboBoxDaybookSelect As System.Windows.Forms.ComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents lblDaybookName As System.Windows.Forms.Label
     Friend WithEvents lblDbkNm As System.Windows.Forms.Label
     Friend WithEvents txtNextCount As System.Windows.Forms.TextBox
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
+    Friend WithEvents lableVoucherStatus As System.Windows.Forms.Label
+    Friend WithEvents Label4 As System.Windows.Forms.Label
 
 End Class

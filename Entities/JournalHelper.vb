@@ -1,12 +1,12 @@
 ﻿Public Class JournalHelper
     Public Sub SaveJournaldetail(ByVal Journaldetail As VoucherDetails)
-        Dim detailSaveQuery = "If(Exists(select 'x' from CG_Voucher_Detail where VD_Lnk_No=@VD_Lnk_No )) " &
+        Dim detailSaveQuery = "If(Exists(select 'x' from " + InstitutionMasterData.XInstType + "_Voucher_Detail where VD_Lnk_No=@VD_Lnk_No )) " &
         " Begin " &
-        "Update CG_Voucher_Detail Set VD_Ref_No=@VD_Ref_No,VD_Ref_Dt=@VD_Ref_Dt,VD_Narr=@VD_Narr,VD_Acc_Cd=@VD_Acc_Cd,VD_Amt=@VD_Amt," &
+        "Update " + InstitutionMasterData.XInstType + "_Voucher_Detail Set VD_Ref_No=@VD_Ref_No,VD_Ref_Dt=@VD_Ref_Dt,VD_Narr=@VD_Narr,VD_Acc_Cd=@VD_Acc_Cd,VD_Amt=@VD_Amt," &
         " VD_Cr_Dr=@VD_Cr_Dr,VD_Abs_Amt=@VD_Abs_Amt,VD_Upd_By=@VD_Upd_By,VD_Upd_Dt=GetDate() where VD_Lnk_No=@VD_Lnk_No" &
         " End " &
         " Else " &
-            "Insert into CG_Voucher_Detail(VD_Fin_Yr,VD_Inst_Cd,VD_Inst_Typ,VD_Brn_Cd,VD_Lnk_No,VD_Dbk_Cd,VD_Ref_No,VD_Ref_Dt,VD_Narr,VD_Lgr_Cd,VD_Acc_Cd,VD_Amt,VD_Cr_Dr," &
+            "Insert into " + InstitutionMasterData.XInstType + "_Voucher_Detail(VD_Fin_Yr,VD_Inst_Cd,VD_Inst_Typ,VD_Brn_Cd,VD_Lnk_No,VD_Dbk_Cd,VD_Ref_No,VD_Ref_Dt,VD_Narr,VD_Lgr_Cd,VD_Acc_Cd,VD_Amt,VD_Cr_Dr," &
                                "VD_ABS_Amt,VD_Ent_By,VD_Ent_Dt)values(@VD_Fin_Yr,@VD_Inst_Cd,@VD_Inst_Typ,@VD_Brn_Cd,@VD_Lnk_No,@VD_Dbk_Cd,@VD_Ref_No,@VD_Ref_Dt,@VD_Narr,@VD_Lgr_Cd,@VD_Acc_Cd,@VD_Amt,@VD_Cr_Dr," &
                                 "@VD_Abs_Amt,@VD_Ent_By,GETDATE())"
 
@@ -33,7 +33,7 @@
         params.Add("@VD_Abs_Amt", Journaldetail.VD_ABS_Amt)
         params.Add("@VD_Ent_By", Journaldetail.VD_Ent_By)
         params.Add("@VD_VCH_Ref_No", Journaldetail.VD_Vch_Ref_No)
-        params.Add("@VD_Upd_By", "TUser")
+        params.Add("@VD_Upd_By", InstitutionMasterData.XUsrId)
 
         Dim datahelper As DataHelper = New DataHelper()
         datahelper.ExecuteNonQuery(detailSaveQuery, CommandType.Text, params)

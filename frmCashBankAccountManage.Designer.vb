@@ -24,6 +24,7 @@ Partial Class frmCashBankAccountManage
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ComboBoxLedgerAccountCode = New System.Windows.Forms.ComboBox()
         Me.lblAcccodeErr = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.TextBoxBankOD = New System.Windows.Forms.TextBox()
@@ -34,7 +35,6 @@ Partial Class frmCashBankAccountManage
         Me.LabelBranchName = New System.Windows.Forms.Label()
         Me.TextBoxBankName = New System.Windows.Forms.TextBox()
         Me.LabelBankName = New System.Windows.Forms.Label()
-        Me.ComboBoxLedgerAccountCode = New System.Windows.Forms.ComboBox()
         Me.LabelLedgerAccountCode = New System.Windows.Forms.Label()
         Me.ComboBoxDaybookType = New System.Windows.Forms.ComboBox()
         Me.LabelDaybookType = New System.Windows.Forms.Label()
@@ -43,16 +43,13 @@ Partial Class frmCashBankAccountManage
         Me.TextBoxDayBookCode = New System.Windows.Forms.TextBox()
         Me.labelDaybookCode = New System.Windows.Forms.Label()
         Me.BindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.BindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Controls.Add(Me.ComboBoxLedgerAccountCode)
         Me.GroupBox1.Controls.Add(Me.lblAcccodeErr)
         Me.GroupBox1.Controls.Add(Me.Button2)
         Me.GroupBox1.Controls.Add(Me.TextBoxBankOD)
@@ -63,7 +60,6 @@ Partial Class frmCashBankAccountManage
         Me.GroupBox1.Controls.Add(Me.LabelBranchName)
         Me.GroupBox1.Controls.Add(Me.TextBoxBankName)
         Me.GroupBox1.Controls.Add(Me.LabelBankName)
-        Me.GroupBox1.Controls.Add(Me.ComboBoxLedgerAccountCode)
         Me.GroupBox1.Controls.Add(Me.LabelLedgerAccountCode)
         Me.GroupBox1.Controls.Add(Me.ComboBoxDaybookType)
         Me.GroupBox1.Controls.Add(Me.LabelDaybookType)
@@ -75,25 +71,34 @@ Partial Class frmCashBankAccountManage
         Me.GroupBox1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(439, 348)
+        Me.GroupBox1.Size = New System.Drawing.Size(449, 322)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'ComboBoxLedgerAccountCode
+        '
+        Me.ComboBoxLedgerAccountCode.FormattingEnabled = True
+        Me.ComboBoxLedgerAccountCode.Items.AddRange(New Object() {"select"})
+        Me.ComboBoxLedgerAccountCode.Location = New System.Drawing.Point(175, 137)
+        Me.ComboBoxLedgerAccountCode.Name = "ComboBoxLedgerAccountCode"
+        Me.ComboBoxLedgerAccountCode.Size = New System.Drawing.Size(135, 22)
+        Me.ComboBoxLedgerAccountCode.TabIndex = 4
         '
         'lblAcccodeErr
         '
         Me.lblAcccodeErr.AutoSize = True
         Me.lblAcccodeErr.ForeColor = System.Drawing.Color.Red
-        Me.lblAcccodeErr.Location = New System.Drawing.Point(135, 163)
+        Me.lblAcccodeErr.Location = New System.Drawing.Point(316, 127)
         Me.lblAcccodeErr.Name = "lblAcccodeErr"
-        Me.lblAcccodeErr.Size = New System.Drawing.Size(167, 14)
+        Me.lblAcccodeErr.Size = New System.Drawing.Size(88, 28)
         Me.lblAcccodeErr.TabIndex = 15
-        Me.lblAcccodeErr.Text = "The account is already linked"
+        Me.lblAcccodeErr.Text = "The account is " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "already linked"
         Me.lblAcccodeErr.Visible = False
         '
         'Button2
         '
         Me.Button2.Image = Global.FAMS.My.Resources.Resources.searchIcon
-        Me.Button2.Location = New System.Drawing.Point(213, 26)
+        Me.Button2.Location = New System.Drawing.Point(316, 26)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(26, 23)
         Me.Button2.TabIndex = 1
@@ -102,15 +107,15 @@ Partial Class frmCashBankAccountManage
         'TextBoxBankOD
         '
         Me.TextBoxBankOD.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBoxBankOD.Location = New System.Drawing.Point(132, 289)
+        Me.TextBoxBankOD.Location = New System.Drawing.Point(175, 285)
         Me.TextBoxBankOD.Name = "TextBoxBankOD"
-        Me.TextBoxBankOD.Size = New System.Drawing.Size(101, 22)
+        Me.TextBoxBankOD.Size = New System.Drawing.Size(136, 22)
         Me.TextBoxBankOD.TabIndex = 8
         '
         'LabelBankOD
         '
         Me.LabelBankOD.AutoSize = True
-        Me.LabelBankOD.Location = New System.Drawing.Point(12, 289)
+        Me.LabelBankOD.Location = New System.Drawing.Point(28, 288)
         Me.LabelBankOD.Name = "LabelBankOD"
         Me.LabelBankOD.Size = New System.Drawing.Size(53, 14)
         Me.LabelBankOD.TabIndex = 14
@@ -119,16 +124,16 @@ Partial Class frmCashBankAccountManage
         'TextBoxAccountNumber
         '
         Me.TextBoxAccountNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBoxAccountNumber.Location = New System.Drawing.Point(132, 254)
+        Me.TextBoxAccountNumber.Location = New System.Drawing.Point(175, 248)
         Me.TextBoxAccountNumber.MaxLength = 50
         Me.TextBoxAccountNumber.Name = "TextBoxAccountNumber"
-        Me.TextBoxAccountNumber.Size = New System.Drawing.Size(156, 22)
+        Me.TextBoxAccountNumber.Size = New System.Drawing.Size(136, 22)
         Me.TextBoxAccountNumber.TabIndex = 7
         '
         'LabelAccountNumber
         '
         Me.LabelAccountNumber.AutoSize = True
-        Me.LabelAccountNumber.Location = New System.Drawing.Point(12, 254)
+        Me.LabelAccountNumber.Location = New System.Drawing.Point(28, 251)
         Me.LabelAccountNumber.Name = "LabelAccountNumber"
         Me.LabelAccountNumber.Size = New System.Drawing.Size(95, 14)
         Me.LabelAccountNumber.TabIndex = 12
@@ -137,16 +142,16 @@ Partial Class frmCashBankAccountManage
         'TextBoxBranchName
         '
         Me.TextBoxBranchName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBoxBranchName.Location = New System.Drawing.Point(132, 218)
+        Me.TextBoxBranchName.Location = New System.Drawing.Point(175, 211)
         Me.TextBoxBranchName.MaxLength = 30
         Me.TextBoxBranchName.Name = "TextBoxBranchName"
-        Me.TextBoxBranchName.Size = New System.Drawing.Size(212, 22)
+        Me.TextBoxBranchName.Size = New System.Drawing.Size(245, 22)
         Me.TextBoxBranchName.TabIndex = 6
         '
         'LabelBranchName
         '
         Me.LabelBranchName.AutoSize = True
-        Me.LabelBranchName.Location = New System.Drawing.Point(12, 218)
+        Me.LabelBranchName.Location = New System.Drawing.Point(28, 214)
         Me.LabelBranchName.Name = "LabelBranchName"
         Me.LabelBranchName.Size = New System.Drawing.Size(79, 14)
         Me.LabelBranchName.TabIndex = 10
@@ -155,33 +160,25 @@ Partial Class frmCashBankAccountManage
         'TextBoxBankName
         '
         Me.TextBoxBankName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBoxBankName.Location = New System.Drawing.Point(127, 183)
+        Me.TextBoxBankName.Location = New System.Drawing.Point(175, 174)
         Me.TextBoxBankName.MaxLength = 100
         Me.TextBoxBankName.Name = "TextBoxBankName"
-        Me.TextBoxBankName.Size = New System.Drawing.Size(284, 22)
+        Me.TextBoxBankName.Size = New System.Drawing.Size(245, 22)
         Me.TextBoxBankName.TabIndex = 5
         '
         'LabelBankName
         '
         Me.LabelBankName.AutoSize = True
-        Me.LabelBankName.Location = New System.Drawing.Point(11, 186)
+        Me.LabelBankName.Location = New System.Drawing.Point(28, 177)
         Me.LabelBankName.Name = "LabelBankName"
         Me.LabelBankName.Size = New System.Drawing.Size(69, 14)
         Me.LabelBankName.TabIndex = 8
         Me.LabelBankName.Text = "Bank Name"
         '
-        'ComboBoxLedgerAccountCode
-        '
-        Me.ComboBoxLedgerAccountCode.FormattingEnabled = True
-        Me.ComboBoxLedgerAccountCode.Location = New System.Drawing.Point(132, 138)
-        Me.ComboBoxLedgerAccountCode.Name = "ComboBoxLedgerAccountCode"
-        Me.ComboBoxLedgerAccountCode.Size = New System.Drawing.Size(192, 22)
-        Me.ComboBoxLedgerAccountCode.TabIndex = 4
-        '
         'LabelLedgerAccountCode
         '
         Me.LabelLedgerAccountCode.AutoSize = True
-        Me.LabelLedgerAccountCode.Location = New System.Drawing.Point(6, 141)
+        Me.LabelLedgerAccountCode.Location = New System.Drawing.Point(28, 140)
         Me.LabelLedgerAccountCode.Name = "LabelLedgerAccountCode"
         Me.LabelLedgerAccountCode.Size = New System.Drawing.Size(118, 14)
         Me.LabelLedgerAccountCode.TabIndex = 6
@@ -190,15 +187,15 @@ Partial Class frmCashBankAccountManage
         'ComboBoxDaybookType
         '
         Me.ComboBoxDaybookType.FormattingEnabled = True
-        Me.ComboBoxDaybookType.Location = New System.Drawing.Point(132, 103)
+        Me.ComboBoxDaybookType.Location = New System.Drawing.Point(175, 100)
         Me.ComboBoxDaybookType.Name = "ComboBoxDaybookType"
-        Me.ComboBoxDaybookType.Size = New System.Drawing.Size(101, 22)
+        Me.ComboBoxDaybookType.Size = New System.Drawing.Size(136, 22)
         Me.ComboBoxDaybookType.TabIndex = 3
         '
         'LabelDaybookType
         '
         Me.LabelDaybookType.AutoSize = True
-        Me.LabelDaybookType.Location = New System.Drawing.Point(7, 106)
+        Me.LabelDaybookType.Location = New System.Drawing.Point(28, 103)
         Me.LabelDaybookType.Name = "LabelDaybookType"
         Me.LabelDaybookType.Size = New System.Drawing.Size(81, 14)
         Me.LabelDaybookType.TabIndex = 4
@@ -207,16 +204,16 @@ Partial Class frmCashBankAccountManage
         'TextBoxDaybookName
         '
         Me.TextBoxDaybookName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBoxDaybookName.Location = New System.Drawing.Point(132, 65)
+        Me.TextBoxDaybookName.Location = New System.Drawing.Point(175, 63)
         Me.TextBoxDaybookName.MaxLength = 100
         Me.TextBoxDaybookName.Name = "TextBoxDaybookName"
-        Me.TextBoxDaybookName.Size = New System.Drawing.Size(279, 22)
+        Me.TextBoxDaybookName.Size = New System.Drawing.Size(245, 22)
         Me.TextBoxDaybookName.TabIndex = 2
         '
         'LabelDaybookName
         '
         Me.LabelDaybookName.AutoSize = True
-        Me.LabelDaybookName.Location = New System.Drawing.Point(7, 68)
+        Me.LabelDaybookName.Location = New System.Drawing.Point(28, 66)
         Me.LabelDaybookName.Name = "LabelDaybookName"
         Me.LabelDaybookName.Size = New System.Drawing.Size(89, 14)
         Me.LabelDaybookName.TabIndex = 2
@@ -225,16 +222,16 @@ Partial Class frmCashBankAccountManage
         'TextBoxDayBookCode
         '
         Me.TextBoxDayBookCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBoxDayBookCode.Location = New System.Drawing.Point(132, 26)
+        Me.TextBoxDayBookCode.Location = New System.Drawing.Point(175, 26)
         Me.TextBoxDayBookCode.MaxLength = 4
         Me.TextBoxDayBookCode.Name = "TextBoxDayBookCode"
-        Me.TextBoxDayBookCode.Size = New System.Drawing.Size(75, 22)
+        Me.TextBoxDayBookCode.Size = New System.Drawing.Size(135, 22)
         Me.TextBoxDayBookCode.TabIndex = 0
         '
         'labelDaybookCode
         '
         Me.labelDaybookCode.AutoSize = True
-        Me.labelDaybookCode.Location = New System.Drawing.Point(7, 29)
+        Me.labelDaybookCode.Location = New System.Drawing.Point(28, 29)
         Me.labelDaybookCode.Name = "labelDaybookCode"
         Me.labelDaybookCode.Size = New System.Drawing.Size(84, 14)
         Me.labelDaybookCode.TabIndex = 0
@@ -243,30 +240,13 @@ Partial Class frmCashBankAccountManage
         'BindingSource1
         '
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(368, 325)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(43, 14)
-        Me.Label1.TabIndex = 16
-        Me.Label1.Text = "Label1"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(245, 325)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(43, 14)
-        Me.Label2.TabIndex = 17
-        Me.Label2.Text = "Label2"
-        '
         'frmCashBankAccountManage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(439, 348)
+        Me.ClientSize = New System.Drawing.Size(449, 322)
         Me.Controls.Add(Me.GroupBox1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmCashBankAccountManage"
@@ -285,7 +265,6 @@ Partial Class frmCashBankAccountManage
     Friend WithEvents LabelDaybookType As System.Windows.Forms.Label
     Friend WithEvents TextBoxDaybookName As System.Windows.Forms.TextBox
     Friend WithEvents LabelDaybookName As System.Windows.Forms.Label
-    Friend WithEvents ComboBoxLedgerAccountCode As System.Windows.Forms.ComboBox
     Friend WithEvents LabelLedgerAccountCode As System.Windows.Forms.Label
     Friend WithEvents TextBoxBankName As System.Windows.Forms.TextBox
     Friend WithEvents LabelBankName As System.Windows.Forms.Label
@@ -298,6 +277,5 @@ Partial Class frmCashBankAccountManage
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents BindingSource1 As System.Windows.Forms.BindingSource
     Friend WithEvents lblAcccodeErr As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents ComboBoxLedgerAccountCode As System.Windows.Forms.ComboBox
 End Class

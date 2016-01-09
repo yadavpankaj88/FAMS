@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmFillAccCode
+Partial Class frmFillUserName
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,36 +22,35 @@ Partial Class frmFillAccCode
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.dgvFillAccCode = New System.Windows.Forms.DataGridView()
-        CType(Me.dgvFillAccCode, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.dgvusername = New System.Windows.Forms.DataGridView()
+        CType(Me.dgvusername, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'dgvFillAccCode
+        'dgvusername
         '
-        Me.dgvFillAccCode.AllowUserToAddRows = False
-        Me.dgvFillAccCode.AllowUserToDeleteRows = False
-        Me.dgvFillAccCode.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFillAccCode.Location = New System.Drawing.Point(21, 12)
-        Me.dgvFillAccCode.Name = "dgvFillAccCode"
-        Me.dgvFillAccCode.ReadOnly = True
-        Me.dgvFillAccCode.Size = New System.Drawing.Size(214, 232)
-        Me.dgvFillAccCode.TabIndex = 0
+        Me.dgvusername.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvusername.Location = New System.Drawing.Point(10, 12)
+        Me.dgvusername.MultiSelect = False
+        Me.dgvusername.Name = "dgvusername"
+        Me.dgvusername.ReadOnly = True
+        Me.dgvusername.Size = New System.Drawing.Size(224, 222)
+        Me.dgvusername.TabIndex = 0
         '
-        'frmFillAccCode
+        'frmFillUserName
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(254, 263)
-        Me.Controls.Add(Me.dgvFillAccCode)
+        Me.ClientSize = New System.Drawing.Size(241, 241)
+        Me.Controls.Add(Me.dgvusername)
         Me.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmFillAccCode"
+        Me.Name = "frmFillUserName"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        CType(Me.dgvFillAccCode, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvusername, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents dgvFillAccCode As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvusername As System.Windows.Forms.DataGridView
 End Class

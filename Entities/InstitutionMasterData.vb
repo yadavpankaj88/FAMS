@@ -7,9 +7,9 @@
     Public XNextYr As String
     Public XYrBeginDate As DateTime
     Public XYrEndDate As DateTime
-    Public XUsrId As String
-    Public XUsrName As String
-    Public XUsrRole As String
+    Public Shared XUsrId As String
+    Public Shared XUsrName As String
+    Public Shared XUsrRole As String
 
     Public Shared XInstCode As String
     Public Shared currDaybookCode As String

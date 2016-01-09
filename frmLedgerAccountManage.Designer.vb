@@ -73,13 +73,13 @@ Partial Class frmLedgerAccountManage
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(617, 432)
+        Me.GroupBox1.Size = New System.Drawing.Size(397, 348)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
         'LblLinkedTo
         '
-        Me.LblLinkedTo.Location = New System.Drawing.Point(141, 309)
+        Me.LblLinkedTo.Location = New System.Drawing.Point(146, 312)
         Me.LblLinkedTo.Name = "LblLinkedTo"
         Me.LblLinkedTo.Size = New System.Drawing.Size(100, 15)
         Me.LblLinkedTo.TabIndex = 23
@@ -88,7 +88,7 @@ Partial Class frmLedgerAccountManage
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(9, 309)
+        Me.Label1.Location = New System.Drawing.Point(17, 312)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(108, 15)
         Me.Label1.TabIndex = 22
@@ -97,7 +97,7 @@ Partial Class frmLedgerAccountManage
         'btnSearch
         '
         Me.btnSearch.Image = Global.FAMS.My.Resources.Resources.searchIcon
-        Me.btnSearch.Location = New System.Drawing.Point(334, 24)
+        Me.btnSearch.Location = New System.Drawing.Point(342, 27)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(26, 23)
         Me.btnSearch.TabIndex = 21
@@ -107,7 +107,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.txtAccOpenBalance.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtAccOpenBalance.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAccOpenBalance.Location = New System.Drawing.Point(141, 121)
+        Me.txtAccOpenBalance.Location = New System.Drawing.Point(149, 121)
         Me.txtAccOpenBalance.Name = "txtAccOpenBalance"
         Me.txtAccOpenBalance.Size = New System.Drawing.Size(177, 22)
         Me.txtAccOpenBalance.TabIndex = 3
@@ -116,7 +116,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.lblAccOpenBalance.AutoSize = True
         Me.lblAccOpenBalance.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAccOpenBalance.Location = New System.Drawing.Point(10, 121)
+        Me.lblAccOpenBalance.Location = New System.Drawing.Point(19, 125)
         Me.lblAccOpenBalance.Name = "lblAccOpenBalance"
         Me.lblAccOpenBalance.Size = New System.Drawing.Size(120, 14)
         Me.lblAccOpenBalance.TabIndex = 20
@@ -127,7 +127,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.txtCYBudget.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtCYBudget.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCYBudget.Location = New System.Drawing.Point(140, 281)
+        Me.txtCYBudget.Location = New System.Drawing.Point(148, 276)
         Me.txtCYBudget.Name = "txtCYBudget"
         Me.txtCYBudget.Size = New System.Drawing.Size(177, 22)
         Me.txtCYBudget.TabIndex = 8
@@ -136,7 +136,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.txtLYActual.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtLYActual.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLYActual.Location = New System.Drawing.Point(140, 249)
+        Me.txtLYActual.Location = New System.Drawing.Point(148, 245)
         Me.txtLYActual.Name = "txtLYActual"
         Me.txtLYActual.Size = New System.Drawing.Size(177, 22)
         Me.txtLYActual.TabIndex = 7
@@ -145,7 +145,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.txtLYBudget.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtLYBudget.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLYBudget.Location = New System.Drawing.Point(140, 217)
+        Me.txtLYBudget.Location = New System.Drawing.Point(148, 214)
         Me.txtLYBudget.Name = "txtLYBudget"
         Me.txtLYBudget.Size = New System.Drawing.Size(177, 22)
         Me.txtLYBudget.TabIndex = 6
@@ -154,7 +154,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.txtLLYActual.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtLLYActual.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLLYActual.Location = New System.Drawing.Point(140, 185)
+        Me.txtLLYActual.Location = New System.Drawing.Point(148, 183)
         Me.txtLLYActual.Name = "txtLLYActual"
         Me.txtLLYActual.Size = New System.Drawing.Size(177, 22)
         Me.txtLLYActual.TabIndex = 5
@@ -163,7 +163,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.txtLLYBudget.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtLLYBudget.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLLYBudget.Location = New System.Drawing.Point(140, 153)
+        Me.txtLLYBudget.Location = New System.Drawing.Point(148, 152)
         Me.txtLLYBudget.Name = "txtLLYBudget"
         Me.txtLLYBudget.Size = New System.Drawing.Size(177, 22)
         Me.txtLLYBudget.TabIndex = 4
@@ -172,7 +172,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.lblCYBudget.AutoSize = True
         Me.lblCYBudget.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCYBudget.Location = New System.Drawing.Point(9, 281)
+        Me.lblCYBudget.Location = New System.Drawing.Point(18, 280)
         Me.lblCYBudget.Name = "lblCYBudget"
         Me.lblCYBudget.Size = New System.Drawing.Size(60, 14)
         Me.lblCYBudget.TabIndex = 11
@@ -183,7 +183,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.lblLLYActual.AutoSize = True
         Me.lblLLYActual.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLLYActual.Location = New System.Drawing.Point(9, 185)
+        Me.lblLLYActual.Location = New System.Drawing.Point(18, 187)
         Me.lblLLYActual.Name = "lblLLYActual"
         Me.lblLLYActual.Size = New System.Drawing.Size(59, 14)
         Me.lblLLYActual.TabIndex = 10
@@ -194,7 +194,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.lblLYActual.AutoSize = True
         Me.lblLYActual.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLYActual.Location = New System.Drawing.Point(9, 249)
+        Me.lblLYActual.Location = New System.Drawing.Point(18, 249)
         Me.lblLYActual.Name = "lblLYActual"
         Me.lblLYActual.Size = New System.Drawing.Size(54, 14)
         Me.lblLYActual.TabIndex = 9
@@ -205,7 +205,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.lblLYBudget.AutoSize = True
         Me.lblLYBudget.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLYBudget.Location = New System.Drawing.Point(9, 217)
+        Me.lblLYBudget.Location = New System.Drawing.Point(18, 218)
         Me.lblLYBudget.Name = "lblLYBudget"
         Me.lblLYBudget.Size = New System.Drawing.Size(58, 14)
         Me.lblLYBudget.TabIndex = 8
@@ -216,7 +216,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.lblLLYBudget.AutoSize = True
         Me.lblLLYBudget.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLLYBudget.Location = New System.Drawing.Point(9, 153)
+        Me.lblLLYBudget.Location = New System.Drawing.Point(18, 156)
         Me.lblLLYBudget.Name = "lblLLYBudget"
         Me.lblLLYBudget.Size = New System.Drawing.Size(63, 14)
         Me.lblLLYBudget.TabIndex = 7
@@ -227,7 +227,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.drpOpenBalEff.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.drpOpenBalEff.FormattingEnabled = True
-        Me.drpOpenBalEff.Location = New System.Drawing.Point(140, 89)
+        Me.drpOpenBalEff.Location = New System.Drawing.Point(148, 90)
         Me.drpOpenBalEff.Name = "drpOpenBalEff"
         Me.drpOpenBalEff.Size = New System.Drawing.Size(89, 22)
         Me.drpOpenBalEff.TabIndex = 2
@@ -236,7 +236,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.lblOpenbaleffect.AutoSize = True
         Me.lblOpenbaleffect.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblOpenbaleffect.Location = New System.Drawing.Point(9, 89)
+        Me.lblOpenbaleffect.Location = New System.Drawing.Point(18, 94)
         Me.lblOpenbaleffect.Name = "lblOpenbaleffect"
         Me.lblOpenbaleffect.Size = New System.Drawing.Size(46, 14)
         Me.lblOpenbaleffect.TabIndex = 4
@@ -247,17 +247,17 @@ Partial Class frmLedgerAccountManage
         '
         Me.txtAccName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtAccName.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAccName.Location = New System.Drawing.Point(140, 57)
+        Me.txtAccName.Location = New System.Drawing.Point(148, 59)
         Me.txtAccName.MaxLength = 50
         Me.txtAccName.Name = "txtAccName"
-        Me.txtAccName.Size = New System.Drawing.Size(253, 22)
+        Me.txtAccName.Size = New System.Drawing.Size(220, 22)
         Me.txtAccName.TabIndex = 1
         '
         'lblAccName
         '
         Me.lblAccName.AutoSize = True
         Me.lblAccName.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAccName.Location = New System.Drawing.Point(9, 57)
+        Me.lblAccName.Location = New System.Drawing.Point(18, 63)
         Me.lblAccName.Name = "lblAccName"
         Me.lblAccName.Size = New System.Drawing.Size(84, 14)
         Me.lblAccName.TabIndex = 2
@@ -268,7 +268,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.txtAccCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtAccCode.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAccCode.Location = New System.Drawing.Point(140, 25)
+        Me.txtAccCode.Location = New System.Drawing.Point(148, 28)
         Me.txtAccCode.MaxLength = 6
         Me.txtAccCode.Name = "txtAccCode"
         Me.txtAccCode.Size = New System.Drawing.Size(177, 22)
@@ -278,7 +278,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.lblAccCode.AutoSize = True
         Me.lblAccCode.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAccCode.Location = New System.Drawing.Point(9, 25)
+        Me.lblAccCode.Location = New System.Drawing.Point(18, 32)
         Me.lblAccCode.Name = "lblAccCode"
         Me.lblAccCode.Size = New System.Drawing.Size(79, 14)
         Me.lblAccCode.TabIndex = 0
@@ -289,7 +289,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(617, 432)
+        Me.ClientSize = New System.Drawing.Size(397, 348)
         Me.Controls.Add(Me.GroupBox1)
         Me.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog

@@ -278,7 +278,11 @@
     <Compile Include="popupHelper.vb">
       <SubType>Form</SubType>
     </Compile>
+<<<<<<< HEAD
+    <Compile Include="Images\Reports\rptCashBook.vb">
+=======
     <Compile Include="Reports\rptBankBook.vb">
+>>>>>>> 0c58d10fc56cfb2aad8aa2860cd38318ac3b9163
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptBankBook.rpt</DependentUpon>
@@ -404,11 +408,15 @@
       <DependentUpon>popupHelper.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+<<<<<<< HEAD
+    <EmbeddedResource Include="Images\Reports\rptCashBook.rpt">
+=======
     <EmbeddedResource Include="Reports\rptBankBook.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptBankBook.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\rptCashBook.rpt">
+>>>>>>> 0c58d10fc56cfb2aad8aa2860cd38318ac3b9163
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptCashBook.vb</LastGenOutput>
     </EmbeddedResource>
@@ -429,8 +437,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <None Include="Entities\app.config" />
+=======
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
+>>>>>>> 0c58d10fc56cfb2aad8aa2860cd38318ac3b9163
     <None Include="Images\edit" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -457,6 +469,7 @@
     <Content Include="FAM_SchemaData_Script27012014.sql" />
     <Content Include="Images\searchIcon.png" />
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
@@ -474,7 +487,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+=======
   <ItemGroup />
+>>>>>>> 0c58d10fc56cfb2aad8aa2860cd38318ac3b9163
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

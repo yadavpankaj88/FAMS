@@ -2,9 +2,6 @@
 
     Dim frmMain As frmFAMSMain
     Private _institutionDetails As InstitutionMasterData
-    Dim validateClass As ValidateClass
-
-
 
     Public ReadOnly Property InstituInformation
         Get
@@ -16,7 +13,6 @@
 
         ' This call is required by the designer.
         InitializeComponent()
-        validateClass = New ValidateClass
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
@@ -26,7 +22,6 @@
             InitializeComponent()
             ' TODO: Complete member initialization 
             _institutionDetails = institutionDetails
-            validateClass = New ValidateClass
 
         Catch ex As Exception
 

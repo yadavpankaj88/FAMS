@@ -1,21 +1,18 @@
 ﻿Public Class frmLedgerAccountManage
 
-    Dim validateAcc As ValidateClass
     Dim ledgerAcc As LedgerAccountHelper
     Dim accCode As String
     Dim account As New Accounts
     Public val As String = ""
-
+    Public textboxval As String
     Public WithEvents bindingSourceCtrl As BindingSource
     Dim dtAccounts As DataTable
 
     Sub New()
-
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        validateAcc = New ValidateClass
         ledgerAcc = New LedgerAccountHelper
 
         bindingSourceCtrl = New BindingSource
@@ -28,16 +25,15 @@
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        validateAcc = New ValidateClass
         ledgerAcc = New LedgerAccountHelper
         accCode = pAccCode
     End Sub
 
-    Private Sub frmLedgerAccountManage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmLedgerAccountManage_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         drpOpenBalEff.DataSource = CommonFunctions.BindCreditDebit()
         drpOpenBalEff.DisplayMember = "Text"
         drpOpenBalEff.ValueMember = "Value"
-
+        Me.KeyPreview = True
         'drpOpenBalEff.Items.Add("CR")
         'drpOpenBalEff.Items.Add("DR")
 
@@ -92,7 +88,7 @@
     End Sub
 
     Private Sub txtAccCode_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles txtAccCode.Validating
-        If Not validateAcc.CheckAccountCode(txtAccCode.Text) Then
+        If Not ValidateClass.CheckAccountCode(txtAccCode.Text) Then
             txtAccCode.BackColor = Color.Red
             Dim lbl As New Label
             lbl.Text = "1st character should be A,E,I,L "
@@ -100,17 +96,6 @@
             txtAccCode.BackColor = Color.White
         End If
     End Sub
-
-    'Private Sub txtNumeric_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles txtLYBudget.Validating, txtLYActual.Validating, txtLLYBudget.Validating, txtLLYActual.Validating, txtCYBudget.Validating, txtAccOpenBalance.Validating
-    '    Dim txt As TextBox = DirectCast(sender, TextBox)
-    '    If txt IsNot Nothing And Not String.IsNullOrEmpty(txt.Text) Then
-    '        If Not validateAcc.CheckNumber(txt.Text) Then
-    '            txt.BackColor = Color.Red
-    '        Else
-    '            txt.BackColor = Color.White
-    '        End If
-    '    End If
-    'End Sub
 
     Private Sub BindData()
 
@@ -136,7 +121,7 @@
             drpOpenBalEff.DataBindings.Clear()
             drpOpenBalEff.DataBindings.Add("SelectedValue", bindingSourceCtrl, "AM_OB_Cr_Dr", True)
 
-            txtAccOpenBalance.DataBindings.Clear()            
+            txtAccOpenBalance.DataBindings.Clear()
             txtAccOpenBalance.DataBindings.Add("Text", bindingSourceCtrl, "AM_ABS_Opn_Bal", True)
             txtLLYBudget.DataBindings.Add("Text", bindingSourceCtrl, "AM_LLY_Budg", True)
             txtLLYActual.DataBindings.Add("Text", bindingSourceCtrl, "AM_LLY_Actu", True)
@@ -155,45 +140,34 @@
 
     Public Sub SaveData()
         Try
-            'bindingSourceCtrl.EndEdit()
-            Dim errorStr As String = ""
-            errorStr = Validation()
-            If errorStr = "" Then
-
-                account.AccCode = txtAccCode.Text.ToString()
-                account.AccName = txtAccName.Text.Trim
-                account.CreditDebit = drpOpenBalEff.SelectedValue
-                account.AccAbsOpenBalance = decimal_Notnull(txtAccOpenBalance.Text)
-                account.AccLLYbudget = decimal_Notnull(txtLLYBudget.Text)
-                account.AccLLYactual = decimal_Notnull(txtLLYActual.Text)
-                account.AccLYbudget = decimal_Notnull(txtLYBudget.Text)
-                account.AccLYactual = decimal_Notnull(txtLYActual.Text)
-                account.AccCYbudget = decimal_Notnull(txtCYBudget.Text)
-
-                ledgerAcc.AddLedgerAccount(account)
-                ' If ledgerAcc.SaveData(DirectCast(bindingSourceCtrl.DataSource, DataTable)) Then
-              
-                MessageBox.Show("Data updated Successfully")               
-                ' Me.Close()
-                EnableDisableControls(False)
+            If Not ValidateClass.CheckAccountCode(txtAccCode.Text) Then
+                txtAccCode.BackColor = Color.Red
+                MessageBox.Show("Account number is not in correct format")
             Else
-                EnableDisableControls(True)
-                MessageBox.Show(errorStr)
-            End If
-            'Else
+                txtAccCode.BackColor = Color.White
+                Dim errorStr As String = ""
+                errorStr = Validation()
+                If errorStr = "" Then
+                    account.AccCode = txtAccCode.Text.ToString()
+                    account.AccName = txtAccName.Text.Trim
+                    account.CreditDebit = drpOpenBalEff.SelectedValue
+                    account.AccAbsOpenBalance = decimal_Notnull(txtAccOpenBalance.Text)
+                    account.AccLLYbudget = decimal_Notnull(txtLLYBudget.Text)
+                    account.AccLLYactual = decimal_Notnull(txtLLYActual.Text)
+                    account.AccLYbudget = decimal_Notnull(txtLYBudget.Text)
+                    account.AccLYactual = decimal_Notnull(txtLYActual.Text)
+                    account.AccCYbudget = decimal_Notnull(txtCYBudget.Text)
+                    ledgerAcc.AddLedgerAccount(account)
 
-            'End If
-            'If validateAcc.CheckAccName(txtAccName.Text) And validateAcc.CheckAccountCode(txtAccCode.Text) Then
-            '    If ledgerAcc.SaveData(DirectCast(bindingSourceCtrl.DataSource, DataTable)) Then
-            '        MessageBox.Show("Data updated Successfully")
-            '        EnableDisableControls(False)
-            '    Else
-            '        EnableDisableControls(True)
-            '    End If
-            'Else
-            '    MessageBox.Show("There are some errors, please correct it !!!", "Validation error", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            'End If
-           
+                    MessageBox.Show("Data updated Successfully")
+                    Me.Close()
+                    EnableDisableControls(False)
+                Else
+                    EnableDisableControls(True)
+                    MessageBox.Show(errorStr)
+                End If
+            End If
+         
         Catch ex As Exception
             MessageBox.Show(ex.ToString())
         End Try
@@ -243,9 +217,17 @@
                 If MessageBox.Show("You are about to delete an Account , are you sure you want to delete?", "Deleting Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question) =
                     DialogResult.Yes Then
                     ledgerAcc.DeleteAccount(currentRec.Row("AM_Acc_Cd").ToString)
+                    txtAccCode.Text = "true"
+                    txtAccName.Text = ""
+                    txtAccOpenBalance.Text = ""
+                    txtCYBudget.Text = ""
+                    txtLLYActual.Text = ""
+                    txtLLYBudget.Text = ""
+                    txtLYActual.Text = ""
+                    txtLYBudget.Text = ""
                     Me.Close()
                     Return True
-                
+
                 Else
 
                     Return False
@@ -271,39 +253,28 @@
 
     Private Sub frmLedgerAccountManage_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles MyBase.FormClosing
         Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
-        
         If frmMain IsNot Nothing Then
             frmMain.mainBindingNavigator.BindingSource = Nothing
             frmMain.pnlNavigator.Visible = False
             frmMain.pnlMenu.Visible = True
             frmMain.EnableNavToolBar()
-        End If       
-        abc()
+        End If
+        OnForClosing()
     End Sub
 
     Function CheckValidAccountCode() As Boolean
-        If Not validateAcc.CheckAccountCode(txtAccCode.Text) Then
-            txtAccCode.BackColor = Color.Red           
+        If Not ValidateClass.CheckAccountCode(txtAccCode.Text) Then
+            txtAccCode.BackColor = Color.Red
         Else
             txtAccCode.BackColor = Color.White
         End If
     End Function
 
-    Function abc() As Boolean
+    Function OnForClosing() As Boolean
         Dim ledgerAcchelper As New LedgerAccountHelper
         Dim dt As DataTable
 
-        If (txtAccCode.Text = "" And txtAccName.Text = "") Then
-            If MessageBox.Show("do you want to exit?", " Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                Return True
-                Me.Close()
-            Else
-                Return False
-            End If
-        End If
         dt = ledgerAcchelper.GetAccDetails(txtAccCode.Text)
-
-       
         If dt.Rows.Count() > 0 Then
             If txtAccOpenBalance.Text = "" Then
 
@@ -389,51 +360,37 @@
             End If
 
         Else
-            If MessageBox.Show("do you want to save changes?", " Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                SaveData()
-                Return True
-            Else
-                Return False
-                Me.Close()
-            End If
+            If (txtAccCode.Text = "TRUE" Or txtAccCode.Text = "" Or txtAccName.Text = "") Then
 
+            Else
+                If MessageBox.Show("Do you want to save changes?", " Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                    SaveData()
+                    Return True
+                Else
+                    Return False
+                    Me.Close()
+                End If
+            End If
         End If
-        If (dt.Rows(0)("AM_ABS_Opn_Bal").ToString() <> txtAccOpenBalance.Text) Or dt.Rows(0)("AM_LLY_Budg").ToString() <> txtLLYBudget.Text Or (dt.Rows(0)("AM_LLY_Actu").ToString() <> txtLLYActual.Text) Or (dt.Rows(0)("AM_LYr_Budg").ToString() <> txtLYBudget.Text) Or (dt.Rows(0)("AM_LYr_Actu").ToString() <> txtLYActual.Text) Or (dt.Rows(0)("AM_Cyr_Budg").ToString() <> txtCYBudget.Text) Then
-            If MessageBox.Show("do you want to save changes?", " Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                SaveData()
-                Return True
+        ' End If
+        If (txtAccCode.Text = "TRUE" Or txtAccCode.Text = "" Or txtAccName.Text = "") Then
+
+        Else
+            If (dt.Rows(0)("AM_ABS_Opn_Bal").ToString() <> txtAccOpenBalance.Text) Or dt.Rows(0)("AM_LLY_Budg").ToString() <> txtLLYBudget.Text Or (dt.Rows(0)("AM_LLY_Actu").ToString() <> txtLLYActual.Text) Or (dt.Rows(0)("AM_LYr_Budg").ToString() <> txtLYBudget.Text) Or (dt.Rows(0)("AM_LYr_Actu").ToString() <> txtLYActual.Text) Or (dt.Rows(0)("AM_Cyr_Budg").ToString() <> txtCYBudget.Text) Then
+                If MessageBox.Show("Do you want to save changes?", " Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                    SaveData()
+                    Return True
+                Else
+                    Return False
+                    Me.Close()
+                End If
             Else
                 Return False
                 Me.Close()
             End If
-        Else
-            Return False
             Me.Close()
-            End If
-      
+        End If
     End Function
-
-    Private Sub btnSearch_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSearch.Click
-        Try
-            Dim dt As New DataTable
-            'Dim itemPosition As Integer = bindingSourceCtrl.Find("AM_Acc_Cd", txtAccCode.Text)
-            val = txtAccCode.Text
-            Dim ldgAccHelper As New LedgerAccountHelper
-            Dim fillAccCode As New frmFillAccCode
-            fillAccCode.ShowDialog()
-
-            dt = ldgAccHelper.CheckAccCd(txtAccCode.Text)            
-            txtAccCode.BackColor = Color.White
-            'If itemPosition >= 0 Then
-            '    bindingSourceCtrl.Position = itemPosition
-            'Else
-            '    MessageBox.Show("Account not found")
-            'End If
-        Catch ex As Exception
-            MessageBox.Show("Account not found")
-        End Try
-
-    End Sub
 
     Private Sub bindingSourceCtrl_PositionChanged(ByVal sender As Object, ByVal e As EventArgs) Handles bindingSourceCtrl.PositionChanged
         If Not bindingSourceCtrl.Position >= DirectCast(bindingSourceCtrl.DataSource, DataTable).Rows.Count Then
@@ -473,11 +430,71 @@
         If txtAccName.Text = String.Empty Then
             result = result & "- Account name is empty" & vbNewLine
         End If
+        If drpOpenBalEff.SelectedIndex = -1 Then
+            result = result & "- Please select credit/debit" & vbNewLine
+        End If
         Return result
     End Function
 
     Private Sub frmLedgerAccountManage_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
         Dim frmfammain As frmFAMSMain = DirectCast(ActiveForm, frmFAMSMain)
-        'frmfammain.Show()
     End Sub
+
+    Private Sub btnSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearch.Click
+        Try
+            Dim dt As New DataTable
+            Dim ldgAccHelper As New LedgerAccountHelper
+            Dim fillAccCode As New frmFillAccCode
+            Dim itemPosition As Integer = bindingSourceCtrl.Find("AM_Acc_Cd", txtAccCode.Text)
+            fillAccCode.setvalue(txtAccCode.Text)
+            fillAccCode.ShowDialog()
+            ldgAccHelper.CheckAccCd(txtAccCode.Text)
+            txtAccCode.Text = fillAccCode.val
+            If (fillAccCode.val = Nothing) Then
+                MessageBox.Show("Please select account")
+                fillAccCode.ShowDialog()
+                txtAccCode.Text = fillAccCode.val
+            End If
+            dt = ledgerAcc.GetAccountDetails(txtAccCode.Text)
+            txtAccCode.BackColor = Color.White
+            txtAccName.Text = dt.Rows(0)("AM_Acc_Nm").ToString()
+            txtAccOpenBalance.Text = dt.Rows(0)("AM_ABS_Opn_Bal").ToString()
+            txtLLYBudget.Text = dt.Rows(0)("AM_LLY_Budg")
+            txtLLYActual.Text = dt.Rows(0)("AM_LLY_Actu")
+            txtLYActual.Text = dt.Rows(0)("AM_LYr_Actu")
+            txtLYBudget.Text = dt.Rows(0)("AM_LYr_Budg")
+            txtCYBudget.Text = dt.Rows(0)("AM_Cyr_Budg")
+
+        Catch ex As Exception
+            MessageBox.Show("Account not found")
+        End Try
+
+    End Sub
+
+    Private Sub frmLedgerAccountManage_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
+        If e.Control And e.KeyCode.ToString = "S" Then
+            SaveData()
+        End If
+        If e.Control And e.KeyCode.ToString = "N" Then
+            EnableDisableControls(True)
+            LblLinkedTo.Text = "Not Linked"
+            frmFAMSMain.toolstripSave.Enabled = True
+            frmFAMSMain.DisableNavToolBar(frmFAMSMain.NavSettings.Add)
+            ClearData()
+        End If
+
+    End Sub
+
+    Sub ClearData()
+        txtAccCode.Text = ""
+        txtAccName.Text = ""
+        txtAccOpenBalance.Text = ""
+        txtCYBudget.Text = ""
+        txtLLYActual.Text = ""
+        txtLLYBudget.Text = ""
+        txtLYActual.Text = ""
+        txtLYBudget.Text = ""
+        txtCYBudget.Text = ""
+    End Sub
+
 End Class

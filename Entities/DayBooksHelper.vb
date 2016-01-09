@@ -30,8 +30,8 @@ Public Class DayBooksHelper
             parameters.Add("@bnkBrn", daybook.DMBankBranch)
             parameters.Add("@bnkAcNo", daybook.DMBankAccNo)
             parameters.Add("@bnkOd", daybook.DMBankOD)
-            parameters.Add("@EntBy", UserLogin.XUserID)
-            parameters.Add("@UpdateBy", UserLogin.XUserID)
+            parameters.Add("@EntBy", InstitutionMasterData.XUsrId)
+            parameters.Add("@UpdateBy", InstitutionMasterData.XUsrId)
             dataHelper.ExecuteNonQuery(saveQuery, CommandType.Text, parameters)
 
 

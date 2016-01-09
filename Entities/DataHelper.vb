@@ -6,7 +6,7 @@ Public Class DataHelper
     Private Sub CreateConnection()
         Try
 
-            sqlConnection = New SqlConnection("Data Source=.;Initial Catalog=YourDatabaseName;Integrated Security=True")
+            sqlConnection = New SqlConnection("Data Source=BRT3\SQL2008R2;Initial Catalog=FAMS;Integrated Security=True")
             sqlConnection.Open()
 
 
