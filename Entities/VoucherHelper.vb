@@ -3,9 +3,9 @@
 Public Class VoucherHelper
 
     Public Function GetEmptyVoucherDetail() As DataTable
-        Dim query As String = "select VD_Acc_Cd as 'LedgerAccount','' As 'PartyName',VD_Amt as 'Amount'" &
-                                ",VD_Ref_No as 'RefNo',VD_Ref_Dt as 'RefDate'," &
-                                " VD_Narr as 'VoucherDesc' from Voucher_Detail where VD_Lnk_No='-1'"
+        Dim query As String = "select LTRIM(RTRIM(VD_Acc_Cd)) as 'LedgerAccount','' As 'PartyName',VD_Amt as 'Amount'" &
+                                ",LTRIM(RTRIM(VD_Ref_No)) as 'RefNo',VD_Ref_Dt as 'RefDate'," &
+                                " LTRIM(RTRIM(VD_Narr)) as 'VoucherDesc' from Voucher_Detail where VD_Lnk_No='-1'"
         Dim datahelper = New DataHelper()
         Dim dt As DataTable = Nothing
         dt = datahelper.ExecuteQuery(query, CommandType.Text)
@@ -149,7 +149,7 @@ Public Class VoucherHelper
         Dim query As String = String.Empty
         Dim dtVoucherHeader As DataTable = Nothing
         Try
-            query = String.Format("Select [VH_Ref_No],[VH_Lnk_Dt],[VH_Ref_Dt],[VH_VCH_Dt],[VH_VCH_No],[VH_VCH_Ref_No],[VH_Chq_No],[VH_Chq_Dt],[VH_Amt],[VH_Abs_Amt],[VH_Cr_Dr],[VH_Pty_Nm] from  " + InstitutionMasterData.XInstType + "_Voucher_Header where [VH_Lnk_No]='{0}' and [VH_Dbk_Cd]='{1}' and [VH_Trn_Typ]='{2}' and VH_Fin_Yr=" + InstitutionMasterData.XFinYr + " ", voucherLinkNumber, daybookCode, transType)
+            query = String.Format("Select LTRIM(RTRIM([VH_Ref_No])) AS [VH_Ref_No],[VH_Lnk_Dt],[VH_Ref_Dt],[VH_VCH_Dt],LTRIM(RTRIM([VH_VCH_No])) AS [VH_VCH_No],LTRIM(RTRIM([VH_VCH_Ref_No])) AS [VH_VCH_Ref_No],LTRIM(RTRIM([VH_Chq_No])) AS [VH_Chq_No],[VH_Chq_Dt],[VH_Amt],[VH_Abs_Amt],LTRIM(RTRIM([VH_Cr_Dr])) AS [VH_Cr_Dr],LTRIM(RTRIM([VH_Pty_Nm])) AS [VH_Pty_Nm] from  " + InstitutionMasterData.XInstType + "_Voucher_Header where [VH_Lnk_No]='{0}' and [VH_Dbk_Cd]='{1}' and [VH_Trn_Typ]='{2}' and VH_Fin_Yr=" + InstitutionMasterData.XFinYr + " ", voucherLinkNumber, daybookCode, transType)
             Dim dataHelper As DataHelper = New DataHelper()
             dtVoucherHeader = dataHelper.ExecuteQuery(query, CommandType.Text, Nothing)
             If dtVoucherHeader.Rows.Count > 0 Then
@@ -185,9 +185,9 @@ Public Class VoucherHelper
                     End If
                 Next
             End If
-            query = String.Format("Select VD_Acc_Cd as 'LedgerAccount',ac.Am_Acc_Nm as 'AccountName',VD_ABS_Amt as 'Amount',VD_Cr_Dr as 'CrDr'" &
-                                ",VD_Ref_No as 'RefNo',VD_Ref_Dt as 'RefDate'," &
-                                " VD_Narr as 'VoucherDesc',VD_Seq_No from " + InstitutionMasterData.XInstType + "_Voucher_Detail vd Inner Join " + InstitutionMasterData.XInstType + "_Accounts ac on vd.VD_Acc_Cd=ac.Am_Acc_Cd  where [VD_Lnk_No]='{0}' and [VD_Dbk_Cd]='{1}' and [VD_Trn_Typ]='{2}'",
+            query = String.Format("Select LTRIM(RTRIM(VD_Acc_Cd)) as 'LedgerAccount',LTRIM(RTRIM(ac.Am_Acc_Nm)) as 'AccountName',VD_ABS_Amt as 'Amount',LTRIM(RTRIM(VD_Cr_Dr)) as 'CrDr'" &
+                                ",LTRIM(RTRIM(VD_Ref_No)) as 'RefNo',VD_Ref_Dt as 'RefDate'," &
+                                " LTRIM(RTRIM(VD_Narr)) as 'VoucherDesc',LTRIM(RTRIM(VD_Seq_No)) as [VD_Seq_No] from " + InstitutionMasterData.XInstType + "_Voucher_Detail vd Inner Join " + InstitutionMasterData.XInstType + "_Accounts ac on vd.VD_Acc_Cd=ac.Am_Acc_Cd  where [VD_Lnk_No]='{0}' and [VD_Dbk_Cd]='{1}' and [VD_Trn_Typ]='{2}'",
                                   voucherLinkNumber, daybookCode, transType)
             dtVoucherDetails = dataHelper.ExecuteQuery(query, CommandType.Text, Nothing)
 
@@ -202,11 +202,11 @@ Public Class VoucherHelper
         Dim dtVoucherList As DataTable = Nothing
         Try
             If currentMode.ToLower() = "view" Then
-                query = String.Format("select VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm,VH_ABS_Amt from " + InstitutionMasterData.XInstType + "_Voucher_Header " +
+                query = String.Format("select LTrim(RTrim(VH_Lnk_No)) AS [VH_Lnk_No] ,VH_Lnk_Dt,LTrim(RTrim(VH_Pty_Nm)) AS [VH_Pty_Nm],VH_ABS_Amt from " + InstitutionMasterData.XInstType + "_Voucher_Header " +
                     " where VH_Trn_Typ='{0}' and VH_Inst_Cd='{1}' and VH_Inst_Typ='{2}' and VH_Dbk_Cd='{3}' ORDER BY VH_Lnk_Dt,VH_Lnk_No", transType,
                     InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, daybookCode)
             Else
-                query = String.Format("select VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm,VH_ABS_Amt from " + InstitutionMasterData.XInstType + "_Voucher_Header " +
+                query = String.Format("select LTrim(RTrim(VH_Lnk_No)) AS [VH_Lnk_No],VH_Lnk_Dt,LTRIM(RTRIM(VH_Pty_Nm)) AS [VH_Pty_Nm],VH_ABS_Amt from " + InstitutionMasterData.XInstType + "_Voucher_Header " +
                     " where VH_Trn_Typ='{0}' and VH_Inst_Cd='{1}' and VH_Inst_Typ='{2}' and VH_Dbk_Cd='{3}' and VH_Conf_Dt is null and VH_Conf_By is null ORDER BY VH_Lnk_Dt,VH_Lnk_No",
                     transType, InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, daybookCode)
             End If

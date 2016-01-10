@@ -22,15 +22,24 @@ Partial Class frmAddVoucher
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.LabelNarration = New System.Windows.Forms.Label()
         Me.TextBoxNarration = New System.Windows.Forms.TextBox()
         Me.LabelVoucherDate = New System.Windows.Forms.Label()
         Me.DatePickerVoucherLinkDate = New System.Windows.Forms.DateTimePicker()
         Me.txtLinkVoucherNumber = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblLinkVoucherNumber = New System.Windows.Forms.Label()
         Me.panelVoucherControls = New System.Windows.Forms.Panel()
         Me.dgvVoucherDetails = New System.Windows.Forms.DataGridView()
+        Me.SeqNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LedgerAccount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AccountName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.hiddenRowNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DebitCr = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.RefNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.RefDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.VoucherDesc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.LabelReferenceNo = New System.Windows.Forms.Label()
         Me.txtRefNumber = New System.Windows.Forms.TextBox()
         Me.TextBoxAmount = New System.Windows.Forms.TextBox()
@@ -57,15 +66,6 @@ Partial Class frmAddVoucher
         Me.txtNextCount = New System.Windows.Forms.TextBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.lableVoucherStatus = New System.Windows.Forms.Label()
-        Me.SeqNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LedgerAccount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AccountName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.hiddenRowNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DebitCr = New System.Windows.Forms.DataGridViewComboBoxColumn()
-        Me.RefNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.RefDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.VoucherDesc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelVoucherControls.SuspendLayout()
         CType(Me.dgvVoucherDetails, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlConfirm.SuspendLayout()
@@ -119,14 +119,14 @@ Partial Class frmAddVoucher
         Me.txtLinkVoucherNumber.Size = New System.Drawing.Size(172, 23)
         Me.txtLinkVoucherNumber.TabIndex = 0
         '
-        'Label1
+        'lblLinkVoucherNumber
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(21, 15)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(122, 15)
-        Me.Label1.TabIndex = 19
-        Me.Label1.Text = "Voucher Link Number"
+        Me.lblLinkVoucherNumber.AutoSize = True
+        Me.lblLinkVoucherNumber.Location = New System.Drawing.Point(21, 15)
+        Me.lblLinkVoucherNumber.Name = "lblLinkVoucherNumber"
+        Me.lblLinkVoucherNumber.Size = New System.Drawing.Size(122, 15)
+        Me.lblLinkVoucherNumber.TabIndex = 19
+        Me.lblLinkVoucherNumber.Text = "Voucher Link Number"
         '
         'panelVoucherControls
         '
@@ -161,6 +161,71 @@ Partial Class frmAddVoucher
         Me.dgvVoucherDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvVoucherDetails.Size = New System.Drawing.Size(923, 182)
         Me.dgvVoucherDetails.TabIndex = 17
+        '
+        'SeqNo
+        '
+        Me.SeqNo.DataPropertyName = "VD_Seq_No"
+        Me.SeqNo.HeaderText = "SeqNo"
+        Me.SeqNo.Name = "SeqNo"
+        Me.SeqNo.ReadOnly = True
+        '
+        'LedgerAccount
+        '
+        Me.LedgerAccount.DataPropertyName = "LedgerAccount"
+        Me.LedgerAccount.HeaderText = "G/L Acc"
+        Me.LedgerAccount.Name = "LedgerAccount"
+        '
+        'AccountName
+        '
+        Me.AccountName.DataPropertyName = "AccountName"
+        Me.AccountName.HeaderText = "Account Name"
+        Me.AccountName.Name = "AccountName"
+        Me.AccountName.ReadOnly = True
+        Me.AccountName.Width = 200
+        '
+        'hiddenRowNumber
+        '
+        Me.hiddenRowNumber.DataPropertyName = "RowNumber"
+        Me.hiddenRowNumber.HeaderText = "RowNumber"
+        Me.hiddenRowNumber.Name = "hiddenRowNumber"
+        Me.hiddenRowNumber.Visible = False
+        '
+        'Amount
+        '
+        Me.Amount.DataPropertyName = "Amount"
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.Amount.DefaultCellStyle = DataGridViewCellStyle2
+        Me.Amount.HeaderText = "Amount"
+        Me.Amount.Name = "Amount"
+        '
+        'DebitCr
+        '
+        Me.DebitCr.DataPropertyName = "CrDr"
+        Me.DebitCr.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
+        Me.DebitCr.HeaderText = ""
+        Me.DebitCr.Items.AddRange(New Object() {"Dr", "Cr"})
+        Me.DebitCr.Name = "DebitCr"
+        Me.DebitCr.Width = 50
+        '
+        'RefNo
+        '
+        Me.RefNo.DataPropertyName = "RefNo"
+        Me.RefNo.HeaderText = "Reference Number"
+        Me.RefNo.Name = "RefNo"
+        '
+        'RefDate
+        '
+        Me.RefDate.DataPropertyName = "RefDate"
+        Me.RefDate.HeaderText = "Reference Date"
+        Me.RefDate.Name = "RefDate"
+        '
+        'VoucherDesc
+        '
+        Me.VoucherDesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.VoucherDesc.DataPropertyName = "VoucherDesc"
+        Me.VoucherDesc.HeaderText = "Voucher Description"
+        Me.VoucherDesc.Name = "VoucherDesc"
         '
         'LabelReferenceNo
         '
@@ -393,7 +458,7 @@ Partial Class frmAddVoucher
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlConfirm)
         Me.SplitContainer1.Panel2.Controls.Add(Me.panelVoucherControls)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.Label1)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.lblLinkVoucherNumber)
         Me.SplitContainer1.Panel2.Controls.Add(Me.txtLinkVoucherNumber)
         Me.SplitContainer1.Panel2.Controls.Add(Me.DatePickerVoucherLinkDate)
         Me.SplitContainer1.Panel2.Controls.Add(Me.LabelVoucherDate)
@@ -409,71 +474,6 @@ Partial Class frmAddVoucher
         Me.lableVoucherStatus.Name = "lableVoucherStatus"
         Me.lableVoucherStatus.Size = New System.Drawing.Size(0, 14)
         Me.lableVoucherStatus.TabIndex = 9
-        '
-        'SeqNo
-        '
-        Me.SeqNo.DataPropertyName = "VD_Seq_No"
-        Me.SeqNo.HeaderText = "SeqNo"
-        Me.SeqNo.Name = "SeqNo"
-        Me.SeqNo.ReadOnly = True
-        '
-        'LedgerAccount
-        '
-        Me.LedgerAccount.DataPropertyName = "LedgerAccount"
-        Me.LedgerAccount.HeaderText = "G/L Acc"
-        Me.LedgerAccount.Name = "LedgerAccount"
-        '
-        'AccountName
-        '
-        Me.AccountName.DataPropertyName = "AccountName"
-        Me.AccountName.HeaderText = "Account Name"
-        Me.AccountName.Name = "AccountName"
-        Me.AccountName.ReadOnly = True
-        Me.AccountName.Width = 200
-        '
-        'hiddenRowNumber
-        '
-        Me.hiddenRowNumber.DataPropertyName = "RowNumber"
-        Me.hiddenRowNumber.HeaderText = "RowNumber"
-        Me.hiddenRowNumber.Name = "hiddenRowNumber"
-        Me.hiddenRowNumber.Visible = False
-        '
-        'Amount
-        '
-        Me.Amount.DataPropertyName = "Amount"
-        DataGridViewCellStyle3.Format = "N2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.Amount.DefaultCellStyle = DataGridViewCellStyle3
-        Me.Amount.HeaderText = "Amount"
-        Me.Amount.Name = "Amount"
-        '
-        'DebitCr
-        '
-        Me.DebitCr.DataPropertyName = "CrDr"
-        Me.DebitCr.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
-        Me.DebitCr.HeaderText = ""
-        Me.DebitCr.Items.AddRange(New Object() {"Dr", "Cr"})
-        Me.DebitCr.Name = "DebitCr"
-        Me.DebitCr.Width = 50
-        '
-        'RefNo
-        '
-        Me.RefNo.DataPropertyName = "RefNo"
-        Me.RefNo.HeaderText = "Reference Number"
-        Me.RefNo.Name = "RefNo"
-        '
-        'RefDate
-        '
-        Me.RefDate.DataPropertyName = "RefDate"
-        Me.RefDate.HeaderText = "Reference Date"
-        Me.RefDate.Name = "RefDate"
-        '
-        'VoucherDesc
-        '
-        Me.VoucherDesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.VoucherDesc.DataPropertyName = "VoucherDesc"
-        Me.VoucherDesc.HeaderText = "Voucher Description"
-        Me.VoucherDesc.Name = "VoucherDesc"
         '
         'frmAddVoucher
         '
@@ -505,7 +505,7 @@ Partial Class frmAddVoucher
     Friend WithEvents LabelVoucherDate As System.Windows.Forms.Label
     Friend WithEvents DatePickerVoucherLinkDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtLinkVoucherNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lblLinkVoucherNumber As System.Windows.Forms.Label
     Friend WithEvents panelVoucherControls As System.Windows.Forms.Panel
     Friend WithEvents dgvVoucherDetails As System.Windows.Forms.DataGridView
     Friend WithEvents LabelReferenceNo As System.Windows.Forms.Label

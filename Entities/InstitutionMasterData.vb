@@ -40,7 +40,7 @@
         Try
             Dim dataHelper As New DataHelper
             'dataHelper.CreateConnection()
-            dt = dataHelper.ExecuteQuery("Select RTRIM(Inst_Cd) as 'Inst_Cd',RTRIM(Inst_Cls_Yr) as 'Inst_Cls_Yr',RTRIM(Inst_Typ) as 'Inst_Typ',RTRIM(Inst_Nm) as Inst_Nm,Inst_80G_Reg_No,Inst_Prin_Nm,Inst_Prin_Dsgn,Inst_FAM_Dt from Inst_Master", CommandType.Text)
+            dt = dataHelper.ExecuteQuery("Select LTRIM(RTRIM(Inst_Cd)) as 'Inst_Cd',LTRIM(RTRIM(Inst_Cls_Yr)) as 'Inst_Cls_Yr',LTRIM(RTRIM(Inst_Typ)) as 'Inst_Typ',LTRIM(RTRIM(Inst_Nm)) as Inst_Nm,Inst_80G_Reg_No,Inst_Prin_Nm,Inst_Prin_Dsgn,Inst_FAM_Dt from Inst_Master", CommandType.Text)
 
             'If (dt.Rows.Count > 0) Then
             '    InstitutionMasterData.XInstCode = dt.Rows(0)("Inst_Cd").ToString
@@ -76,7 +76,7 @@
 
         Try
             Dim dataHelper As New DataHelper
-            dt = dataHelper.ExecuteQuery("Select Inst_Vch_Ref_No from Inst_Master where Inst_Cd='" + InstitutionMasterData.XInstCode + "'", CommandType.Text)
+            dt = dataHelper.ExecuteQuery("Select LTRIM(RTRIM(Inst_Vch_Ref_No)) AS [Inst_Vch_Ref_No] from Inst_Master where Inst_Cd='" + InstitutionMasterData.XInstCode + "'", CommandType.Text)
             If (dt.Rows.Count > 0) Then
 
                 If dt.Rows(0)("Inst_Vch_Ref_No") IsNot DBNull.Value Then
@@ -101,7 +101,7 @@
 
         Try
             Dim dataHelper As New DataHelper
-            dt = dataHelper.ExecuteQuery("Select Inst_Link_No from Inst_Master where Inst_Cd='" + InstitutionMasterData.XInstCode + "'", CommandType.Text)
+            dt = dataHelper.ExecuteQuery("Select LTRIM(RTRIM(Inst_Link_No)) AS [Inst_Link_No] from Inst_Master where Inst_Cd='" + InstitutionMasterData.XInstCode + "'", CommandType.Text)
             If (dt.Rows.Count > 0) Then
                 Int64.TryParse(dt.Rows(0)("Inst_Link_No").ToString(), linkNo)
                 linkNo = linkNo + 1

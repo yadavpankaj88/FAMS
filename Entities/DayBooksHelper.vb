@@ -76,11 +76,11 @@ Public Class DayBooksHelper
         Dim query As String
         'datahelper.CreateConnection()
         If Not isContra Then
-            query = String.Format("Select RTRIM(DM_Dbk_Nm) as 'DM_Dbk_Nm',RTRIM(DM_Dbk_Cd) as 'DM_Dbk_Cd',DM_Acc_Cd,RTRIM(LTRIM(DM_Dbk_Cd))+' - '+RTRIM(LTRIM(DM_Dbk_Nm))+' - '+RTRIM(LTRIM(DM_Acc_Cd)) as 'DisplayName' from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Fin_Yr ='{0}' and " + _
+            query = String.Format("Select LTRIM(RTRIM(DM_Dbk_Nm)) as 'DM_Dbk_Nm',LTRIM(RTRIM(DM_Dbk_Cd)) as 'DM_Dbk_Cd',LTRIM(RTRIM(DM_Acc_Cd)) AS DM_Acc_Cd,RTRIM(LTRIM(DM_Dbk_Cd))+' - '+RTRIM(LTRIM(DM_Dbk_Nm))+' - '+RTRIM(LTRIM(DM_Acc_Cd)) as 'DisplayName' from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Fin_Yr ='{0}' and " + _
                                               "DM_Inst_Cd='{1}' and DM_Inst_Typ='{2}' and DM_Dbk_Typ='{3}' " + _
                                               "order by DM_Ent_Dt desc", InstitutionMasterData.XFinYr, InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, daybookType)
         Else
-            query = String.Format("Select RTRIM(DM_Dbk_Nm) as 'DM_Dbk_Nm',RTRIM(DM_Dbk_Cd) as 'DM_Dbk_Cd',DM_Acc_Cd,DM_Dbk_Typ,RTRIM(LTRIM(DM_Dbk_Cd))+' - '+RTRIM(LTRIM(DM_Dbk_Nm))+' - '+RTRIM(LTRIM(DM_Acc_Cd)) as 'DisplayName' from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Fin_Yr ='{0}' and " + _
+            query = String.Format("Select LTRIM(RTRIM(DM_Dbk_Nm)) as 'DM_Dbk_Nm',LTRIM(RTRIM(DM_Dbk_Cd)) as 'DM_Dbk_Cd',LTRIM(RTRIM(DM_Acc_Cd)) AS DM_Acc_Cd,DM_Dbk_Typ,RTRIM(LTRIM(DM_Dbk_Cd))+' - '+RTRIM(LTRIM(DM_Dbk_Nm))+' - '+RTRIM(LTRIM(DM_Acc_Cd)) as 'DisplayName' from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Fin_Yr ='{0}' and " + _
                                               "DM_Inst_Cd='{1}' and DM_Inst_Typ='{2}'" + _
                                               "order by DM_Ent_Dt desc", InstitutionMasterData.XFinYr, InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType)
         End If
@@ -93,7 +93,7 @@ Public Class DayBooksHelper
         Dim daybooksDT As New DataTable
         Dim datahelper As New DataHelper
         'datahelper.CreateConnection()
-        Dim query As String = String.Format("Select [DM_Dbk_Typ],[DM_Acc_Cd],[DM_Dbk_Nm],[DM_Bnk_Nm],[DM_Bnk_Brn],[DM_Bnk_AcNo],[DM_Bnk_OD] from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Dbk_Cd='{0}'", dbk_cd)
+        Dim query As String = String.Format("Select LTRIM(RTRIM([DM_Dbk_Typ])) as [DM_Dbk_Typ],LTRIM(RTRIM([DM_Acc_Cd])) as [DM_Acc_Cd],LTRIM(RTRIM([DM_Dbk_Nm])) as [DM_Dbk_Nm],LTRIM(RTRIM([DM_Bnk_Nm])) as [DM_Bnk_Nm],LTRIM(RTRIM([DM_Bnk_Brn])) as [DM_Bnk_Brn],LTRIM(RTRIM([DM_Bnk_AcNo])) as [DM_Bnk_AcNo], [DM_Bnk_OD] from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Dbk_Cd='{0}'", dbk_cd)
         daybooksDT = datahelper.ExecuteQuery(query, CommandType.Text)
         Return daybooksDT
     End Function
@@ -104,9 +104,9 @@ Public Class DayBooksHelper
         Try
             query = New StringBuilder()
             If String.IsNullOrEmpty(DaybookID) Then
-                query.Append(String.Format("select [DM_Dbk_Cd] as DaybookCode,[DM_Dbk_Nm] as DaybookName from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Inst_Cd='{0}' and DM_Inst_Typ='{1}' and DM_Fin_Yr='{2}' ", InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, InstitutionMasterData.XFinYr))
+                query.Append(String.Format("select LTRIM(RTRIM([DM_Dbk_Cd])) as DaybookCode,LTRIM(RTRIM([DM_Dbk_Nm])) as DaybookName from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Inst_Cd='{0}' and DM_Inst_Typ='{1}' and DM_Fin_Yr='{2}' ", InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, InstitutionMasterData.XFinYr))
             Else
-                query.Append(String.Format("select [DM_Dbk_Cd] as DaybookCode,[DM_Dbk_Nm] as DaybookName from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Inst_Cd='{0}' and DM_Inst_Typ='{1}' and DM_Fin_Yr='{2}' and DM_Dbk_Cd like  '%" & DaybookID & "%' ", InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, InstitutionMasterData.XFinYr))
+                query.Append(String.Format("select LTRIM(RTRIM([DM_Dbk_Cd])) as DaybookCode,LTRIM(RTRIM([DM_Dbk_Nm])) as DaybookName from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Inst_Cd='{0}' and DM_Inst_Typ='{1}' and DM_Fin_Yr='{2}' and DM_Dbk_Cd like  '%" & DaybookID & "%' ", InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, InstitutionMasterData.XFinYr))
             End If
             Return datahelper.ExecuteQuery(query.ToString, CommandType.Text)
         Catch ex As Exception

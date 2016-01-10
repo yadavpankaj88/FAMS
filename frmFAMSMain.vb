@@ -548,7 +548,7 @@ Public Class frmFAMSMain
                 BindingNavigatorPositionItem.Enabled = False
                 ToolStripButtonClear.Enabled = True
                 ToolStripButtonView.Enabled = False
-                toolstripSave.Enabled = False
+                toolstripSave.Enabled = True
             Case "edit"
                 toolstripedit.Enabled = False
                 toolstripDeleteItem.Enabled = False

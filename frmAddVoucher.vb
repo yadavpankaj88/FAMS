@@ -98,9 +98,8 @@
                                 Me.DatePickerVoucherLinkDate.Visible = True
                                 Me.DatePickerVoucherLinkDate.Enabled = False
                                 LabelVoucherDate.Visible = True
-                                Dim helper As VoucherHelper = New VoucherHelper()
-                                helper.DeleteConfirmedVoucher(txtLinkVoucherNumber.Text)
-                                MessageBox.Show("Voucher Deleted")
+                                Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
+                                frmMain.toolstripSave.Enabled = True
 
                             Case "edit"
                                 Me.panelVoucherControls.Visible = True
@@ -748,6 +747,11 @@
 
     End Sub
 
+    Sub SetVoucherLinkControls(ByVal Visibility As Boolean)
+       
+
+    End Sub
+
     Sub SetControls(ByVal pMode As String)
         lableVoucherStatus.Text = ""
         If VoucherType = "B" Then
@@ -763,26 +767,31 @@
                 'Me.SplitContainer1.Panel1Collapsed = True
                 Me.SplitContainer1.Panel2Collapsed = False
                 Me.panelVoucherControls.Visible = False
-                Me.LabelVoucherDate.Visible = False
-                Me.DatePickerVoucherLinkDate.Visible = False
-                Me.txtLinkVoucherNumber.Visible = True
-                Me.Label1.Visible = True
                 Me.dgvVoucherDetails.Visible = False
-                Me.txtLinkVoucherNumber.Enabled = True
                 Me.pnlConfirm.Visible = False
                 Me.Text = Me.Text.Split("(")(0).Trim() + " (Operation: View)"
                 ComboBoxDaybookSelect.Enabled = False
+                Me.txtLinkVoucherNumber.Enabled = True
+                Me.lblLinkVoucherNumber.Visible = True
+                Me.txtLinkVoucherNumber.Visible = True
+                Me.LabelVoucherDate.Visible = False
+                Me.DatePickerVoucherLinkDate.Visible = False
+
+                'Me.SplitContainer1.Panel2.Enabled = False
+                'Me.SplitContainer1.Panel1.Enabled = False
                 'ButtonNext.Enabled = False
             Case "confirm"
                 'Me.SplitContainer1.Panel1Collapsed = True
                 Me.SplitContainer1.Panel2Collapsed = False
                 Me.panelVoucherControls.Visible = False
+
                 Me.LabelVoucherDate.Visible = False
                 Me.DatePickerVoucherLinkDate.Visible = False
                 Me.txtLinkVoucherNumber.Visible = True
-                Me.Label1.Visible = True
-                Me.dgvVoucherDetails.Visible = False
+                Me.lblLinkVoucherNumber.Visible = True
                 Me.txtLinkVoucherNumber.Enabled = True
+
+                Me.dgvVoucherDetails.Visible = False
                 Me.pnlConfirm.Visible = False
                 ComboBoxDaybookSelect.Enabled = False
                 'ButtonNext.Enabled = False
@@ -796,12 +805,14 @@
                 ' Me.SplitContainer1.Panel1Collapsed = True
                 Me.SplitContainer1.Panel2Collapsed = False
                 Me.panelVoucherControls.Visible = False
+
                 Me.LabelVoucherDate.Visible = False
                 Me.DatePickerVoucherLinkDate.Visible = False
                 Me.txtLinkVoucherNumber.Visible = True
-                Me.Label1.Visible = True
-                Me.dgvVoucherDetails.Visible = False
+                Me.lblLinkVoucherNumber.Visible = True
                 Me.txtLinkVoucherNumber.Enabled = True
+
+                Me.dgvVoucherDetails.Visible = False
                 Me.pnlConfirm.Visible = False
                 ComboBoxDaybookSelect.Enabled = False
                 'ButtonNext.Enabled = False
@@ -825,11 +836,9 @@
                 panelVoucherControls.Enabled = True
                 ComboBoxDaybookSelect.Enabled = False
                 dgvVoucherDetails.Visible = True
-                'firsttime = True
                 DatePickerVoucherLinkDate.Value = InstitutionMasterData.XDate
                 DateTimeReferenceDate.Value = InstitutionMasterData.XDate
                 datepickerChequeDate.Value = InstitutionMasterData.XDate
-                'firsttime = False
 
                 Me.Text = Me.Text.Split("(")(0).Trim() + " (Operation: Add New)"
 
@@ -843,8 +852,10 @@
                 End If
                 SplitContainer1.Panel2Collapsed = False
                 panelVoucherControls.Visible = False
+
                 DatePickerVoucherLinkDate.Visible = False
                 LabelVoucherDate.Visible = False
+
                 panelVoucherControls.Enabled = True
                 dgvVoucherDetails.Enabled = True
                 ComboBoxDaybookSelect.Enabled = False
