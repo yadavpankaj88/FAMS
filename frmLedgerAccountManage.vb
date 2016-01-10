@@ -159,7 +159,7 @@
                     account.AccCYbudget = decimal_Notnull(txtCYBudget.Text)
                     ledgerAcc.AddLedgerAccount(account)
 
-                    MessageBox.Show("Data updated Successfully")
+                    MessageBox.Show("Data updated successfully")
                     Me.Close()
                     EnableDisableControls(False)
                 Else

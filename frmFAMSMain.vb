@@ -502,8 +502,8 @@ Public Class frmFAMSMain
                 BindingNavigatorPositionItem.Enabled = False
                 ToolStripButtonClear.Enabled = True
                 toolstripSave.Enabled = False
-
-
+                ToolStripButtonConfirm.Enabled = False
+                ToolStripButtonView.Enabled = False
 
             Case "view"
                 toolstripAdd.Enabled = False
@@ -548,7 +548,7 @@ Public Class frmFAMSMain
                 BindingNavigatorPositionItem.Enabled = False
                 ToolStripButtonClear.Enabled = True
                 ToolStripButtonView.Enabled = False
-                toolstripSave.Enabled = True
+                toolstripSave.Enabled = False
             Case "edit"
                 toolstripedit.Enabled = False
                 toolstripDeleteItem.Enabled = False
@@ -561,7 +561,7 @@ Public Class frmFAMSMain
                 BindingNavigatorPositionItem.Enabled = False
                 ToolStripButtonClear.Enabled = True
                 ToolStripButtonView.Enabled = False
-                toolstripSave.Enabled = True
+                toolstripSave.Enabled = False
             Case "delete"
                 toolstripAdd.Enabled = False
                 toolstripedit.Enabled = False
@@ -572,9 +572,8 @@ Public Class frmFAMSMain
                 BindingNavigatorMovePreviousItem.Enabled = False
                 BindingNavigatorPositionItem.Enabled = False
                 ToolStripButtonClear.Enabled = True
-                toolstripSave.Enabled = True
+                toolstripSave.Enabled = False
                 ToolStripButtonView.Enabled = False
-
         End Select
 
     End Sub
@@ -601,8 +600,8 @@ Public Class frmFAMSMain
             _institutionDetails = frmInstituteSelection.InstituInformation
 
             If frmInstituteSelection.ShowDialog = Windows.Forms.DialogResult.OK Then
+                Me.lblActivity.Text = "User Authentication"
                 frmuserlogin.ShowDialog()
-
                 If (frmuserlogin.DialogResult = Windows.Forms.DialogResult.OK) Then
                     Me.Text = title
                     Me.pnlMenu.Visible = True
