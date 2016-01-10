@@ -43,7 +43,7 @@
                 If dtGoesOut.Rows.Count > 0 Then
 
                     ComboBoxGoesInto.DataSource = dtGoesIn
-                    ComboBoxGoesInto.DisplayMember = "DM_Dbk_Nm"
+                    ComboBoxGoesInto.DisplayMember = "DisplayName"
                     ComboBoxGoesInto.ValueMember = "DM_Dbk_Cd"
                     ComboBoxGoesInto.SelectedIndex = -1
 

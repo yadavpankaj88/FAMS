@@ -15,7 +15,7 @@
             If Not dt Is Nothing Then
                 If dt.Rows.Count > 0 Then
                     ComboBoxDaybookSelect.DataSource = dt
-                    ComboBoxDaybookSelect.DisplayMember = "DM_Dbk_Nm"
+                    ComboBoxDaybookSelect.DisplayMember = "DisplayName"
                     ComboBoxDaybookSelect.ValueMember = "DM_Dbk_Cd"
                     ComboBoxDaybookSelect.SelectedIndex = 0
                 End If

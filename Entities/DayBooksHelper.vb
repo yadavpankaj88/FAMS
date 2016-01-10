@@ -8,14 +8,17 @@ Public Class DayBooksHelper
             'dataHelper.CreateConnection()
             Dim saveQuery As String
             saveQuery = "If((Select COUNT('x') from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Dbk_Cd=@dbkcd and DM_Fin_Yr=@finYear and DM_Inst_Cd=@instCode and DM_Inst_Typ=@instTyp)=0)" _
-                        & " Begin " _
-                      & "Insert into " + InstitutionMasterData.XInstType + "_Daybooks(DM_Fin_Yr,DM_Inst_Cd,DM_Inst_Typ,DM_Brn_Cd,DM_Dbk_Cd,DM_Dbk_Nm,DM_Dbk_Typ,DM_Acc_Cd,DM_Bnk_Nm,DM_Bnk_Brn,DM_Bnk_AcNo,DM_Bnk_OD,DM_Ent_By,DM_Ent_Dt) " _
-                        & "values(@finYear,@instCode,@instTyp,@brnCd,@dbkcd,@dbkNm,@dbkTyp,@acccd,@bnkNm,@bnkBrn,@bnkAcNo,@bnkOd,@EntBy, GetDate())" _
-                     & " End" _
-                     & " Else " _
-                     & " Update " + InstitutionMasterData.XInstType + "_Daybooks" _
-                     & " Set DM_Acc_Cd=@acccd,DM_Dbk_Typ=@dbkTyp,DM_Bnk_Brn=@bnkBrn,DM_Dbk_Nm=@dbkNm,DM_Bnk_AcNo=@bnkAcNo,DM_Bnk_Nm=@bnkNm,DM_Bnk_OD=@bnkOd,DM_Upd_By=@UpdateBy,DM_Upd_Dt=GetDate()" _
-                     & "  Where DM_Dbk_Cd=@dbkcd and DM_Fin_Yr=@finYear and DM_Inst_Cd=@instCode and DM_Inst_Typ=@instTyp"
+                            & " Begin " _
+                            & " Insert into " + InstitutionMasterData.XInstType + "_Daybooks(DM_Fin_Yr,DM_Inst_Cd,DM_Inst_Typ,DM_Brn_Cd,DM_Dbk_Cd,DM_Dbk_Nm,DM_Dbk_Typ,DM_Acc_Cd,DM_Bnk_Nm,DM_Bnk_Brn,DM_Bnk_AcNo,DM_Bnk_OD,DM_Ent_By,DM_Ent_Dt) " _
+                            & " values(@finYear,@instCode,@instTyp,@brnCd,@dbkcd,@dbkNm,@dbkTyp,@acccd,@bnkNm,@bnkBrn,@bnkAcNo,@bnkOd,@EntBy, GetDate())" _
+                            & " UPDATE " + InstitutionMasterData.XInstType + "_Accounts SET AM_Calls=@dbkcd WHERE AM_Acc_Cd=@acccd AND AM_Inst_Typ='" + InstitutionMasterData.XInstType + "' AND AM_Inst_Cd='" + InstitutionMasterData.XInstCode + "' AND AM_Fin_Yr='" + InstitutionMasterData.XFinYr + "'" _
+                            & " End" _
+                            & " Else BEGIN" _
+                            & " Update " + InstitutionMasterData.XInstType + "_Daybooks" _
+                            & " Set DM_Acc_Cd=@acccd,DM_Dbk_Typ=@dbkTyp,DM_Bnk_Brn=@bnkBrn,DM_Dbk_Nm=@dbkNm,DM_Bnk_AcNo=@bnkAcNo,DM_Bnk_Nm=@bnkNm,DM_Bnk_OD=@bnkOd,DM_Upd_By=@UpdateBy,DM_Upd_Dt=GetDate()" _
+                            & " Where DM_Dbk_Cd=@dbkcd and DM_Fin_Yr=@finYear and DM_Inst_Cd=@instCode and DM_Inst_Typ=@instTyp" _
+                            & " UPDATE " + InstitutionMasterData.XInstType + "_Accounts SET AM_Calls=@dbkcd WHERE AM_Acc_Cd=@acccd AND AM_Inst_Typ='" + InstitutionMasterData.XInstType + "' AND AM_Inst_Cd='" + InstitutionMasterData.XInstCode + "' AND AM_Fin_Yr='" + InstitutionMasterData.XFinYr + "'" _
+                            & " End"
 
             Dim parameters As New Dictionary(Of String, Object)()
             parameters.Add("@finYear", daybook.DMFinYear)
@@ -33,7 +36,6 @@ Public Class DayBooksHelper
             parameters.Add("@EntBy", InstitutionMasterData.XUsrId)
             parameters.Add("@UpdateBy", InstitutionMasterData.XUsrId)
             dataHelper.ExecuteNonQuery(saveQuery, CommandType.Text, parameters)
-
 
         Catch ex As Exception
             Throw ex
@@ -74,11 +76,11 @@ Public Class DayBooksHelper
         Dim query As String
         'datahelper.CreateConnection()
         If Not isContra Then
-            query = String.Format("Select RTRIM(DM_Dbk_Nm) as 'DM_Dbk_Nm',RTRIM(DM_Dbk_Cd) as 'DM_Dbk_Cd',DM_Acc_Cd,RTRIM(LTRIM(DM_Dbk_Cd))+'-'+RTRIM(LTRIM(DM_Dbk_Nm))+'-'+RTRIM(LTRIM(DM_Acc_Cd)) as 'DisplayName' from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Fin_Yr ='{0}' and " + _
+            query = String.Format("Select RTRIM(DM_Dbk_Nm) as 'DM_Dbk_Nm',RTRIM(DM_Dbk_Cd) as 'DM_Dbk_Cd',DM_Acc_Cd,RTRIM(LTRIM(DM_Dbk_Cd))+' - '+RTRIM(LTRIM(DM_Dbk_Nm))+' - '+RTRIM(LTRIM(DM_Acc_Cd)) as 'DisplayName' from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Fin_Yr ='{0}' and " + _
                                               "DM_Inst_Cd='{1}' and DM_Inst_Typ='{2}' and DM_Dbk_Typ='{3}' " + _
                                               "order by DM_Ent_Dt desc", InstitutionMasterData.XFinYr, InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, daybookType)
         Else
-            query = String.Format("Select RTRIM(DM_Dbk_Nm) as 'DM_Dbk_Nm',RTRIM(DM_Dbk_Cd) as 'DM_Dbk_Cd',DM_Acc_Cd,DM_Dbk_Typ from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Fin_Yr ='{0}' and " + _
+            query = String.Format("Select RTRIM(DM_Dbk_Nm) as 'DM_Dbk_Nm',RTRIM(DM_Dbk_Cd) as 'DM_Dbk_Cd',DM_Acc_Cd,DM_Dbk_Typ,RTRIM(LTRIM(DM_Dbk_Cd))+' - '+RTRIM(LTRIM(DM_Dbk_Nm))+' - '+RTRIM(LTRIM(DM_Acc_Cd)) as 'DisplayName' from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Fin_Yr ='{0}' and " + _
                                               "DM_Inst_Cd='{1}' and DM_Inst_Typ='{2}'" + _
                                               "order by DM_Ent_Dt desc", InstitutionMasterData.XFinYr, InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType)
         End If

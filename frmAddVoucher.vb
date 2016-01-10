@@ -72,9 +72,10 @@
         If _mode IsNot Nothing Then
             If _mode.ToLower() = "edit" Or _mode.ToLower() = "delete" Or _mode = "confirm" Or _mode = "view" Then
                 If txtLinkVoucherNumber.Text <> String.Empty Then
+                    Dim flgEnable As String = BindVoucherDetails()
 
                     'populate voucher details
-                    If BindVoucherDetails() Then
+                    If String.IsNullOrEmpty(flgEnable) Then
                         Select Case _mode
                             Case "view"
                                 Me.panelVoucherControls.Visible = True
@@ -110,7 +111,8 @@
                                 Me.DatePickerVoucherLinkDate.Enabled = True
                                 LabelVoucherDate.Visible = True
                                 txtLinkVoucherNumber.Enabled = False
-
+                                Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
+                                frmMain.toolstripSave.Enabled = True
                             Case "confirm"
 
                                 Me.panelVoucherControls.Visible = True
@@ -146,7 +148,7 @@
                         End Select
                     Else
                         If (ShowMessagebox) Then
-                            MessageBox.Show("No matching Voucher Entry found")
+                            MessageBox.Show(flgEnable)
                         End If
                         Me.panelVoucherControls.Visible = False
                     End If
@@ -506,6 +508,7 @@
                                         Dim drcr As String = dgRows.Cells("DebitCr").Value.ToString()
                                         Dim amount As String = dgRows.Cells("Amount").EditedFormattedValue
                                         Dim ledgerAccount As String = dgRows.Cells("LedgerAccount").EditedFormattedValue
+                                        Dim seqNo As String = dgRows.Cells("SeqNo").EditedFormattedValue
 
                                         Dim lgrHelper As LedgerAccountHelper = New LedgerAccountHelper()
                                         Dim dt As DataTable = lgrHelper.GetAccountDetails(ledgerAccount)
@@ -528,13 +531,13 @@
                                         voucherDetail.VD_Narr = dgRows.Cells("VoucherDesc").EditedFormattedValue
                                         voucherDetail.VD_Cr_Dr = drcr
                                         voucherDetail.VD_ABS_Amt = amount
-                                        voucherDetail.VD_Amt = IIf(drcr = "Cr", Decimal.Parse(amount), Decimal.Parse(amount) * -1)
+                                        voucherDetail.VD_Amt = IIf(drcr = "Dr", Decimal.Parse(amount), Decimal.Parse(amount) * -1)
                                         voucherDetail.VD_Ref_No = dgRows.Cells("RefNo").EditedFormattedValue
                                         voucherDetail.VD_Ref_Dt = Convert.ToDateTime(dgRows.Cells("RefDate").EditedFormattedValue)
-                                        voucherDetail.VD_Seq_No = i.ToString().PadLeft(3, "0")
+                                        voucherDetail.VD_Seq_No = seqNo
                                         voucherDetail.VD_Acc_Cd = ledgerAccount
                                         voucherDetail.VD_Brn_Cd = "HO"
-                                        voucherDetail.VD_Ent_By = "TUser"
+                                        voucherDetail.VD_Ent_By = InstitutionMasterData.XUsrId
                                         voucherDetail.VD_Vch_Ref_No = vchRefNo.ToString().PadLeft(6, "0")
                                         helper.SaveVoucherDetail(voucherDetail)
                                     End If
@@ -611,7 +614,7 @@
             If detailv = headerValue Then
                 Return True
             ElseIf detailv > headerValue Then
-                MessageBox.Show("Insufficient balance, cannot add the voucher!!", "Insufficient Balance")
+                MessageBox.Show("Voucher header and details amount must match", "Incorrect Amount")
                 Return False
             Else
                 MessageBox.Show("Amount is not balanced")
@@ -690,6 +693,7 @@
     Private Sub dgvVoucherDetails_RowEnter(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dgvVoucherDetails.RowEnter
         dgvVoucherDetails.Rows(e.RowIndex).Cells("RefNo").Value = txtRefNumber.Text
         dgvVoucherDetails.Rows(e.RowIndex).Cells("RefDate").Value = DateTimeReferenceDate.Value.ToShortDateString()
+        dgvVoucherDetails.Rows(e.RowIndex).Cells("SeqNo").Value = (e.RowIndex + 1).ToString().PadLeft(3, "0")
 
         If Not String.IsNullOrEmpty(PaymentReceipt) Then
             If PaymentReceipt = "P" Then
@@ -745,7 +749,7 @@
     End Sub
 
     Sub SetControls(ByVal pMode As String)
-        lableVoucherStatus.Text = "UN-CONFIRMED"
+        lableVoucherStatus.Text = ""
         If VoucherType = "B" Then
             SetChequeControlVisibility(True)
         ElseIf VoucherType = "J" Then
@@ -866,13 +870,13 @@
 
     End Sub
 
-    Private Function BindVoucherDetails() As Boolean
+    Private Function BindVoucherDetails() As String
         Dim helper As VoucherHelper = New VoucherHelper()
 
         Dim voucherHeader As VoucherHeader
         Dim dtVoucherDetails As DataTable = Nothing
         Dim dayBookCode As String
-        Dim flgEnable As Boolean = False
+        Dim flgEnable As String = String.Empty
         Try
             dayBookCode = ComboBoxDaybookSelect.SelectedValue.ToString()
             voucherHeader = Nothing
@@ -882,11 +886,11 @@
 
                 If (voucherHeader.VH_VCH_Dt IsNot Nothing And voucherHeader.VH_VCH_NO IsNot Nothing) Then
                     If (_mode = "delete" Or _mode = "edit") Then
-                        MessageBox.Show("Voucher is confirmed , no modification/deletion not allowed")
-                        Return False
+                        flgEnable = "Voucher is confirmed , modification/deletion not allowed"
+                        Return flgEnable
                     ElseIf (_mode = "confirm") Then
-                        MessageBox.Show("Voucher is already confirmed")
-                        Return False
+                        flgEnable = "Voucher is already confirmed"
+                        Return flgEnable
                     End If
                     pnlConfirm.Visible = True
                     pnlConfirm.Enabled = False
@@ -898,9 +902,9 @@
                     lblConfirmedVoucherNumber.ForeColor = Color.White
                     lblConfirmNumber.BackColor = Color.Red
                     lblConfirmNumber.ForeColor = Color.White
-                    lableVoucherStatus.Text = "CONFIRMED"
+                    lableVoucherStatus.Text = "Status: CONFIRMED"
                 Else
-                    lableVoucherStatus.Text = "UN-CONFIRMED"
+                    lableVoucherStatus.Text = "Status: UN-CONFIRMED"
                 End If
 
                 If _mode.ToLower() = "confirm" Then
@@ -919,13 +923,14 @@
                 TextBoxNameOfPayee.Text = voucherHeader.VH_Pty_Nm
                 TextBoxAmount.Text = voucherHeader.VH_ABS_Amt.ToString
                 ComboBoxCreditDebit.SelectedItem = voucherHeader.VH_Cr_Dr
-                flgEnable = True
+                flgEnable = String.Empty
 
                 If dtVoucherDetails IsNot Nothing Then
                     dgvVoucherDetails.DataSource = dtVoucherDetails
 
                 End If
-
+            Else
+                flgEnable = "No matching Voucher Entry found"
             End If
         Catch ex As Exception
             Throw ex

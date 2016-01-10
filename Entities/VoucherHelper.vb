@@ -187,7 +187,7 @@ Public Class VoucherHelper
             End If
             query = String.Format("Select VD_Acc_Cd as 'LedgerAccount',ac.Am_Acc_Nm as 'AccountName',VD_ABS_Amt as 'Amount',VD_Cr_Dr as 'CrDr'" &
                                 ",VD_Ref_No as 'RefNo',VD_Ref_Dt as 'RefDate'," &
-                                " VD_Narr as 'VoucherDesc' from " + InstitutionMasterData.XInstType + "_Voucher_Detail vd Inner Join " + InstitutionMasterData.XInstType + "_Accounts ac on vd.VD_Acc_Cd=ac.Am_Acc_Cd  where [VD_Lnk_No]='{0}' and [VD_Dbk_Cd]='{1}' and [VD_Trn_Typ]='{2}'",
+                                " VD_Narr as 'VoucherDesc',VD_Seq_No from " + InstitutionMasterData.XInstType + "_Voucher_Detail vd Inner Join " + InstitutionMasterData.XInstType + "_Accounts ac on vd.VD_Acc_Cd=ac.Am_Acc_Cd  where [VD_Lnk_No]='{0}' and [VD_Dbk_Cd]='{1}' and [VD_Trn_Typ]='{2}'",
                                   voucherLinkNumber, daybookCode, transType)
             dtVoucherDetails = dataHelper.ExecuteQuery(query, CommandType.Text, Nothing)
 
@@ -229,7 +229,10 @@ Public Class VoucherHelper
         "set @month=MONTH(GetDate()); " &
         "set @date=DAY(GetDate()); " &
         "declare @nextVoucherNumber as int; " &
-        "set @nextVoucherNumber=(Select ISNULL(DM_Vch_" + voucherDate.Month.ToString().PadLeft(2, "0") + ",0)+1 from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Dbk_Cd=@dbkCd); " &
+        "If EXISTS(select 1 from " + InstitutionMasterData.XInstType + "_Voucher_Header where VH_Dbk_Cd=@dbkCd AND VH_VCH_No IS NOT NULL)" &
+        "set @nextVoucherNumber=(SELECT REPLACE(STR(MAX(RIGHT(VH_Vch_No, 6)) + 1, 4), SPACE(1), '0')  from " + InstitutionMasterData.XInstType + "_Voucher_Header where VH_Dbk_Cd=@dbkCd AND VH_VCH_No IS NOT NULL) " &
+        "ELSE " &
+        "set @nextVoucherNumber=1" &
         "Declare @voucherNumber as varchar(8); " &
         "Set @voucherNumber=REPLACE(STR(@month, 2), SPACE(1), '0') " &
         "+REPLACE(STR(@date, 2), SPACE(1), '0') " &
