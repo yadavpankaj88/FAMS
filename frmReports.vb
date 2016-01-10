@@ -1,7 +1,10 @@
-﻿Public Class frmReports
+﻿
+Public Class frmReports
 
     Private _mode As String
-   
+    Private _dayBookCode As String
+    Private _fromDate As DateTime
+    Private _toDate As DateTime
 
     Private Sub frmReports_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
@@ -11,7 +14,6 @@
             frmMain.pnlMenu.Visible = True
             frmMain.EnableNavToolBar()
         End If
-        'abc()
     End Sub
 
     Private Sub frmReports_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
@@ -42,19 +44,25 @@
         End Try
     End Sub
 
-    Public Sub SetControls(ByVal pMode As String)
+    Public Sub SetControls(ByVal pMode As String, ByVal pDayBkCode As String, ByVal pfromDate As DateTime, ByVal ptoDate As DateTime)
         _mode = pMode
+        _dayBookCode = pDayBkCode
+        _fromDate = pfromDate
+        _toDate = ptoDate
     End Sub
 
     Private Sub ShowCashBookReport()
         Dim view As New rptCashBook
         Dim user As String = "sa"
         Dim pwd As String = "Password@123"
-
         view.SetDatabaseLogon(user, pwd)
-        'view.SetParameterValue("p_1", Form5.no_faktur_tb_immanuel)
+        view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
+        view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
         crystalRptVwr.ReportSource = view
+        crystalRptVwr.Refresh()
+
     End Sub
+
 
     Private Sub ShowBankBookReport()
         Dim view As New rptBankBook
@@ -62,8 +70,9 @@
         Dim pwd As String = "Password@123"
 
         view.SetDatabaseLogon(user, pwd)
-        'view.SetParameterValue("p_1", Form5.no_faktur_tb_immanuel)
+        ''view.SetParameterValue("p_1", Form5.no_faktur_tb_immanuel)
         crystalRptVwr.ReportSource = view
+
     End Sub
 
     Private Sub ShowGeneralLedger()

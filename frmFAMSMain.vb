@@ -1,7 +1,6 @@
 ﻿Imports System.Windows.Forms
 
 Public Class frmFAMSMain
-    Dim objCashReceipt As frmReports
     Dim objLedgerMaster As frmLedgerAccountManage
     Dim objCashBBMaster As frmCashBankAccountManage
     Dim objCashRecV As frmCashRecV
@@ -94,7 +93,7 @@ Public Class frmFAMSMain
         End If
     End Sub
 
-    Private Sub ShowNewForm(ByVal sender As Object, ByVal e As EventArgs)
+    Public Sub ShowNewForm(ByVal sender As Object, ByVal e As EventArgs)
         ' Create a new instance of the child form.
         Dim ChildForm As Form = sender
         ' Make it a child of this MDI form before showing it.
@@ -159,7 +158,7 @@ Public Class frmFAMSMain
         ShowNewForm(objLedgerMaster, Nothing)
     End Sub
 
-    Private Sub mnuCashBBmaster_Click(sender As Object, e As EventArgs) Handles mnuCashBBmaster.Click
+    Private Sub mnuCashBBmaster_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuCashBBmaster.Click
         lblActivity.Text = "View"
         objCashBBMaster = New frmCashBankAccountManage
         mainBindingNavigator.BindingSource = objCashBBMaster.BindingSource1
@@ -172,7 +171,7 @@ Public Class frmFAMSMain
         ShowNewForm(objCashBBMaster, Nothing)
     End Sub
 
-    Private Sub mnuCashReceiptV_Click(sender As Object, e As EventArgs) Handles mnuCashReceiptV.Click
+    Private Sub mnuCashReceiptV_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuCashReceiptV.Click
 
         objVoucherAdd = New frmAddVoucher()
         objVoucherAdd.Text = "Cash Receipt voucher"
@@ -188,7 +187,7 @@ Public Class frmFAMSMain
 
     End Sub
 
-    Private Sub mnuCashPayV_Click(sender As Object, e As EventArgs) Handles mnuCashPayV.Click
+    Private Sub mnuCashPayV_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuCashPayV.Click
 
         objVoucherAdd = New frmAddVoucher()
         objVoucherAdd.Text = "Cash Payment Voucher"
@@ -206,7 +205,7 @@ Public Class frmFAMSMain
 
     End Sub
 
-    Private Sub mnuBankReceiptV_Click(sender As Object, e As EventArgs) Handles mnuBankReceiptV.Click
+    Private Sub mnuBankReceiptV_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuBankReceiptV.Click
         objVoucherAdd = New frmAddVoucher()
         objVoucherAdd.Text = "Bank Receipt Voucher"
         objVoucherAdd.MDIForm = Me
@@ -222,7 +221,7 @@ Public Class frmFAMSMain
 
     End Sub
 
-    Private Sub mnuBankPayV_Click(sender As Object, e As EventArgs) Handles mnuBankPayV.Click
+    Private Sub mnuBankPayV_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuBankPayV.Click
 
         objVoucherAdd = New frmAddVoucher()
         objVoucherAdd.Text = "Bank Payment Voucher"
@@ -239,7 +238,7 @@ Public Class frmFAMSMain
 
     End Sub
 
-    Private Sub mnuCashContraV_Click(sender As Object, e As EventArgs) Handles mnuCashContraV.Click
+    Private Sub mnuCashContraV_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuCashContraV.Click
         objCashBankContraV = New frmCashBankContraV
         objCashBankContraV.MDIForm = Me
         ShowNewForm(objCashBankContraV, Nothing)
@@ -257,21 +256,21 @@ Public Class frmFAMSMain
         ShowNewForm(objUserMaster, Nothing)
     End Sub
 
-    Private Sub mnuJournalV_Click(sender As Object, e As EventArgs) Handles mnuJournalV.Click
+    Private Sub mnuJournalV_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuJournalV.Click
         objVoucherAdd = New frmAddVoucher()
         objVoucherAdd.Text = "Journal voucher"
         objVoucherAdd.MDIForm = Me
         objVoucherAdd.VoucherType = "J"
         objVoucherAdd.TransactionType = "JV"
         ShowNewForm(objVoucherAdd, Nothing)
-        
+
     End Sub
 
-    Private Sub frmFAMSMain_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+    Private Sub frmFAMSMain_FormClosed(ByVal sender As Object, ByVal e As FormClosedEventArgs) Handles MyBase.FormClosed
         Application.Exit()
     End Sub
 
-    Private Sub toolstripSave_Click(sender As Object, e As EventArgs) Handles toolstripSave.Click
+    Private Sub toolstripSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles toolstripSave.Click
         Dim activeForm As Form = Me.ActiveMdiChild
 
         If activeForm IsNot Nothing Then
@@ -308,7 +307,7 @@ Public Class frmFAMSMain
         End If
     End Sub
 
-    Private Sub BindingNavigatorDeleteItem_Click(sender As Object, e As EventArgs) Handles toolstripDeleteItem.Click
+    Private Sub BindingNavigatorDeleteItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles toolstripDeleteItem.Click
         Dim activeForm As Form = Me.ActiveMdiChild
         If activeForm IsNot Nothing Then
             Select Case activeForm.Name
@@ -342,7 +341,7 @@ Public Class frmFAMSMain
         End If
     End Sub
 
-    Private Sub toolstripedit_Click(sender As Object, e As EventArgs) Handles toolstripedit.Click
+    Private Sub toolstripedit_Click(ByVal sender As Object, ByVal e As EventArgs) Handles toolstripedit.Click
         Dim activeForm As Form = Me.ActiveMdiChild
         If activeForm IsNot Nothing Then
             lblActivity.Text = "Edit"
@@ -436,7 +435,7 @@ Public Class frmFAMSMain
         End If
     End Sub
 
-    Private Sub ToolStripButtonClear_Click(sender As Object, e As EventArgs) Handles ToolStripButtonClear.Click
+    Private Sub ToolStripButtonClear_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ToolStripButtonClear.Click
         Dim activeForm As Form = Me.ActiveMdiChild
         If activeForm IsNot Nothing Then
             lblActivity.Text = "View"
@@ -470,7 +469,7 @@ Public Class frmFAMSMain
         End If
     End Sub
 
-    Private Sub ToolStripButtonView_Click(sender As Object, e As EventArgs) Handles ToolStripButtonView.Click
+    Private Sub ToolStripButtonView_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ToolStripButtonView.Click
         Dim activeForm As Form = Me.ActiveMdiChild
         If Not activeForm Is Nothing Then
             EnableToolStripForVouchers("view")
@@ -699,44 +698,29 @@ Public Class frmFAMSMain
     End Sub
 
     Private Sub mnuCashBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCashBookRpt.Click
-        ShowReport("CashBook")
-        Dim objSelectDaybook As New frmSelectDaybook
-          mainBindingNavigator.BindingSource = Nothing
-        Me.pnlMenu.Visible = False
-        Me.pnlNavigator.Visible = True
-        pnlNavigator.Enabled = True
-        EnableNavToolBar()
-        ShowNewForm(objSelectDaybook, Nothing)
-
-        ShowNewForm(objSelectDaybook, Nothing)
+        LoadDayBookSelection("CashBook")
     End Sub
 
     Private Sub mnuSelectiveBankAccountRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectiveBankAccountRpt.Click
-        ShowReport("BankBook")
+        LoadDayBookSelection("BankBook")
     End Sub
 
     Private Sub mnuConsolidatedBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuConsolidatedBankBookRpt.Click
-        ShowReport("GeneralLedger")
+        LoadDayBookSelection("GeneralLedger")
     End Sub
 
     Private Sub mnuCombinedCashBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCombinedCashBankBookRpt.Click
-        ShowReport("TrialBalance")
-    End Sub
-
-    Private Sub ShowReport(mode As String)
-        lblActivity.Text = "View"
-        objCashReceipt = New frmReports
-        objCashReceipt.SetControls(mode)
-        mainBindingNavigator.BindingSource = Nothing
-        Me.pnlMenu.Visible = False
-        Me.pnlNavigator.Visible = True
-        pnlNavigator.Enabled = True
-        EnableNavToolBar()
-        ShowNewForm(objCashReceipt, Nothing)
+        LoadDayBookSelection("TrialBalance")
     End Sub
 
     Private Sub ReportToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReportToolStripMenuItem.Click
+        LoadDayBookSelection("")
+    End Sub
+
+    Private Sub LoadDayBookSelection(ByVal reportMode As String)
+        lblActivity.Text = "View"
         Dim objSelectDaybook As New frmSelectDaybook
+        objSelectDaybook.SetControls(reportMode)
         mainBindingNavigator.BindingSource = Nothing
         Me.pnlMenu.Visible = False
         Me.pnlNavigator.Visible = True
@@ -744,4 +728,5 @@ Public Class frmFAMSMain
         EnableNavToolBar()
         ShowNewForm(objSelectDaybook, Nothing)
     End Sub
+
 End Class
