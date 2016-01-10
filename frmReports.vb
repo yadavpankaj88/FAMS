@@ -33,7 +33,7 @@ Public Class frmReports
                 Case "CashBook"
                     ShowCashBookReport()
                 Case "BankBook"
-                    ShowBankBookReport()
+                    ShowCashBookReport()
                 Case "GeneralLedger"
                     ShowGeneralLedger()
                 Case "TrialBalance"
@@ -57,21 +57,11 @@ Public Class frmReports
         Dim pwd As String = "Password@123"
         view.SetDatabaseLogon(user, pwd)
         view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
+        view.SetParameterValue("@Fromdate", _fromDate)
+        view.SetParameterValue("@ToDate", _toDate)
         view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
         crystalRptVwr.ReportSource = view
         crystalRptVwr.Refresh()
-
-    End Sub
-
-
-    Private Sub ShowBankBookReport()
-        Dim view As New rptBankBook
-        Dim user As String = "sa"
-        Dim pwd As String = "Password@123"
-
-        view.SetDatabaseLogon(user, pwd)
-        ''view.SetParameterValue("p_1", Form5.no_faktur_tb_immanuel)
-        crystalRptVwr.ReportSource = view
 
     End Sub
 
