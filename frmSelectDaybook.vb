@@ -4,8 +4,8 @@
     Private _mode As String
 
     Private Sub btncontinue_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btncontinue.Click
-        'Me.Close()
         ShowReport()
+        Me.Hide()
     End Sub
 
     Private Sub frmReports_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing

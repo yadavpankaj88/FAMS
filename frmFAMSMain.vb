@@ -705,15 +705,15 @@ Public Class frmFAMSMain
     End Sub
 
     Private Sub mnuConsolidatedBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuConsolidatedBankBookRpt.Click
-        LoadDayBookSelection("GeneralLedger")
+        'LoadDayBookSelection("GeneralLedger")
     End Sub
 
     Private Sub mnuCombinedCashBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCombinedCashBankBookRpt.Click
-        LoadDayBookSelection("TrialBalance")
+        'LoadDayBookSelection("TrialBalance")
     End Sub
 
     Private Sub ReportToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReportToolStripMenuItem.Click
-        LoadDayBookSelection("")
+        'LoadDayBookSelection("")
     End Sub
 
     Private Sub LoadDayBookSelection(ByVal reportMode As String)
@@ -721,10 +721,6 @@ Public Class frmFAMSMain
         Dim objSelectDaybook As New frmSelectDaybook
         objSelectDaybook.SetControls(reportMode)
         mainBindingNavigator.BindingSource = Nothing
-        Me.pnlMenu.Visible = False
-        Me.pnlNavigator.Visible = True
-        pnlNavigator.Enabled = True
-        EnableNavToolBar()
         ShowNewForm(objSelectDaybook, Nothing)
     End Sub
 
