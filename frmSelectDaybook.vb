@@ -37,7 +37,14 @@
     Private Sub BindDaybookCode()
         Dim ledgeAccHelper As New LedgerAccountHelper
         Dim ledgerTable As New DataTable()
-        ledgerTable = ledgeAccHelper.FillDaybookCode()
+        Dim dbkTyp As String
+
+        If (_mode = "CashBook") Then
+            dbkTyp = "C"
+        Else
+            dbkTyp = "B"
+        End If
+        ledgerTable = ledgeAccHelper.FillDaybookCode(dbkTyp)
         ddldaybookcode.DataSource = ledgerTable
         ddldaybookcode.DisplayMember = "Daybook_Code"
         ddldaybookcode.ValueMember = "DM_Dbk_Cd"

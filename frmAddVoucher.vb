@@ -306,10 +306,10 @@
                     Dim ledgercount As Integer = lgdrhelper.GetCountFromLedger(Str)
                     If ledgercount = 0 Then
                         lgdrhelper.AddLedger(Str)
-                        Dim count As Integer = lgdrhelper.GetLedgerCount(Str)
-                        For i As Integer = 0 To count - 1
-                            lgdrhelper.AddLedgerDetail(Str)
-                        Next
+                        'Dim count As Integer = lgdrhelper.GetLedgerCount(Str)
+                        'For i As Integer = 0 To count - 1
+                        '    lgdrhelper.AddLedgerDetail(Str)
+                        'Next
                     Else
                             MessageBox.Show("Data is already in Ledger")
                     End If

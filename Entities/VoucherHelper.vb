@@ -230,7 +230,7 @@ Public Class VoucherHelper
         "set @date=DAY(GetDate()); " &
         "declare @nextVoucherNumber as int; " &
         "If EXISTS(select 1 from " + InstitutionMasterData.XInstType + "_Voucher_Header where VH_Dbk_Cd=@dbkCd AND VH_VCH_No IS NOT NULL)" &
-        "set @nextVoucherNumber=(SELECT REPLACE(STR(MAX(RIGHT(VH_Vch_No, 6)) + 1, 4), SPACE(1), '0')  from " + InstitutionMasterData.XInstType + "_Voucher_Header where VH_Dbk_Cd=@dbkCd AND VH_VCH_No IS NOT NULL) " &
+        "set @nextVoucherNumber=(SELECT REPLACE(STR(MAX(RIGHT(VH_Vch_No, 4)) + 1, 4), SPACE(1), '0')  from " + InstitutionMasterData.XInstType + "_Voucher_Header where VH_Dbk_Cd=@dbkCd AND VH_VCH_No IS NOT NULL) " &
         "ELSE " &
         "set @nextVoucherNumber=1" &
         "Declare @voucherNumber as varchar(8); " &

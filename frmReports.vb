@@ -69,9 +69,11 @@ Public Class frmReports
         Dim view As New rptGeneralLedger
         Dim user As String = "sa"
         Dim pwd As String = "Password@123"
-
         view.SetDatabaseLogon(user, pwd)
-        'view.SetParameterValue("p_1", Form5.no_faktur_tb_immanuel)
+        view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
+        view.SetParameterValue("@Fromdate", _fromDate)
+        view.SetParameterValue("@ToDate", _toDate)
+        view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
         crystalRptVwr.ReportSource = view
     End Sub
 
@@ -79,9 +81,11 @@ Public Class frmReports
         Dim view As New rptTrialBalance
         Dim user As String = "sa"
         Dim pwd As String = "Password@123"
-
         view.SetDatabaseLogon(user, pwd)
-        'view.SetParameterValue("p_1", Form5.no_faktur_tb_immanuel)
+        view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
+        view.SetParameterValue("@Fromdate", _fromDate)
+        view.SetParameterValue("@ToDate", _toDate)
+        view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
         crystalRptVwr.ReportSource = view
     End Sub
 
