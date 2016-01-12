@@ -306,12 +306,12 @@
                     Dim ledgercount As Integer = lgdrhelper.GetCountFromLedger(Str)
                     If ledgercount = 0 Then
                         lgdrhelper.AddLedger(Str)
-                        'Dim count As Integer = lgdrhelper.GetLedgerCount(Str)
+                        'Dim count As Integer = lgdrhelper.GetLedgerCount(str)
                         'For i As Integer = 0 To count - 1
-                        '    lgdrhelper.AddLedgerDetail(Str)
+                        lgdrhelper.AddLedgerDetail(str)
                         'Next
                     Else
-                            MessageBox.Show("Data is already in Ledger")
+                        MessageBox.Show("Data is already in Ledger")
                     End If
 
                     Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)

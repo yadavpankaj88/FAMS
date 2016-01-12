@@ -5,7 +5,6 @@
 
     Private Sub btncontinue_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btncontinue.Click
         ShowReport()
-        Me.Hide()
     End Sub
 
     Private Sub frmReports_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
@@ -24,13 +23,19 @@
 
     Private Sub ShowReport()
         Try
-            objCashReceipt = New frmReports
-            objCashReceipt.SetControls(_mode, ddldaybookcode.SelectedValue,dtpfromdate.Value,dtptodate.Value)
-            Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
-            frmMain.ShowNewForm(objCashReceipt, Nothing)
-            'TO-DO: Hide SelectDayBook Form
+            If (Not String.IsNullOrEmpty(_mode) And Not String.IsNullOrEmpty(ddldaybookcode.SelectedValue) And Not String.IsNullOrEmpty(dtpfromdate.Value.ToString()) And Not String.IsNullOrEmpty(dtptodate.Value.ToString())) Then
+
+                objCashReceipt = New frmReports
+                objCashReceipt.SetControls(_mode, ddldaybookcode.SelectedValue, dtpfromdate.Value, dtptodate.Value)
+                Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
+                frmMain.ShowNewForm(objCashReceipt, Nothing)
+                Me.Hide()
+
+            Else
+                MessageBox.Show("Please select all neccessary parameters")
+            End If
+
         Catch ex As Exception
-            MessageBox.Show("Error Occurred !!!")
         End Try
     End Sub
 
@@ -54,4 +59,7 @@
         BindDaybookCode()
     End Sub
 
+    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+        Me.Hide()
+    End Sub
 End Class

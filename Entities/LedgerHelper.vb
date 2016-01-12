@@ -8,8 +8,8 @@ Public Class LedgerHelper
 
     Public Sub AddLedger(ByVal str As String)
 
-        Dim detailSaveQuery = "INSERT INTO " + InstitutionMasterData.XInstType + "_Ledger([Lgr_Fin_Yr] ,[Lgr_Inst_Cd],[Lgr_Inst_Typ],[Lgr_Brn_Cd ],[Lgr_Lnk_No],[Lgr_Lnk_Dt],[Lgr_Dbk_Cd],[Lgr_Trn_Typ],[Lgr_Vch_No],[Lgr_Vch_Dt],[Lgr_Vch_Ref_No],[Lgr_Narr],[Lgr_Chq_No],[Lgr_Chq_Dt],[Lgr_Ref_No],[Lgr_Ref_Dt],[Lgr_Acc_Cd],[Lgr_Amt],[Lgr_Cr_Dr],[Lgr_ABS_Amt],[Lgr_Ent_By],[Lgr_Ent_Dt],[Lgr_Upd_By],[Lgr_Upd_Dt],[Lgr_Conf_By],[Lgr_Conf_Dt])" + _
-            " SELECT VH_Fin_Yr,VH_Inst_Cd,VH_Inst_Typ,VH_Brn_Cd,VH_Lnk_No,VH_Lnk_Dt,VH_Dbk_Cd,VH_Trn_Typ,VH_Vch_No,VH_Vch_Dt,VH_Vch_Ref_No,VH_Pty_Nm,VH_Chq_No,VH_Chq_Dt,VH_Ref_No,VH_Ref_Dt,VH_Acc_Cd,VH_Amt,VH_Cr_Dr,VH_ABS_Amt,'" + InstitutionMasterData.XUsrId + "',GETDATE(),'" + InstitutionMasterData.XUsrId + "',GETDATE(),'" + InstitutionMasterData.XUsrId + "',GETDATE() from dbo." + InstitutionMasterData.XInstType + "_Voucher_Header where VH_Lnk_No='" + str + "'"
+        Dim detailSaveQuery = "INSERT INTO " + InstitutionMasterData.XInstType + "_Ledger([Lgr_Fin_Yr],[Lgr_Seq_No],[Lgr_Inst_Cd],[Lgr_Inst_Typ],[Lgr_Brn_Cd ],[Lgr_Lnk_No],[Lgr_Lnk_Dt],[Lgr_Dbk_Cd],[Lgr_Trn_Typ],[Lgr_Vch_No],[Lgr_Vch_Dt],[Lgr_Vch_Ref_No],[Lgr_Narr],[Lgr_Chq_No],[Lgr_Chq_Dt],[Lgr_Ref_No],[Lgr_Ref_Dt],[Lgr_Acc_Cd],[Lgr_Amt],[Lgr_Cr_Dr],[Lgr_ABS_Amt],[Lgr_Ent_By],[Lgr_Ent_Dt],[Lgr_Upd_By],[Lgr_Upd_Dt],[Lgr_Conf_By],[Lgr_Conf_Dt])" + _
+            " SELECT VH_Fin_Yr,'000',VH_Inst_Cd,VH_Inst_Typ,VH_Brn_Cd,VH_Lnk_No,VH_Lnk_Dt,VH_Dbk_Cd,VH_Trn_Typ,VH_Vch_No,VH_Vch_Dt,VH_Vch_Ref_No,VH_Pty_Nm,VH_Chq_No,VH_Chq_Dt,VH_Ref_No,VH_Ref_Dt,VH_Acc_Cd,VH_Amt,VH_Cr_Dr,VH_ABS_Amt,'" + InstitutionMasterData.XUsrId + "',GETDATE(),'" + InstitutionMasterData.XUsrId + "',GETDATE(),'" + InstitutionMasterData.XUsrId + "',GETDATE() from dbo." + InstitutionMasterData.XInstType + "_Voucher_Header where VH_Lnk_No='" + str + "'"
         dataHelp.ExecuteNonQuery(detailSaveQuery, CommandType.Text)
 
     End Sub

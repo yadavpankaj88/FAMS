@@ -29,6 +29,7 @@ Partial Class frmSelectDaybook
         Me.dtpfromdate = New System.Windows.Forms.DateTimePicker()
         Me.dtptodate = New System.Windows.Forms.DateTimePicker()
         Me.ddldaybookcode = New System.Windows.Forms.ComboBox()
+        Me.btnCancel = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -60,11 +61,11 @@ Partial Class frmSelectDaybook
         '
         'btncontinue
         '
-        Me.btncontinue.Location = New System.Drawing.Point(104, 164)
+        Me.btncontinue.Location = New System.Drawing.Point(101, 165)
         Me.btncontinue.Name = "btncontinue"
         Me.btncontinue.Size = New System.Drawing.Size(75, 25)
         Me.btncontinue.TabIndex = 3
-        Me.btncontinue.Text = "Continue"
+        Me.btncontinue.Text = "View"
         Me.btncontinue.UseVisualStyleBackColor = True
         '
         'dtpfromdate
@@ -91,12 +92,23 @@ Partial Class frmSelectDaybook
         Me.ddldaybookcode.Size = New System.Drawing.Size(137, 22)
         Me.ddldaybookcode.TabIndex = 3
         '
+        'btnCancel
+        '
+        Me.btnCancel.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCancel.Location = New System.Drawing.Point(182, 165)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(72, 25)
+        Me.btnCancel.TabIndex = 7
+        Me.btnCancel.Text = "Cancel"
+        Me.btnCancel.UseVisualStyleBackColor = True
+        '
         'frmSelectDaybook
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(281, 209)
         Me.ControlBox = False
+        Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.ddldaybookcode)
         Me.Controls.Add(Me.dtptodate)
         Me.Controls.Add(Me.dtpfromdate)
@@ -122,4 +134,5 @@ Partial Class frmSelectDaybook
     Friend WithEvents dtpfromdate As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtptodate As System.Windows.Forms.DateTimePicker
     Friend WithEvents ddldaybookcode As System.Windows.Forms.ComboBox
+    Private WithEvents btnCancel As System.Windows.Forms.Button
 End Class
