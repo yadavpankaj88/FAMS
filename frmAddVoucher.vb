@@ -492,10 +492,14 @@
                         header.VH_Lgr_Cd = "00"
                         header.VH_Brn_Cd = "HO"
                         Dim instMaster As InstitutionMasterData = New InstitutionMasterData()
-                        Dim vchRefNo As Int64 = instMaster.GetNextInstitutionVoucherReferenceNumber()
+                        Dim vchRefNo As Int64
+                        If Me._mode.ToLower() = "add" Then
+                            vchRefNo = instMaster.GetNextInstitutionVoucherReferenceNumber()
+                        ElseIf Me._mode.ToLower() = "edit" Then
+                            vchRefNo = Convert.ToInt64(lblConfirmedVoucherNumber.Text.Trim())
+                        End If
+
                         header.VH_VCH_Ref_No = vchRefNo.ToString().PadLeft(6, "0")
-
-
 
 
                         Dim i As Integer = 0
@@ -567,7 +571,7 @@
                     Else
                         Return False
                     End If
-                End If
+                    End If
             End If
             ClearControls()
             Return True
@@ -908,9 +912,6 @@
                     datepickerVoucherDateConfirm.Value = voucherHeader.VH_VCH_Dt
                     datepickerVoucherDateConfirm.Enabled = False
                     lblConfirmNumber.Text = voucherHeader.VH_VCH_NO
-                    lblConfirmedVoucherNumber.Text = voucherHeader.VH_VCH_Ref_No.ToString()
-                    lblConfirmedVoucherNumber.BackColor = Color.Red
-                    lblConfirmedVoucherNumber.ForeColor = Color.White
                     lblConfirmNumber.BackColor = Color.Red
                     lblConfirmNumber.ForeColor = Color.White
                     lableVoucherStatus.Text = "Status: CONFIRMED"
@@ -925,6 +926,9 @@
 
                 End If
 
+                lblConfirmedVoucherNumber.Text = voucherHeader.VH_VCH_Ref_No.ToString()
+                lblConfirmedVoucherNumber.BackColor = Color.Red
+                lblConfirmedVoucherNumber.ForeColor = Color.White
 
                 txtRefNumber.Text = voucherHeader.VH_Ref_No
                 DatePickerVoucherLinkDate.Value = voucherHeader.VH_Lnk_Dt
