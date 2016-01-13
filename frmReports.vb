@@ -54,11 +54,11 @@ Public Class frmReports
     Private Sub ShowCashBookReport()
         Dim view As New rptCashBook
         Dim user As String = "sa"
-        Dim pwd As String = "Password@123"
+        Dim pwd As String = "hello123"
         view.SetDatabaseLogon(user, pwd)
         view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
-        view.SetParameterValue("@Fromdate", _fromDate)
-        view.SetParameterValue("@ToDate", _toDate)
+        view.SetParameterValue("@Fromdate", _fromDate.AddDays(-1))
+        view.SetParameterValue("@ToDate", _toDate.AddDays(-1))
         view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
         crystalRptVwr.ReportSource = view
         crystalRptVwr.Refresh()

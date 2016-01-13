@@ -97,7 +97,7 @@ Public Class LedgerAccountHelper
         Dim query As StringBuilder
         Try
             query = New StringBuilder()
-            query.Append(String.Format("SELECT [DM_Dbk_Cd],Ltrim(Rtrim([DM_Dbk_Nm])) as Daybook_Name, Ltrim(Rtrim([DM_Dbk_Nm])) +'_'+[DM_Dbk_Cd] as Daybook_Code  FROM " + InstitutionMasterData.XInstType + "_Daybooks where DM_Inst_Cd='{0}' and DM_Inst_Typ='{1}' and DM_Fin_Yr='{2}' and DM_Dbk_Typ='{3}' order by [DM_Dbk_Nm] asc", InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, InstitutionMasterData.XFinYr, dbkType))
+            query.Append(String.Format("SELECT [DM_Dbk_Cd],Ltrim(Rtrim([DM_Dbk_Nm])) as Daybook_Name, [DM_Dbk_Cd]  +' - '+ Ltrim(Rtrim([DM_Dbk_Nm])) as Daybook_Code  FROM " + InstitutionMasterData.XInstType + "_Daybooks where DM_Inst_Cd='{0}' and DM_Inst_Typ='{1}' and DM_Fin_Yr='{2}' and DM_Dbk_Typ='{3}' order by [DM_Dbk_Nm] asc", InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, InstitutionMasterData.XFinYr, dbkType))
             Return dataHelper.ExecuteQuery(query.ToString, CommandType.Text, Nothing)
         Catch ex As Exception
             Throw

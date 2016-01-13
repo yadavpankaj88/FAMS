@@ -107,7 +107,7 @@ Public Class VoucherHelper
         Dim detailSaveQuery = "If(Exists(select 'x' from " + InstitutionMasterData.XInstType + "_Voucher_Detail where VD_Lnk_No=@VD_Lnk_No and VD_Seq_No=@VD_Seq_No)) " &
         " Begin " &
         "Update " + InstitutionMasterData.XInstType + "_Voucher_Detail Set VD_Ref_No=@VD_Ref_No,VD_Ref_Dt=@VD_Ref_Dt,VD_Narr=@VD_Narr,VD_Acc_Cd=@VD_Acc_Cd,VD_Amt=@VD_Amt," &
-        " VD_Cr_Dr=@VD_Cr_Dr,VD_Abs_Amt=@VD_Abs_Amt,VD_Upd_By=@VD_Upd_By,VD_Upd_Dt=GetDate() where VD_Lnk_No=@VD_Lnk_No" &
+        " VD_Cr_Dr=@VD_Cr_Dr,VD_Abs_Amt=@VD_Abs_Amt,VD_Upd_By=@VD_Upd_By,VD_Upd_Dt=GetDate() where VD_Lnk_No=@VD_Lnk_No and VD_Seq_No=@VD_Seq_No" &
         " End " &
         " Else " &
             "Insert into " + InstitutionMasterData.XInstType + "_Voucher_Detail(VD_Fin_Yr,VD_Inst_Cd,VD_Inst_Typ,VD_Brn_Cd,VD_Lnk_No,VD_Dbk_Cd,VD_Trn_Typ,VD_Seq_No,VD_Ref_No,VD_VCH_Ref_No,VD_Ref_Dt,VD_Narr,VD_Lgr_Cd,VD_Acc_Cd,VD_Amt,VD_Cr_Dr," &
@@ -187,7 +187,7 @@ Public Class VoucherHelper
             End If
             query = String.Format("Select LTRIM(RTRIM(VD_Acc_Cd)) as 'LedgerAccount',LTRIM(RTRIM(ac.Am_Acc_Nm)) as 'AccountName',VD_ABS_Amt as 'Amount',LTRIM(RTRIM(VD_Cr_Dr)) as 'CrDr'" &
                                 ",LTRIM(RTRIM(VD_Ref_No)) as 'RefNo',VD_Ref_Dt as 'RefDate'," &
-                                " LTRIM(RTRIM(VD_Narr)) as 'VoucherDesc',LTRIM(RTRIM(VD_Seq_No)) as [VD_Seq_No] from " + InstitutionMasterData.XInstType + "_Voucher_Detail vd Inner Join " + InstitutionMasterData.XInstType + "_Accounts ac on vd.VD_Acc_Cd=ac.Am_Acc_Cd  where [VD_Lnk_No]='{0}' and [VD_Dbk_Cd]='{1}' and [VD_Trn_Typ]='{2}'",
+                                " LTRIM(RTRIM(VD_Narr)) as 'VoucherDesc',LTRIM(RTRIM(VD_Seq_No)) as [VD_Seq_No] from " + InstitutionMasterData.XInstType + "_Voucher_Detail vd Inner Join " + InstitutionMasterData.XInstType + "_Accounts ac on vd.VD_Acc_Cd=ac.Am_Acc_Cd  where [VD_Lnk_No]='{0}' and [VD_Dbk_Cd]='{1}' and [VD_Trn_Typ]='{2}' ORDER BY [VD_Seq_No] Asc",
                                   voucherLinkNumber, daybookCode, transType)
             dtVoucherDetails = dataHelper.ExecuteQuery(query, CommandType.Text, Nothing)
 

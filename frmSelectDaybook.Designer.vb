@@ -35,7 +35,7 @@ Partial Class frmSelectDaybook
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(21, 28)
+        Me.Label1.Location = New System.Drawing.Point(13, 19)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(84, 14)
         Me.Label1.TabIndex = 0
@@ -44,7 +44,7 @@ Partial Class frmSelectDaybook
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(21, 67)
+        Me.Label2.Location = New System.Drawing.Point(13, 60)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(34, 14)
         Me.Label2.TabIndex = 1
@@ -53,7 +53,7 @@ Partial Class frmSelectDaybook
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(21, 112)
+        Me.Label3.Location = New System.Drawing.Point(13, 101)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(19, 14)
         Me.Label3.TabIndex = 2
@@ -61,7 +61,7 @@ Partial Class frmSelectDaybook
         '
         'btncontinue
         '
-        Me.btncontinue.Location = New System.Drawing.Point(101, 165)
+        Me.btncontinue.Location = New System.Drawing.Point(109, 143)
         Me.btncontinue.Name = "btncontinue"
         Me.btncontinue.Size = New System.Drawing.Size(75, 25)
         Me.btncontinue.TabIndex = 3
@@ -71,7 +71,7 @@ Partial Class frmSelectDaybook
         'dtpfromdate
         '
         Me.dtpfromdate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpfromdate.Location = New System.Drawing.Point(117, 67)
+        Me.dtpfromdate.Location = New System.Drawing.Point(109, 60)
         Me.dtpfromdate.Name = "dtpfromdate"
         Me.dtpfromdate.Size = New System.Drawing.Size(137, 22)
         Me.dtpfromdate.TabIndex = 5
@@ -79,7 +79,7 @@ Partial Class frmSelectDaybook
         'dtptodate
         '
         Me.dtptodate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtptodate.Location = New System.Drawing.Point(117, 106)
+        Me.dtptodate.Location = New System.Drawing.Point(109, 101)
         Me.dtptodate.Name = "dtptodate"
         Me.dtptodate.Size = New System.Drawing.Size(137, 22)
         Me.dtptodate.TabIndex = 6
@@ -87,15 +87,15 @@ Partial Class frmSelectDaybook
         'ddldaybookcode
         '
         Me.ddldaybookcode.FormattingEnabled = True
-        Me.ddldaybookcode.Location = New System.Drawing.Point(117, 23)
+        Me.ddldaybookcode.Location = New System.Drawing.Point(109, 19)
         Me.ddldaybookcode.Name = "ddldaybookcode"
-        Me.ddldaybookcode.Size = New System.Drawing.Size(137, 22)
+        Me.ddldaybookcode.Size = New System.Drawing.Size(237, 22)
         Me.ddldaybookcode.TabIndex = 3
         '
         'btnCancel
         '
         Me.btnCancel.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCancel.Location = New System.Drawing.Point(182, 165)
+        Me.btnCancel.Location = New System.Drawing.Point(190, 143)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(72, 25)
         Me.btnCancel.TabIndex = 7
@@ -106,7 +106,7 @@ Partial Class frmSelectDaybook
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(281, 209)
+        Me.ClientSize = New System.Drawing.Size(368, 175)
         Me.ControlBox = False
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.ddldaybookcode)

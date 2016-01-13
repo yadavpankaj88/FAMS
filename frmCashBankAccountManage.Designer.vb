@@ -26,7 +26,7 @@ Partial Class frmCashBankAccountManage
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.ComboBoxLedgerAccountCode = New System.Windows.Forms.ComboBox()
         Me.lblAcccodeErr = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.ButtonSearch = New System.Windows.Forms.Button()
         Me.TextBoxBankOD = New System.Windows.Forms.TextBox()
         Me.LabelBankOD = New System.Windows.Forms.Label()
         Me.TextBoxAccountNumber = New System.Windows.Forms.TextBox()
@@ -51,7 +51,7 @@ Partial Class frmCashBankAccountManage
         '
         Me.GroupBox1.Controls.Add(Me.ComboBoxLedgerAccountCode)
         Me.GroupBox1.Controls.Add(Me.lblAcccodeErr)
-        Me.GroupBox1.Controls.Add(Me.Button2)
+        Me.GroupBox1.Controls.Add(Me.ButtonSearch)
         Me.GroupBox1.Controls.Add(Me.TextBoxBankOD)
         Me.GroupBox1.Controls.Add(Me.LabelBankOD)
         Me.GroupBox1.Controls.Add(Me.TextBoxAccountNumber)
@@ -95,14 +95,14 @@ Partial Class frmCashBankAccountManage
         Me.lblAcccodeErr.Text = "The account is " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "already linked"
         Me.lblAcccodeErr.Visible = False
         '
-        'Button2
+        'ButtonSearch
         '
-        Me.Button2.Image = Global.FAMS.My.Resources.Resources.searchIcon
-        Me.Button2.Location = New System.Drawing.Point(316, 26)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(26, 23)
-        Me.Button2.TabIndex = 1
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.ButtonSearch.Image = Global.FAMS.My.Resources.Resources.searchIcon
+        Me.ButtonSearch.Location = New System.Drawing.Point(316, 26)
+        Me.ButtonSearch.Name = "ButtonSearch"
+        Me.ButtonSearch.Size = New System.Drawing.Size(26, 23)
+        Me.ButtonSearch.TabIndex = 1
+        Me.ButtonSearch.UseVisualStyleBackColor = True
         '
         'TextBoxBankOD
         '
@@ -274,7 +274,7 @@ Partial Class frmCashBankAccountManage
     Friend WithEvents LabelAccountNumber As System.Windows.Forms.Label
     Friend WithEvents TextBoxBankOD As System.Windows.Forms.TextBox
     Friend WithEvents LabelBankOD As System.Windows.Forms.Label
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents ButtonSearch As System.Windows.Forms.Button
     Friend WithEvents BindingSource1 As System.Windows.Forms.BindingSource
     Friend WithEvents lblAcccodeErr As System.Windows.Forms.Label
     Friend WithEvents ComboBoxLedgerAccountCode As System.Windows.Forms.ComboBox

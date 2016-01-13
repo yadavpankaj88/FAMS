@@ -13,7 +13,7 @@ Public Class frmFAMSMain
     Dim objVoucherAdd As frmAddVoucher
     Private _institutionDetails As InstitutionMasterData
     Dim legerAcc As LedgerAccountHelper
-    
+
     Dim title As String = "CASCADE – Financial Accounting Module Developed by ASTUTE Information Management Solutions, C.B.D.Belapur, Navi Mumbai – Contact 98193-12456"
 
     Public Enum NavSettings
@@ -80,7 +80,7 @@ Public Class frmFAMSMain
     End Sub
 
     Private Sub EnableDisableMenus()
-        If validateClass.CheckFinancialYear(InstitutionMasterData.XFinYr, institutionDetailsGlobal.XInstCloseYear) Then
+        If ValidateClass.CheckFinancialYear(InstitutionMasterData.XFinYr, institutionDetailsGlobal.XInstCloseYear) Then
             Dim ddMenu As ToolStripMenuItem = DirectCast(msMainMenu.Items(mnuDDActivities.Name), ToolStripMenuItem)
             For Each item As ToolStripDropDownItem In ddMenu.DropDownItems
                 Select Case item.Name

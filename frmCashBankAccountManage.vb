@@ -22,6 +22,11 @@
         AttachBindings()
         EnableDisableControls(False)
         TextBoxDayBookCode.Enabled = True
+        If BindingSource1.Count = 0 Then
+            ButtonSearch.Visible = False
+        Else
+            ButtonSearch.Visible = True
+        End If
         Me.KeyPreview = True
     End Sub
 
@@ -94,16 +99,16 @@
     End Sub
 
     Private Sub AssignControls(ByVal datarow As DataRow)
-        TextBoxDayBookCode.Text = datarow("DM_Dbk_Cd").ToString()
-        TextBoxDaybookName.Text = datarow("DM_Dbk_Nm").ToString()
-        ComboBoxDaybookType.SelectedValue = datarow("DM_Dbk_Typ").ToString()
+        TextBoxDayBookCode.Text = datarow("DM_Dbk_Cd").ToString().Trim()
+        TextBoxDaybookName.Text = datarow("DM_Dbk_Nm").ToString().Trim()
+        ComboBoxDaybookType.SelectedValue = datarow("DM_Dbk_Typ").ToString().Trim()
         ComboBoxLedgerAccountCode.SelectedValue = datarow("DM_Acc_Cd")
         TextBoxBankOD.Text = datarow("DM_Bnk_Od")
 
         If ComboBoxDaybookType.SelectedValue = "B" Then
-            TextBoxBankName.Text = IIf(datarow("DM_Bnk_Nm").ToString() <> String.Empty, datarow("DM_Bnk_Nm"), String.Empty)
-            TextBoxBranchName.Text = IIf(datarow("DM_Bnk_Brn").ToString() <> String.Empty, datarow("DM_Bnk_Brn"), String.Empty)
-            TextBoxAccountNumber.Text = IIf(datarow("DM_Bnk_AcNo").ToString() <> String.Empty, datarow("DM_Bnk_AcNo"), String.Empty)
+            TextBoxBankName.Text = IIf(datarow("DM_Bnk_Nm").ToString().Trim() <> String.Empty, datarow("DM_Bnk_Nm"), String.Empty)
+            TextBoxBranchName.Text = IIf(datarow("DM_Bnk_Brn").ToString().Trim() <> String.Empty, datarow("DM_Bnk_Brn"), String.Empty)
+            TextBoxAccountNumber.Text = IIf(datarow("DM_Bnk_AcNo").ToString().Trim() <> String.Empty, datarow("DM_Bnk_AcNo"), String.Empty)
         Else
             TextBoxBankName.Text = String.Empty
             TextBoxBranchName.Text = String.Empty
@@ -216,20 +221,20 @@
 
             If errorStr = "" Then
 
-                daybook.DMDaybookCode = TextBoxDayBookCode.Text.ToString()
-                daybook.DMDaybookName = TextBoxDaybookName.Text.ToString()
-                daybook.DMDaybookType = ComboBoxDaybookType.SelectedValue
-                daybook.DMAccountCode = ComboBoxLedgerAccountCode.SelectedValue
+                daybook.DMDaybookCode = TextBoxDayBookCode.Text.ToString().Trim()
+                daybook.DMDaybookName = TextBoxDaybookName.Text.ToString().Trim()
+                daybook.DMDaybookType = ComboBoxDaybookType.SelectedValue.Trim()
+                daybook.DMAccountCode = ComboBoxLedgerAccountCode.SelectedValue.Trim()
                 If ComboBoxDaybookType.SelectedValue = "B" Then
-                    daybook.DMBankAccNo = TextBoxAccountNumber.Text.ToString()
-                    daybook.DMBankBranch = TextBoxBranchName.Text.ToString()
-                    daybook.DMBankName = TextBoxBankName.Text.ToString()
+                    daybook.DMBankAccNo = TextBoxAccountNumber.Text.ToString().Trim()
+                    daybook.DMBankBranch = TextBoxBranchName.Text.ToString().Trim()
+                    daybook.DMBankName = TextBoxBankName.Text.ToString().Trim()
                 End If
 
-                daybook.DMBankOD = TextBoxBankOD.Text.ToString()
-                daybook.DMInstCd = InstitutionMasterData.XInstCode.Trim
-                daybook.DMInstTyp = InstitutionMasterData.XInstType.Trim
-                daybook.DMFinYear = InstitutionMasterData.XFinYr.Trim
+                daybook.DMBankOD = TextBoxBankOD.Text.ToString().Trim()
+                daybook.DMInstCd = InstitutionMasterData.XInstCode.Trim()
+                daybook.DMInstTyp = InstitutionMasterData.XInstType.Trim()
+                daybook.DMFinYear = InstitutionMasterData.XFinYr.Trim()
                 daybook.DMBranchCode = "01"
                 daybookHelper.SaveDaybooks(daybook)
                 MessageBox.Show("Data updated Successfully")
@@ -246,7 +251,7 @@
 
     End Sub
 
-    Private Sub ButtonSearch_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button2.Click
+    Private Sub ButtonSearch_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ButtonSearch.Click
         'Dim daybookHelper As New DayBooksHelper
         'Dim dt As DataTable = daybookHelper.GetDaybooksByCode(TextBoxDayBookCode.Text)
         'If dt.Rows.Count > 0 Then
@@ -396,7 +401,7 @@
                     ComboBoxLedgerAccountCode.SelectedValue = dt.Rows(0)("DM_Acc_Cd").ToString()
                 End If
             End If
-            If dt.Rows(0)("DM_Dbk_Typ").ToString() <> ComboBoxDaybookType.SelectedValue Or dt.Rows(0)("DM_Acc_Cd").ToString() <> ComboBoxLedgerAccountCode.SelectedValue Or (dt.Rows(0)("DM_Bnk_Nm").ToString() <> TextBoxBankName.Text) Or (dt.Rows(0)("DM_Bnk_Brn").ToString() <> TextBoxBranchName.Text) Or (dt.Rows(0)("DM_Bnk_AcNo").ToString() <> TextBoxAccountNumber.Text) Or (dt.Rows(0)("DM_Bnk_OD").ToString() <> TextBoxBankOD.Text) Then
+            If dt.Rows(0)("DM_Dbk_Typ").ToString().Trim() <> ComboBoxDaybookType.SelectedValue.Trim() Or dt.Rows(0)("DM_Acc_Cd").ToString().Trim() <> ComboBoxLedgerAccountCode.SelectedValue.Trim() Or (dt.Rows(0)("DM_Bnk_Nm").ToString().Trim() <> TextBoxBankName.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_Brn").ToString().Trim() <> TextBoxBranchName.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_AcNo").ToString().Trim() <> TextBoxAccountNumber.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_OD").ToString().Trim() <> TextBoxBankOD.Text.Trim()) Then
                 If MessageBox.Show("Do you want to save changes?", " Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                     SaveDaybooks()
                     Return True
@@ -464,18 +469,18 @@
     Function Validation() As String
         Dim result As String = ""
         If TextBoxDayBookCode.Text = String.Empty Then
-            result = result & "- Daybook code is empty" & vbNewLine
+            result = result & " Daybook code is empty" & vbNewLine
         End If
 
         If TextBoxDaybookName.Text = String.Empty Then
-            result = result & "- Daybook name is empty" & vbNewLine
+            result = result & " Daybook name is empty" & vbNewLine
         End If
 
         If ComboBoxLedgerAccountCode.SelectedIndex = -1 Then
-            result = result & "- Please select account code" & vbNewLine
+            result = result & " Please select account code" & vbNewLine
         End If
         If ComboBoxDaybookType.SelectedIndex = -1 Then
-            result = result & "- Please select Daybook  type" & vbNewLine
+            result = result & " Please select Daybook  type" & vbNewLine
         End If
         Return result
     End Function

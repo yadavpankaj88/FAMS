@@ -34,8 +34,11 @@
         drpOpenBalEff.DisplayMember = "Text"
         drpOpenBalEff.ValueMember = "Value"
         Me.KeyPreview = True
-        'drpOpenBalEff.Items.Add("CR")
-        'drpOpenBalEff.Items.Add("DR")
+        If bindingSourceCtrl.Count = 0 Then
+            btnSearch.Visible = False
+        Else
+            btnSearch.Visible = True
+        End If
 
     End Sub
 

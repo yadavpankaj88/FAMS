@@ -605,7 +605,8 @@
                 If Not str1 = String.Empty And Not dgvrow.Cells("Amount").EditedFormattedValue = String.Empty Then
                     Dim rowDecimal As Decimal
                     rowDecimal = Decimal.Parse(dgvrow.Cells("Amount").EditedFormattedValue)
-                    If str1 = "Cr" Then
+                    Dim drcr As String = dgvrow.Cells("DebitCr").EditedFormattedValue.ToString()
+                    If drcr = "Cr" Then
                         rowDecimal = rowDecimal * -1
                     End If
                     detailv = detailv + rowDecimal
@@ -614,7 +615,7 @@
                 End If
 
             Next
-            If detailv = headerValue Then
+            If detailv + headerValue = 0 Then
                 Return True
             ElseIf detailv > headerValue Then
                 MessageBox.Show("Voucher header and details amount must match", "Incorrect Amount")
@@ -696,16 +697,20 @@
     Private Sub dgvVoucherDetails_RowEnter(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dgvVoucherDetails.RowEnter
         dgvVoucherDetails.Rows(e.RowIndex).Cells("RefNo").Value = txtRefNumber.Text
         dgvVoucherDetails.Rows(e.RowIndex).Cells("RefDate").Value = DateTimeReferenceDate.Value.ToShortDateString()
-        dgvVoucherDetails.Rows(e.RowIndex).Cells("SeqNo").Value = (e.RowIndex + 1).ToString().PadLeft(3, "0")
 
-        If Not String.IsNullOrEmpty(PaymentReceipt) Then
-            If PaymentReceipt = "P" Then
-                dgvVoucherDetails.Rows(e.RowIndex).Cells("DebitCr").Value = "Dr"
-            ElseIf PaymentReceipt = "R" Then
-                dgvVoucherDetails.Rows(e.RowIndex).Cells("DebitCr").Value = "Cr"
-            End If
+        If (String.IsNullOrEmpty(dgvVoucherDetails.Rows(e.RowIndex).Cells("SeqNo").Value)) Then
+            dgvVoucherDetails.Rows(e.RowIndex).Cells("SeqNo").Value = (e.RowIndex + 1).ToString().PadLeft(3, "0")
         End If
 
+        If (String.IsNullOrEmpty(dgvVoucherDetails.Rows(e.RowIndex).Cells("DebitCr").Value)) Then
+            If Not String.IsNullOrEmpty(PaymentReceipt) Then
+                If PaymentReceipt = "P" Then
+                    dgvVoucherDetails.Rows(e.RowIndex).Cells("DebitCr").Value = "Dr"
+                ElseIf PaymentReceipt = "R" Then
+                    dgvVoucherDetails.Rows(e.RowIndex).Cells("DebitCr").Value = "Cr"
+                End If
+            End If
+        End If
     End Sub
 
     Private Function IsDecimal(ByVal keyArgs As KeyPressEventArgs, ByVal sender As TextBox) As Boolean
