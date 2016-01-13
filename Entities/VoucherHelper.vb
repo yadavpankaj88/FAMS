@@ -18,8 +18,19 @@ Public Class VoucherHelper
     Public Sub SaveVoucherHeader(ByVal voucherHead As VoucherHeader)
         Dim Query As String = "If(Exists(select 'x' from " + InstitutionMasterData.XInstType + "_Voucher_Header where VH_Lnk_No=@VH_Lnk_No)) " & _
         " Begin " & _
-        "Update " + InstitutionMasterData.XInstType + "_Voucher_Header Set VH_Lnk_Dt=@VH_Lnk_Dt,VH_Pty_Nm=@VH_Pty_Nm,VH_Chq_No=@VH_Chq_No,VH_Chq_Dt=@VH_Chq_Dt,VH_Ref_No=@VH_Ref_No,VH_Ref_Dt=@VH_Ref_Dt," & _
-        " VH_Amt=@VH_Amt,VH_Cr_Dr=@VH_Cr_Dr,VH_Abs_Amt=@VH_Abs_Amt,VH_Upd_By=@VH_Upd_By,VH_Upd_Dt=GetDate() where VH_Lnk_No=@VH_Lnk_No" & _
+        "Update " + InstitutionMasterData.XInstType + "_Voucher_Header Set " &
+        "VH_Lnk_Dt=@VH_Lnk_Dt" & _
+        ",VH_Pty_Nm=@VH_Pty_Nm" & _
+        ",VH_Chq_No=@VH_Chq_No" & _
+        ",VH_Chq_Dt=@VH_Chq_Dt" & _
+        ",VH_Ref_No=@VH_Ref_No" & _
+        ",VH_Ref_Dt=@VH_Ref_Dt" & _
+        ",VH_Amt=@VH_Amt" & _
+        ",VH_Cr_Dr=@VH_Cr_Dr" & _
+        ",VH_Abs_Amt=@VH_Abs_Amt" & _
+        ",VH_Upd_By=@VH_Upd_By" & _
+        ",VH_Upd_Dt=GetDate()" & _
+        "where VH_Lnk_No=@VH_Lnk_No" & _
         " End " & _
         " Else " & _
         "Insert into " + InstitutionMasterData.XInstType + "_Voucher_Header(VH_Fin_Yr,VH_Inst_Cd,VH_Inst_Typ,VH_Brn_Cd,VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm," & _
@@ -40,7 +51,7 @@ Public Class VoucherHelper
         params.Add("@VH_Dbk_Cd", voucherHead.VH_Dbk_Cd)
         params.Add("@VH_Trn_Typ", voucherHead.VH_Trn_Typ)
         params.Add("@VH_Chq_No", IIf(String.IsNullOrEmpty(voucherHead.VH_Chq_No), DBNull.Value, voucherHead.VH_Chq_No))
-        If voucherHead.VH_Chq_Dt.HasValue Then
+        If voucherHead.VH_Chq_Dt.HasValue And (voucherHead.VH_Trn_Typ = "BR" Or voucherHead.VH_Trn_Typ = "BP") Then
             params.Add("@VH_Chq_Dt", voucherHead.VH_Chq_Dt.Value.ToString("MM-dd-yyyy"))
         Else
             params.Add("@VH_Chq_Dt", DBNull.Value)

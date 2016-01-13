@@ -120,30 +120,34 @@
                                 Me.dgvVoucherDetails.Enabled = False
                                 txtLinkVoucherNumber.Text = txtLinkVoucherNumber.Text.PadLeft(12, "0")
 
-                                If (datepickerVoucherDateConfirm.Enabled) Then
-                                    Dim vHelper As VoucherHelper = New VoucherHelper()
-                                    Dim dt As DataTable = vHelper.GetNextVoucherNumber(datepickerVoucherDateConfirm.Value, ComboBoxDaybookSelect.SelectedValue)
-                                    If Not dt Is Nothing Then
-                                        If dt.Rows.Count > 0 Then
-                                            lblConfirmNumber.Text = dt.Rows(0)(0).ToString()
-                                            lblConfirmNumber.BackColor = Color.Red
-                                            lblConfirmNumber.ForeColor = Color.White
-                                            txtNextCount.Text = dt.Rows(0)(1).ToString()
-                                        End If
+                                'If (datepickerVoucherDateConfirm.Enabled) Then
+                                '    Dim vHelper As VoucherHelper = New VoucherHelper()
+                                '    Dim dt As DataTable = vHelper.GetNextVoucherNumber(datepickerVoucherDateConfirm.Value, ComboBoxDaybookSelect.SelectedValue)
+                                '    If Not dt Is Nothing Then
+                                '        If dt.Rows.Count > 0 Then
+                                '            lblConfirmNumber.Text = dt.Rows(0)(0).ToString()
+                                '            lblConfirmNumber.BackColor = Color.Red
+                                '            lblConfirmNumber.ForeColor = Color.White
+                                '            txtNextCount.Text = dt.Rows(0)(1).ToString()
+                                '        End If
 
-                                    End If
-                                End If
+                                '    End If
+                                'End If
 
                                 txtLinkVoucherNumber.Enabled = False
                                 DatePickerVoucherLinkDate.Visible = True
                                 DatePickerVoucherLinkDate.Enabled = False
                                 Me.pnlConfirm.Visible = True
                                 Me.pnlConfirm.Enabled = True
+
+                                lblConfirmNumber.Text = "-"
+                                lblConfirmedVoucherNumber.Visible = False
+
                                 Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
                                 frmMain.toolstripSave.Enabled = True
                                 LabelVoucherDate.Visible = True
                                 txtLinkVoucherNumber.Enabled = False
-
+                                datepickerVoucherDateConfirm.Enabled = True
                         End Select
                     Else
                         If (ShowMessagebox) Then
@@ -296,20 +300,34 @@
             End If
             If calculateDiff Then
                 If (Not String.IsNullOrEmpty(ComboBoxDaybookSelect.SelectedValue) And Not String.IsNullOrEmpty(txtLinkVoucherNumber.Text)) Then
-                    helper.ConfirmCashAndBankVoucher(txtLinkVoucherNumber.Text, datepickerVoucherDateConfirm.Value.ToString(), lblConfirmNumber.Text.Trim())
+
+                    If (datepickerVoucherDateConfirm.Enabled) Then
+                        Dim vHelper As VoucherHelper = New VoucherHelper()
+                        Dim dt As DataTable = vHelper.GetNextVoucherNumber(datepickerVoucherDateConfirm.Value, ComboBoxDaybookSelect.SelectedValue)
+                        If Not dt Is Nothing Then
+                            If dt.Rows.Count > 0 Then
+                                lblConfirmNumber.Text = dt.Rows(0)(0).ToString()
+                                lblConfirmNumber.BackColor = Color.Red
+                                lblConfirmNumber.ForeColor = Color.White
+                                txtNextCount.Text = dt.Rows(0)(1).ToString()
+                            End If
+
+                        End If
+                    End If
+                    lblConfirmedVoucherNumber.Visible = True
+                    If (lblConfirmNumber.Text.Trim() <> "-") Then
+                        helper.ConfirmCashAndBankVoucher(txtLinkVoucherNumber.Text, datepickerVoucherDateConfirm.Value.ToString(), lblConfirmNumber.Text.Trim())
+                    End If
 
                     Dim lgdr As Ledger = New Ledger()
                     Dim lgdrhelper As LedgerHelper = New LedgerHelper()
 
                     Dim str As String
-                    Str = txtLinkVoucherNumber.Text
-                    Dim ledgercount As Integer = lgdrhelper.GetCountFromLedger(Str)
+                    str = txtLinkVoucherNumber.Text
+                    Dim ledgercount As Integer = lgdrhelper.GetCountFromLedger(str)
                     If ledgercount = 0 Then
-                        lgdrhelper.AddLedger(Str)
-                        'Dim count As Integer = lgdrhelper.GetLedgerCount(str)
-                        'For i As Integer = 0 To count - 1
+                        lgdrhelper.AddLedger(str)
                         lgdrhelper.AddLedgerDetail(str)
-                        'Next
                     Else
                         MessageBox.Show("Data is already in Ledger")
                     End If
@@ -328,6 +346,7 @@
 
                         End Select
                     End If
+                    MessageBox.Show("Voucher confirmed successfully." + Environment.NewLine + "Voucher Confirm Number: " + lblConfirmNumber.Text)
                 End If
             Else
                 MessageBox.Show("Insufficient Balance cannot confirm voucher !!!", "Insufficient Balance", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -431,6 +450,7 @@
                 Dim dlgResult As DialogResult = MessageBox.Show("Are you sure you want to delete this voucher?", "Delete?", MessageBoxButtons.YesNo)
                 If (dlgResult = Windows.Forms.DialogResult.Yes) Then
                     DeleteVoucher()
+                    MessageBox.Show("Voucher deleted successfully.")
                     Return True
                 Else
                     Return False
@@ -501,7 +521,6 @@
 
                         header.VH_VCH_Ref_No = vchRefNo.ToString().PadLeft(6, "0")
 
-
                         Dim i As Integer = 0
                         If dgvVoucherDetails.Rows.Count > 0 Then
                             For Each dgRows As DataGridViewRow In dgvVoucherDetails.Rows
@@ -558,6 +577,7 @@
                             If Me._mode = "add" Then
                                 instMaster.UpdateLinkNumber(txtLinkVoucherNumber.Text.Trim(), vchRefNo, InstitutionMasterData.XInstCode)
                             End If
+                            MessageBox.Show("Voucher saved successfully.")
                         Else
                             If InValidLedgerCode Then
                                 MessageBox.Show("Invalid ledger code for one of the voucher details entry")
@@ -848,7 +868,7 @@
                 DatePickerVoucherLinkDate.Value = InstitutionMasterData.XDate
                 DateTimeReferenceDate.Value = InstitutionMasterData.XDate
                 datepickerChequeDate.Value = InstitutionMasterData.XDate
-
+                dgvVoucherDetails.Enabled = True
                 Me.Text = Me.Text.Split("(")(0).Trim() + " (Operation: Add New)"
 
             Case "edit"
@@ -920,15 +940,9 @@
                     lblConfirmNumber.BackColor = Color.Red
                     lblConfirmNumber.ForeColor = Color.White
                     lableVoucherStatus.Text = "Status: CONFIRMED"
+                    lblConfirmedVoucherNumber.Visible = True
                 Else
                     lableVoucherStatus.Text = "Status: UN-CONFIRMED"
-                End If
-
-                If _mode.ToLower() = "confirm" Then
-                    lblConfirmedVoucherNumber.Text = voucherHeader.VH_VCH_Ref_No.ToString()
-                    lblConfirmedVoucherNumber.BackColor = Color.Red
-                    lblConfirmedVoucherNumber.ForeColor = Color.White
-
                 End If
 
                 lblConfirmedVoucherNumber.Text = voucherHeader.VH_VCH_Ref_No.ToString()
