@@ -31,6 +31,15 @@ Partial Class frmAddVoucher
         Me.lblLinkVoucherNumber = New System.Windows.Forms.Label()
         Me.panelVoucherControls = New System.Windows.Forms.Panel()
         Me.dgvVoucherDetails = New System.Windows.Forms.DataGridView()
+        Me.SeqNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LedgerAccount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AccountName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.hiddenRowNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DebitCr = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.RefNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.RefDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.VoucherDesc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.LabelReferenceNo = New System.Windows.Forms.Label()
         Me.txtRefNumber = New System.Windows.Forms.TextBox()
         Me.TextBoxAmount = New System.Windows.Forms.TextBox()
@@ -57,15 +66,6 @@ Partial Class frmAddVoucher
         Me.txtNextCount = New System.Windows.Forms.TextBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.lableVoucherStatus = New System.Windows.Forms.Label()
-        Me.SeqNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LedgerAccount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AccountName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.hiddenRowNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DebitCr = New System.Windows.Forms.DataGridViewComboBoxColumn()
-        Me.RefNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.RefDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.VoucherDesc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelVoucherControls.SuspendLayout()
         CType(Me.dgvVoucherDetails, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlConfirm.SuspendLayout()
@@ -161,6 +161,73 @@ Partial Class frmAddVoucher
         Me.dgvVoucherDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvVoucherDetails.Size = New System.Drawing.Size(923, 182)
         Me.dgvVoucherDetails.TabIndex = 17
+        '
+        'SeqNo
+        '
+        Me.SeqNo.DataPropertyName = "VD_Seq_No"
+        Me.SeqNo.HeaderText = "SeqNo"
+        Me.SeqNo.Name = "SeqNo"
+        Me.SeqNo.ReadOnly = True
+        Me.SeqNo.Width = 60
+        '
+        'LedgerAccount
+        '
+        Me.LedgerAccount.DataPropertyName = "LedgerAccount"
+        Me.LedgerAccount.HeaderText = "G/L Acc"
+        Me.LedgerAccount.Name = "LedgerAccount"
+        Me.LedgerAccount.Width = 80
+        '
+        'AccountName
+        '
+        Me.AccountName.DataPropertyName = "AccountName"
+        Me.AccountName.HeaderText = "Account Name"
+        Me.AccountName.Name = "AccountName"
+        Me.AccountName.ReadOnly = True
+        Me.AccountName.Width = 150
+        '
+        'hiddenRowNumber
+        '
+        Me.hiddenRowNumber.DataPropertyName = "RowNumber"
+        Me.hiddenRowNumber.HeaderText = "RowNumber"
+        Me.hiddenRowNumber.Name = "hiddenRowNumber"
+        Me.hiddenRowNumber.Visible = False
+        '
+        'Amount
+        '
+        Me.Amount.DataPropertyName = "Amount"
+        DataGridViewCellStyle1.Format = "N2"
+        DataGridViewCellStyle1.NullValue = Nothing
+        Me.Amount.DefaultCellStyle = DataGridViewCellStyle1
+        Me.Amount.HeaderText = "Amount"
+        Me.Amount.Name = "Amount"
+        '
+        'DebitCr
+        '
+        Me.DebitCr.DataPropertyName = "CrDr"
+        Me.DebitCr.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
+        Me.DebitCr.HeaderText = ""
+        Me.DebitCr.Items.AddRange(New Object() {"Dr", "Cr"})
+        Me.DebitCr.Name = "DebitCr"
+        Me.DebitCr.Width = 50
+        '
+        'RefNo
+        '
+        Me.RefNo.DataPropertyName = "RefNo"
+        Me.RefNo.HeaderText = "Reference Number"
+        Me.RefNo.Name = "RefNo"
+        '
+        'RefDate
+        '
+        Me.RefDate.DataPropertyName = "RefDate"
+        Me.RefDate.HeaderText = "Reference Date"
+        Me.RefDate.Name = "RefDate"
+        '
+        'VoucherDesc
+        '
+        Me.VoucherDesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.VoucherDesc.DataPropertyName = "VoucherDesc"
+        Me.VoucherDesc.HeaderText = "Voucher Description"
+        Me.VoucherDesc.Name = "VoucherDesc"
         '
         'LabelReferenceNo
         '
@@ -396,6 +463,7 @@ Partial Class frmAddVoucher
         Me.SplitContainer1.Panel2.Controls.Add(Me.txtLinkVoucherNumber)
         Me.SplitContainer1.Panel2.Controls.Add(Me.DatePickerVoucherLinkDate)
         Me.SplitContainer1.Panel2.Controls.Add(Me.LabelVoucherDate)
+        Me.SplitContainer1.Panel2Collapsed = True
         Me.SplitContainer1.Size = New System.Drawing.Size(935, 508)
         Me.SplitContainer1.SplitterWidth = 5
         Me.SplitContainer1.TabIndex = 22
@@ -407,73 +475,6 @@ Partial Class frmAddVoucher
         Me.lableVoucherStatus.Name = "lableVoucherStatus"
         Me.lableVoucherStatus.Size = New System.Drawing.Size(0, 14)
         Me.lableVoucherStatus.TabIndex = 9
-        '
-        'SeqNo
-        '
-        Me.SeqNo.DataPropertyName = "VD_Seq_No"
-        Me.SeqNo.HeaderText = "SeqNo"
-        Me.SeqNo.Name = "SeqNo"
-        Me.SeqNo.ReadOnly = True
-        Me.SeqNo.Width = 60
-        '
-        'LedgerAccount
-        '
-        Me.LedgerAccount.DataPropertyName = "LedgerAccount"
-        Me.LedgerAccount.HeaderText = "G/L Acc"
-        Me.LedgerAccount.Name = "LedgerAccount"
-        Me.LedgerAccount.Width = 80
-        '
-        'AccountName
-        '
-        Me.AccountName.DataPropertyName = "AccountName"
-        Me.AccountName.HeaderText = "Account Name"
-        Me.AccountName.Name = "AccountName"
-        Me.AccountName.ReadOnly = True
-        Me.AccountName.Width = 150
-        '
-        'hiddenRowNumber
-        '
-        Me.hiddenRowNumber.DataPropertyName = "RowNumber"
-        Me.hiddenRowNumber.HeaderText = "RowNumber"
-        Me.hiddenRowNumber.Name = "hiddenRowNumber"
-        Me.hiddenRowNumber.Visible = False
-        '
-        'Amount
-        '
-        Me.Amount.DataPropertyName = "Amount"
-        DataGridViewCellStyle1.Format = "N2"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.Amount.DefaultCellStyle = DataGridViewCellStyle1
-        Me.Amount.HeaderText = "Amount"
-        Me.Amount.Name = "Amount"
-        '
-        'DebitCr
-        '
-        Me.DebitCr.DataPropertyName = "CrDr"
-        Me.DebitCr.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
-        Me.DebitCr.HeaderText = ""
-        Me.DebitCr.Items.AddRange(New Object() {"Dr", "Cr"})
-        Me.DebitCr.Name = "DebitCr"
-        Me.DebitCr.Width = 50
-        '
-        'RefNo
-        '
-        Me.RefNo.DataPropertyName = "RefNo"
-        Me.RefNo.HeaderText = "Reference Number"
-        Me.RefNo.Name = "RefNo"
-        '
-        'RefDate
-        '
-        Me.RefDate.DataPropertyName = "RefDate"
-        Me.RefDate.HeaderText = "Reference Date"
-        Me.RefDate.Name = "RefDate"
-        '
-        'VoucherDesc
-        '
-        Me.VoucherDesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.VoucherDesc.DataPropertyName = "VoucherDesc"
-        Me.VoucherDesc.HeaderText = "Voucher Description"
-        Me.VoucherDesc.Name = "VoucherDesc"
         '
         'frmAddVoucher
         '
