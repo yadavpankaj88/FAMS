@@ -71,9 +71,8 @@ Public Class frmReports
         Dim pwd As String = "Password@123"
         view.SetDatabaseLogon(user, pwd)
         view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
-        view.SetParameterValue("@Fromdate", _fromDate.Date)
-        view.SetParameterValue("@ToDate", _toDate.Date)
-        view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
+        view.SetParameterValue("@Fromdate", _fromDate.ToShortDateString())
+        view.SetParameterValue("@ToDate", _toDate.ToShortDateString())
         crystalRptVwr.ReportSource = view
     End Sub
 
@@ -83,9 +82,8 @@ Public Class frmReports
         Dim pwd As String = "Password@123"
         view.SetDatabaseLogon(user, pwd)
         view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
-        view.SetParameterValue("@Fromdate", _fromDate)
-        view.SetParameterValue("@ToDate", _toDate)
-        view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
+        view.SetParameterValue("@Fromdate", _fromDate.ToShortDateString())
+        view.SetParameterValue("@ToDate", _toDate.ToShortDateString())
         crystalRptVwr.ReportSource = view
     End Sub
 
