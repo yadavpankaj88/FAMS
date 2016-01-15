@@ -54,11 +54,11 @@ Public Class frmReports
     Private Sub ShowCashBookReport()
         Dim view As New rptCashBook
         Dim user As String = "sa"
-        Dim pwd As String = "hello123"
+        Dim pwd As String = "Password@123"
         view.SetDatabaseLogon(user, pwd)
         view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
-        view.SetParameterValue("@Fromdate", _fromDate.AddDays(-1))
-        view.SetParameterValue("@ToDate", _toDate.AddDays(-1))
+        view.SetParameterValue("@Fromdate", _fromDate.ToShortDateString())
+        view.SetParameterValue("@ToDate", _toDate.ToShortDateString())
         view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
         crystalRptVwr.ReportSource = view
         crystalRptVwr.Refresh()
@@ -66,27 +66,27 @@ Public Class frmReports
     End Sub
 
     Private Sub ShowGeneralLedger()
-        'Dim view As New rptGeneralLedger
-        'Dim user As String = "sa"
-        'Dim pwd As String = "Password@123"
-        'view.SetDatabaseLogon(user, pwd)
-        'view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
-        'view.SetParameterValue("@Fromdate", _fromDate)
-        'view.SetParameterValue("@ToDate", _toDate)
-        'view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
-        'crystalRptVwr.ReportSource = view
+        Dim view As New rptGeneralLedger
+        Dim user As String = "sa"
+        Dim pwd As String = "Password@123"
+        view.SetDatabaseLogon(user, pwd)
+        view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
+        view.SetParameterValue("@Fromdate", _fromDate.Date)
+        view.SetParameterValue("@ToDate", _toDate.Date)
+        view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
+        crystalRptVwr.ReportSource = view
     End Sub
 
     Private Sub ShowTrialBalance()
-        'Dim view As New rptTrialBalance
-        'Dim user As String = "sa"
-        'Dim pwd As String = "Password@123"
-        'view.SetDatabaseLogon(user, pwd)
-        'view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
-        'view.SetParameterValue("@Fromdate", _fromDate)
-        'view.SetParameterValue("@ToDate", _toDate)
-        'view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
-        'crystalRptVwr.ReportSource = view
+        Dim view As New rptTrialBalance
+        Dim user As String = "sa"
+        Dim pwd As String = "Password@123"
+        view.SetDatabaseLogon(user, pwd)
+        view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
+        view.SetParameterValue("@Fromdate", _fromDate)
+        view.SetParameterValue("@ToDate", _toDate)
+        view.SetParameterValue("@VH_Dbk_Cd", _dayBookCode)
+        crystalRptVwr.ReportSource = view
     End Sub
 
 End Class
