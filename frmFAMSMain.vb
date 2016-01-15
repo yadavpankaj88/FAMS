@@ -709,7 +709,7 @@ Public Class frmFAMSMain
     End Sub
 
     Private Sub mnuCombinedCashBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCombinedCashBankBookRpt.Click
-        'LoadDayBookSelection("TrialBalance")
+        LoadDayBookSelection("TrialBalance")
     End Sub
 
     Private Sub ReportToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReportToolStripMenuItem.Click
