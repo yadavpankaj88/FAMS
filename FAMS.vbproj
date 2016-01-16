@@ -119,6 +119,7 @@
     <Compile Include="Entities\Ledger.vb" />
     <Compile Include="Entities\LedgerAccountHelper.vb" />
     <Compile Include="Entities\LedgerHelper.vb" />
+    <Compile Include="Entities\ReportHelper.vb" />
     <Compile Include="Entities\User.vb" />
     <Compile Include="Entities\UserHelper.vb" />
     <Compile Include="Entities\VoucherDetails.vb" />

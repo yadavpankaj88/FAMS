@@ -707,13 +707,12 @@ Public Class frmFAMSMain
     End Sub
 
     Private Sub mnuConsolidatedBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuConsolidatedBankBookRpt.Click
-        LoadDayBookSelection("GeneralLedger")
+
     End Sub
 
     Private Sub mnuCombinedCashBankBookRpt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCombinedCashBankBookRpt.Click
-        LoadDayBookSelection("TrialBalance")
-    End Sub
 
+    End Sub
 
     Private Sub LoadDayBookSelection(ByVal reportMode As String)
         lblActivity.Text = "View"
@@ -722,7 +721,12 @@ Public Class frmFAMSMain
         mainBindingNavigator.BindingSource = Nothing
         ShowNewForm(objSelectDaybook, Nothing)
     End Sub
-
-  
  
+    Private Sub mnu_Trialbnlc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnu_Trialbnlc.Click
+        LoadDayBookSelection("TrialBalance")
+    End Sub
+
+    Private Sub mnu_CashBankAcc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnu_CashBankAcc.Click
+        LoadDayBookSelection("GeneralLedger")
+    End Sub
 End Class

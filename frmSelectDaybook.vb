@@ -24,20 +24,41 @@
     Private Sub ShowReport()
         Try
             If (Not String.IsNullOrEmpty(_mode) And Not String.IsNullOrEmpty(ddldaybookcode.SelectedValue) And Not String.IsNullOrEmpty(dtpfromdate.Value.ToString()) And Not String.IsNullOrEmpty(dtptodate.Value.ToString())) Then
-
-                objCashReceipt = New frmReports
-                objCashReceipt.SetControls(_mode, ddldaybookcode.SelectedValue, dtpfromdate.Value, dtptodate.Value)
-                Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
-                frmMain.ShowNewForm(objCashReceipt, Nothing)
-                Me.Hide()
-
-            Else
-                MessageBox.Show("Please select all neccessary parameters")
-            End If
-
+                If ((dtpfromdate.Value >= InstitutionMasterData.XStartFinYr And dtpfromdate.Value <= InstitutionMasterData.XEndFinYr) And (dtptodate.Value >= InstitutionMasterData.XStartFinYr And dtptodate.Value <= InstitutionMasterData.XEndFinYr)) Then
+                    If (LoadReportCount() > 0) Then
+                        objCashReceipt = New frmReports
+                        objCashReceipt.SetControls(_mode, ddldaybookcode.SelectedValue, dtpfromdate.Value, dtptodate.Value)
+                        Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
+                        frmMain.ShowNewForm(objCashReceipt, Nothing)
+                        Me.Hide()
+                    Else
+                        MessageBox.Show("No data available for selected parameters")
+                    End If
+                Else
+                    MessageBox.Show("Please select date from current financial year")
+                End If
+                Else
+                    MessageBox.Show("Please select all neccessary parameters")
+                End If
         Catch ex As Exception
         End Try
     End Sub
+
+    Private Function LoadReportCount()
+        Dim reportCountHelper As New ReportHelper
+        Dim count As Integer = 0
+        Select Case _mode
+            Case "CashBook"
+                count = reportCountHelper.GetCashBankBookReportCount(dtpfromdate.Value, dtptodate.Value, ddldaybookcode.SelectedValue)
+            Case "BankBook"
+                count = reportCountHelper.GetCashBankBookReportCount(dtpfromdate.Value, dtptodate.Value, ddldaybookcode.SelectedValue)
+            Case "GeneralLedger"
+                count = reportCountHelper.GetLedgerReportCount(dtpfromdate.Value,dtptodate.Value)
+            Case "TrialBalance"
+                count = reportCountHelper.GetTrialBalanceReportCount(dtpfromdate.Value, dtptodate.Value)
+        End Select
+        Return count
+    End Function
 
     Private Sub BindDaybookCode()
         Dim ledgeAccHelper As New LedgerAccountHelper
