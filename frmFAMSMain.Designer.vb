@@ -61,9 +61,9 @@ Partial Class frmFAMSMain
         Me.mnuSubsidairyMaster = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFinStatsScheduleMaster = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuStep = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuCashBankContra = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAccCash = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuAccCheque = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AccountsForColumnarPettyCashBookToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_AccUnitTras = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuDDActivities = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCashReceiptV = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCashPayV = New System.Windows.Forms.ToolStripMenuItem()
@@ -71,15 +71,48 @@ Partial Class frmFAMSMain
         Me.mnuBankPayV = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCashContraV = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuJournalV = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuInterUnitV = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuMiscR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuIDFR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTutorialFessR = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEDCBank = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuPBCPR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuLBCPR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuGRV = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuGCV = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuRandQ = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCashBookRpt = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_Petty = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSelectiveBankAccountRpt = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuConsolidatedBankBookRpt = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCombinedCashBankBookRpt = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_CashBankContra = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_miscRR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_In_DFR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_TurorialFR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_JournalBook = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_GeneralLedger = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_CashBankAcc = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_otherAcc = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_Trialbnlc = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuBankReconcilliation = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChequesClearedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BankReconciliationStatementToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_RR_PR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_FinalizationStatement = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuDaybkSummaryR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuVchrPendingC = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuBanlcRrt = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_MonthVNo = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuUtilities = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_ChngPassword = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_UnlockUser = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_EUSDEF = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_GRCVMR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_NFinancialYear = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_TBNFY = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnu_CloseFinancialYear = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlNavigator = New System.Windows.Forms.Panel()
-        Me.ReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.mainBindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mainBindingNavigator.SuspendLayout()
         Me.pnlDetails.SuspendLayout()
@@ -400,36 +433,35 @@ Partial Class frmFAMSMain
         'mnuStep
         '
         Me.mnuStep.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mnuStep.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCashBankContra, Me.mnuAccCash, Me.mnuAccCheque})
+        Me.mnuStep.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAccCash, Me.AccountsForColumnarPettyCashBookToolStripMenuItem, Me.mnu_AccUnitTras})
         Me.mnuStep.Name = "mnuStep"
         Me.mnuStep.Size = New System.Drawing.Size(50, 20)
         Me.mnuStep.Text = "Setup"
-        '
-        'mnuCashBankContra
-        '
-        Me.mnuCashBankContra.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mnuCashBankContra.Name = "mnuCashBankContra"
-        Me.mnuCashBankContra.Size = New System.Drawing.Size(302, 22)
-        Me.mnuCashBankContra.Text = "Cash Bank Contra"
         '
         'mnuAccCash
         '
         Me.mnuAccCash.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mnuAccCash.Name = "mnuAccCash"
-        Me.mnuAccCash.Size = New System.Drawing.Size(302, 22)
+        Me.mnuAccCash.Size = New System.Drawing.Size(283, 22)
         Me.mnuAccCash.Text = "Account for Fees in Cash"
         '
-        'mnuAccCheque
+        'AccountsForColumnarPettyCashBookToolStripMenuItem
         '
-        Me.mnuAccCheque.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mnuAccCheque.Name = "mnuAccCheque"
-        Me.mnuAccCheque.Size = New System.Drawing.Size(302, 22)
-        Me.mnuAccCheque.Text = "Account for Fees By Cheque/Demand Draft"
+        Me.AccountsForColumnarPettyCashBookToolStripMenuItem.Enabled = False
+        Me.AccountsForColumnarPettyCashBookToolStripMenuItem.Name = "AccountsForColumnarPettyCashBookToolStripMenuItem"
+        Me.AccountsForColumnarPettyCashBookToolStripMenuItem.Size = New System.Drawing.Size(283, 22)
+        Me.AccountsForColumnarPettyCashBookToolStripMenuItem.Text = "Accounts for Columnar Petty Cash Book"
+        '
+        'mnu_AccUnitTras
+        '
+        Me.mnu_AccUnitTras.Name = "mnu_AccUnitTras"
+        Me.mnu_AccUnitTras.Size = New System.Drawing.Size(283, 22)
+        Me.mnu_AccUnitTras.Text = "Accounts for Inter-Unit Transactions"
         '
         'mnuDDActivities
         '
         Me.mnuDDActivities.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mnuDDActivities.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCashReceiptV, Me.mnuCashPayV, Me.mnuBankReceiptV, Me.mnuBankPayV, Me.mnuCashContraV, Me.mnuJournalV, Me.mnuEDCBank})
+        Me.mnuDDActivities.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCashReceiptV, Me.mnuCashPayV, Me.mnuBankReceiptV, Me.mnuBankPayV, Me.mnuCashContraV, Me.mnuJournalV, Me.mnuInterUnitV, Me.mnuMiscR, Me.mnuIDFR, Me.mnuTutorialFessR, Me.mnuEDCBank, Me.mnuPBCPR, Me.mnuLBCPR, Me.mnuGRV, Me.mnuGCV})
         Me.mnuDDActivities.Name = "mnuDDActivities"
         Me.mnuDDActivities.Size = New System.Drawing.Size(127, 20)
         Me.mnuDDActivities.Text = "Day to Day Activities"
@@ -438,55 +470,102 @@ Partial Class frmFAMSMain
         '
         Me.mnuCashReceiptV.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mnuCashReceiptV.Name = "mnuCashReceiptV"
-        Me.mnuCashReceiptV.Size = New System.Drawing.Size(249, 22)
+        Me.mnuCashReceiptV.Size = New System.Drawing.Size(297, 22)
         Me.mnuCashReceiptV.Text = "Cash Receipt Vouchers"
         '
         'mnuCashPayV
         '
         Me.mnuCashPayV.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mnuCashPayV.Name = "mnuCashPayV"
-        Me.mnuCashPayV.Size = New System.Drawing.Size(249, 22)
+        Me.mnuCashPayV.Size = New System.Drawing.Size(297, 22)
         Me.mnuCashPayV.Text = "Cash Payment Vouchers"
         '
         'mnuBankReceiptV
         '
         Me.mnuBankReceiptV.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mnuBankReceiptV.Name = "mnuBankReceiptV"
-        Me.mnuBankReceiptV.Size = New System.Drawing.Size(249, 22)
+        Me.mnuBankReceiptV.Size = New System.Drawing.Size(297, 22)
         Me.mnuBankReceiptV.Text = "Bank Receipt Vouchers"
         '
         'mnuBankPayV
         '
         Me.mnuBankPayV.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mnuBankPayV.Name = "mnuBankPayV"
-        Me.mnuBankPayV.Size = New System.Drawing.Size(249, 22)
+        Me.mnuBankPayV.Size = New System.Drawing.Size(297, 22)
         Me.mnuBankPayV.Text = "Bank Payment Vouchers"
         '
         'mnuCashContraV
         '
         Me.mnuCashContraV.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mnuCashContraV.Name = "mnuCashContraV"
-        Me.mnuCashContraV.Size = New System.Drawing.Size(249, 22)
+        Me.mnuCashContraV.Size = New System.Drawing.Size(297, 22)
         Me.mnuCashContraV.Text = "Cash – Bank Contra Vouchers"
         '
         'mnuJournalV
         '
         Me.mnuJournalV.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mnuJournalV.Name = "mnuJournalV"
-        Me.mnuJournalV.Size = New System.Drawing.Size(249, 22)
+        Me.mnuJournalV.Size = New System.Drawing.Size(297, 22)
         Me.mnuJournalV.Text = "Journal Vouchers"
+        '
+        'mnuInterUnitV
+        '
+        Me.mnuInterUnitV.Name = "mnuInterUnitV"
+        Me.mnuInterUnitV.Size = New System.Drawing.Size(297, 22)
+        Me.mnuInterUnitV.Text = "Inter-Unit Transfer Vouchers"
+        '
+        'mnuMiscR
+        '
+        Me.mnuMiscR.Name = "mnuMiscR"
+        Me.mnuMiscR.Size = New System.Drawing.Size(297, 22)
+        Me.mnuMiscR.Text = "Miscellaneous Receipts"
+        '
+        'mnuIDFR
+        '
+        Me.mnuIDFR.Name = "mnuIDFR"
+        Me.mnuIDFR.Size = New System.Drawing.Size(297, 22)
+        Me.mnuIDFR.Text = "Institutional Development Fund Receipts"
+        '
+        'mnuTutorialFessR
+        '
+        Me.mnuTutorialFessR.Name = "mnuTutorialFessR"
+        Me.mnuTutorialFessR.Size = New System.Drawing.Size(297, 22)
+        Me.mnuTutorialFessR.Text = "Tutorials Fees Receipts"
         '
         'mnuEDCBank
         '
-        Me.mnuEDCBank.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mnuEDCBank.Name = "mnuEDCBank"
-        Me.mnuEDCBank.Size = New System.Drawing.Size(249, 22)
+        Me.mnuEDCBank.Size = New System.Drawing.Size(297, 22)
         Me.mnuEDCBank.Text = "Entry of Date of Clearing in bank"
+        '
+        'mnuPBCPR
+        '
+        Me.mnuPBCPR.Name = "mnuPBCPR"
+        Me.mnuPBCPR.Size = New System.Drawing.Size(297, 22)
+        Me.mnuPBCPR.Text = "Period-based Change of Particulars"
+        '
+        'mnuLBCPR
+        '
+        Me.mnuLBCPR.Name = "mnuLBCPR"
+        Me.mnuLBCPR.Size = New System.Drawing.Size(297, 22)
+        Me.mnuLBCPR.Text = "Ledger-based Change of Particulars"
+        '
+        'mnuGRV
+        '
+        Me.mnuGRV.Name = "mnuGRV"
+        Me.mnuGRV.Size = New System.Drawing.Size(297, 22)
+        Me.mnuGRV.Text = "Generate Reverse Voucher"
+        '
+        'mnuGCV
+        '
+        Me.mnuGCV.Name = "mnuGCV"
+        Me.mnuGCV.Size = New System.Drawing.Size(297, 22)
+        Me.mnuGCV.Text = "Generate Copy Voucher"
         '
         'mnuRandQ
         '
         Me.mnuRandQ.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mnuRandQ.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCashBookRpt, Me.mnuSelectiveBankAccountRpt, Me.mnuConsolidatedBankBookRpt, Me.mnuCombinedCashBankBookRpt, Me.ReportToolStripMenuItem})
+        Me.mnuRandQ.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCashBookRpt, Me.mnu_Petty, Me.mnuSelectiveBankAccountRpt, Me.mnuConsolidatedBankBookRpt, Me.mnuCombinedCashBankBookRpt, Me.mnu_CashBankContra, Me.mnu_miscRR, Me.mnu_In_DFR, Me.mnu_TurorialFR, Me.mnu_JournalBook, Me.mnu_GeneralLedger, Me.mnu_Trialbnlc, Me.mnuBankReconcilliation, Me.mnu_RR_PR, Me.mnu_FinalizationStatement, Me.mnuDaybkSummaryR, Me.mnuVchrPendingC, Me.mnuBanlcRrt, Me.mnu_MonthVNo})
         Me.mnuRandQ.Name = "mnuRandQ"
         Me.mnuRandQ.Size = New System.Drawing.Size(110, 20)
         Me.mnuRandQ.Text = "Reports & Queries"
@@ -494,33 +573,192 @@ Partial Class frmFAMSMain
         'mnuCashBookRpt
         '
         Me.mnuCashBookRpt.Name = "mnuCashBookRpt"
-        Me.mnuCashBookRpt.Size = New System.Drawing.Size(271, 22)
+        Me.mnuCashBookRpt.Size = New System.Drawing.Size(295, 22)
         Me.mnuCashBookRpt.Text = "Selective Cash Book"
+        '
+        'mnu_Petty
+        '
+        Me.mnu_Petty.Name = "mnu_Petty"
+        Me.mnu_Petty.Size = New System.Drawing.Size(295, 22)
+        Me.mnu_Petty.Text = "Petty Cash Book"
         '
         'mnuSelectiveBankAccountRpt
         '
         Me.mnuSelectiveBankAccountRpt.Name = "mnuSelectiveBankAccountRpt"
-        Me.mnuSelectiveBankAccountRpt.Size = New System.Drawing.Size(271, 22)
+        Me.mnuSelectiveBankAccountRpt.Size = New System.Drawing.Size(295, 22)
         Me.mnuSelectiveBankAccountRpt.Text = "Bank Book of Selective Bank Account"
         '
         'mnuConsolidatedBankBookRpt
         '
         Me.mnuConsolidatedBankBookRpt.Name = "mnuConsolidatedBankBookRpt"
-        Me.mnuConsolidatedBankBookRpt.Size = New System.Drawing.Size(271, 22)
+        Me.mnuConsolidatedBankBookRpt.Size = New System.Drawing.Size(295, 22)
         Me.mnuConsolidatedBankBookRpt.Text = "Consolidated Bank Book"
         '
         'mnuCombinedCashBankBookRpt
         '
         Me.mnuCombinedCashBankBookRpt.Name = "mnuCombinedCashBankBookRpt"
-        Me.mnuCombinedCashBankBookRpt.Size = New System.Drawing.Size(271, 22)
+        Me.mnuCombinedCashBankBookRpt.Size = New System.Drawing.Size(295, 22)
         Me.mnuCombinedCashBankBookRpt.Text = "Combined Cash & Bank Book"
+        '
+        'mnu_CashBankContra
+        '
+        Me.mnu_CashBankContra.Name = "mnu_CashBankContra"
+        Me.mnu_CashBankContra.Size = New System.Drawing.Size(295, 22)
+        Me.mnu_CashBankContra.Text = "Cash-Bank Contra Register"
+        '
+        'mnu_miscRR
+        '
+        Me.mnu_miscRR.Name = "mnu_miscRR"
+        Me.mnu_miscRR.Size = New System.Drawing.Size(295, 22)
+        Me.mnu_miscRR.Text = "Miscellaneous Receipts Register"
+        '
+        'mnu_In_DFR
+        '
+        Me.mnu_In_DFR.Name = "mnu_In_DFR"
+        Me.mnu_In_DFR.Size = New System.Drawing.Size(295, 22)
+        Me.mnu_In_DFR.Text = "Institutional Development Fund Register"
+        '
+        'mnu_TurorialFR
+        '
+        Me.mnu_TurorialFR.Name = "mnu_TurorialFR"
+        Me.mnu_TurorialFR.Size = New System.Drawing.Size(295, 22)
+        Me.mnu_TurorialFR.Text = "Tutorial Fees Register"
+        '
+        'mnu_JournalBook
+        '
+        Me.mnu_JournalBook.Name = "mnu_JournalBook"
+        Me.mnu_JournalBook.Size = New System.Drawing.Size(295, 22)
+        Me.mnu_JournalBook.Text = "Journal Book"
+        '
+        'mnu_GeneralLedger
+        '
+        Me.mnu_GeneralLedger.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnu_CashBankAcc, Me.mnu_otherAcc})
+        Me.mnu_GeneralLedger.Name = "mnu_GeneralLedger"
+        Me.mnu_GeneralLedger.Size = New System.Drawing.Size(295, 22)
+        Me.mnu_GeneralLedger.Text = "General Ledger "
+        '
+        'mnu_CashBankAcc
+        '
+        Me.mnu_CashBankAcc.Name = "mnu_CashBankAcc"
+        Me.mnu_CashBankAcc.Size = New System.Drawing.Size(183, 22)
+        Me.mnu_CashBankAcc.Text = "Cash/Bank Accounts"
+        '
+        'mnu_otherAcc
+        '
+        Me.mnu_otherAcc.Name = "mnu_otherAcc"
+        Me.mnu_otherAcc.Size = New System.Drawing.Size(183, 22)
+        Me.mnu_otherAcc.Text = "Other Accounts"
+        '
+        'mnu_Trialbnlc
+        '
+        Me.mnu_Trialbnlc.Name = "mnu_Trialbnlc"
+        Me.mnu_Trialbnlc.Size = New System.Drawing.Size(295, 22)
+        Me.mnu_Trialbnlc.Text = "Trial Balance"
+        '
+        'mnuBankReconcilliation
+        '
+        Me.mnuBankReconcilliation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ChequesClearedToolStripMenuItem, Me.BankReconciliationStatementToolStripMenuItem1})
+        Me.mnuBankReconcilliation.Name = "mnuBankReconcilliation"
+        Me.mnuBankReconcilliation.Size = New System.Drawing.Size(295, 22)
+        Me.mnuBankReconcilliation.Text = "Bank Reconciliation"
+        '
+        'ChequesClearedToolStripMenuItem
+        '
+        Me.ChequesClearedToolStripMenuItem.Name = "ChequesClearedToolStripMenuItem"
+        Me.ChequesClearedToolStripMenuItem.Size = New System.Drawing.Size(253, 22)
+        Me.ChequesClearedToolStripMenuItem.Text = "Cheques Cleared during a period"
+        '
+        'BankReconciliationStatementToolStripMenuItem1
+        '
+        Me.BankReconciliationStatementToolStripMenuItem1.Name = "BankReconciliationStatementToolStripMenuItem1"
+        Me.BankReconciliationStatementToolStripMenuItem1.Size = New System.Drawing.Size(253, 22)
+        Me.BankReconciliationStatementToolStripMenuItem1.Text = "Bank Reconciliation Statement"
+        '
+        'mnu_RR_PR
+        '
+        Me.mnu_RR_PR.Name = "mnu_RR_PR"
+        Me.mnu_RR_PR.Size = New System.Drawing.Size(295, 22)
+        Me.mnu_RR_PR.Text = "Receipts Register/Payments Register"
+        '
+        'mnu_FinalizationStatement
+        '
+        Me.mnu_FinalizationStatement.Name = "mnu_FinalizationStatement"
+        Me.mnu_FinalizationStatement.Size = New System.Drawing.Size(295, 22)
+        Me.mnu_FinalizationStatement.Text = "Finalization Statements"
+        '
+        'mnuDaybkSummaryR
+        '
+        Me.mnuDaybkSummaryR.Name = "mnuDaybkSummaryR"
+        Me.mnuDaybkSummaryR.Size = New System.Drawing.Size(295, 22)
+        Me.mnuDaybkSummaryR.Text = "Daybook-wise Summary Report"
+        '
+        'mnuVchrPendingC
+        '
+        Me.mnuVchrPendingC.Name = "mnuVchrPendingC"
+        Me.mnuVchrPendingC.Size = New System.Drawing.Size(295, 22)
+        Me.mnuVchrPendingC.Text = "Vouchers Pending For Confirmation"
+        '
+        'mnuBanlcRrt
+        '
+        Me.mnuBanlcRrt.Name = "mnuBanlcRrt"
+        Me.mnuBanlcRrt.Size = New System.Drawing.Size(295, 22)
+        Me.mnuBanlcRrt.Text = "Projected Balance Report"
+        '
+        'mnu_MonthVNo
+        '
+        Me.mnu_MonthVNo.Name = "mnu_MonthVNo"
+        Me.mnu_MonthVNo.Size = New System.Drawing.Size(295, 22)
+        Me.mnu_MonthVNo.Text = "Month-wise Last Voucher Numbers"
         '
         'mnuUtilities
         '
         Me.mnuUtilities.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.mnuUtilities.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnu_ChngPassword, Me.mnu_UnlockUser, Me.mnu_EUSDEF, Me.mnu_GRCVMR, Me.mnu_NFinancialYear, Me.mnu_TBNFY, Me.mnu_CloseFinancialYear})
         Me.mnuUtilities.Name = "mnuUtilities"
         Me.mnuUtilities.Size = New System.Drawing.Size(62, 20)
         Me.mnuUtilities.Text = "Utilities"
+        '
+        'mnu_ChngPassword
+        '
+        Me.mnu_ChngPassword.Name = "mnu_ChngPassword"
+        Me.mnu_ChngPassword.Size = New System.Drawing.Size(301, 22)
+        Me.mnu_ChngPassword.Text = "Change OWN Password"
+        '
+        'mnu_UnlockUser
+        '
+        Me.mnu_UnlockUser.Name = "mnu_UnlockUser"
+        Me.mnu_UnlockUser.Size = New System.Drawing.Size(301, 22)
+        Me.mnu_UnlockUser.Text = "Unlock User-Id"
+        '
+        'mnu_EUSDEF
+        '
+        Me.mnu_EUSDEF.Name = "mnu_EUSDEF"
+        Me.mnu_EUSDEF.Size = New System.Drawing.Size(301, 22)
+        Me.mnu_EUSDEF.Text = "Extract User Specified Details to Excel File"
+        '
+        'mnu_GRCVMR
+        '
+        Me.mnu_GRCVMR.Name = "mnu_GRCVMR"
+        Me.mnu_GRCVMR.Size = New System.Drawing.Size(301, 22)
+        Me.mnu_GRCVMR.Text = "Generate Cash Voucher For Misc. Receipts"
+        '
+        'mnu_NFinancialYear
+        '
+        Me.mnu_NFinancialYear.Name = "mnu_NFinancialYear"
+        Me.mnu_NFinancialYear.Size = New System.Drawing.Size(301, 22)
+        Me.mnu_NFinancialYear.Text = "Begin New Financial Year"
+        '
+        'mnu_TBNFY
+        '
+        Me.mnu_TBNFY.Name = "mnu_TBNFY"
+        Me.mnu_TBNFY.Size = New System.Drawing.Size(301, 22)
+        Me.mnu_TBNFY.Text = "Transfer Balance To Next Financial Year"
+        '
+        'mnu_CloseFinancialYear
+        '
+        Me.mnu_CloseFinancialYear.Name = "mnu_CloseFinancialYear"
+        Me.mnu_CloseFinancialYear.Size = New System.Drawing.Size(301, 22)
+        Me.mnu_CloseFinancialYear.Text = "Close Financial Year"
         '
         'pnlNavigator
         '
@@ -531,12 +769,6 @@ Partial Class frmFAMSMain
         Me.pnlNavigator.Size = New System.Drawing.Size(1173, 27)
         Me.pnlNavigator.TabIndex = 17
         Me.pnlNavigator.Visible = False
-        '
-        'ReportToolStripMenuItem
-        '
-        Me.ReportToolStripMenuItem.Name = "ReportToolStripMenuItem"
-        Me.ReportToolStripMenuItem.Size = New System.Drawing.Size(271, 22)
-        Me.ReportToolStripMenuItem.Text = "Report"
         '
         'frmFAMSMain
         '
@@ -598,9 +830,7 @@ Partial Class frmFAMSMain
     Private WithEvents mnuSubsidairyMaster As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuFinStatsScheduleMaster As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuStep As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents mnuCashBankContra As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuAccCash As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents mnuAccCheque As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuDDActivities As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuCashReceiptV As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuCashPayV As System.Windows.Forms.ToolStripMenuItem
@@ -608,7 +838,6 @@ Partial Class frmFAMSMain
     Private WithEvents mnuBankPayV As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuCashContraV As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuJournalV As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents mnuEDCBank As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuRandQ As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuUtilities As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents pnlNavigator As System.Windows.Forms.Panel
@@ -621,6 +850,42 @@ Partial Class frmFAMSMain
     Friend WithEvents mnuSelectiveBankAccountRpt As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuConsolidatedBankBookRpt As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuCombinedCashBankBookRpt As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ReportToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AccountsForColumnarPettyCashBookToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_AccUnitTras As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuInterUnitV As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuMiscR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuIDFR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTutorialFessR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuEDCBank As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuPBCPR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuLBCPR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuGRV As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuGCV As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_Petty As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_CashBankContra As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_miscRR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_In_DFR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_TurorialFR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_JournalBook As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_GeneralLedger As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_Trialbnlc As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuBankReconcilliation As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_RR_PR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_FinalizationStatement As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuDaybkSummaryR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuVchrPendingC As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_CashBankAcc As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_otherAcc As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ChequesClearedToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents BankReconciliationStatementToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuBanlcRrt As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_MonthVNo As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_ChngPassword As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_UnlockUser As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_EUSDEF As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_GRCVMR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_NFinancialYear As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_TBNFY As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnu_CloseFinancialYear As System.Windows.Forms.ToolStripMenuItem
 
 End Class

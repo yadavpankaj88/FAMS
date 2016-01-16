@@ -349,16 +349,16 @@ Public Class frmFAMSMain
                 Case "frmCashBankAccountManage"
                     Dim cashbbMaster As frmCashBankAccountManage = DirectCast(Me.ActiveMdiChild, frmCashBankAccountManage)
                     cashbbMaster.EnableDisableControls(True)
+                    cashbbMaster.SetToolStripMode("edit")
                     cashbbMaster.TextBoxDayBookCode.Enabled = False
-                    cashbbMaster.TextBoxDaybookName.Enabled = False
                     toolstripSave.Enabled = True
                     cashbbMaster.EnableBankDetails()
                     DisableNavToolBar(NavSettings.Edit)
                 Case "frmLedgerAccountManage"
                     Dim ledgerAcc As frmLedgerAccountManage = DirectCast(activeForm, frmLedgerAccountManage)
                     ledgerAcc.EnableDisableControls(True)
-                    ledgerAcc.txtAccCode.Enabled = False
-                    ledgerAcc.txtAccName.Enabled = False
+                    ledgerAcc.SetControls("edit")
+                    ledgerAcc.txtAccCode.Enabled = False                    
                     toolstripSave.Enabled = True
                     DisableNavToolBar(NavSettings.Edit)
 
@@ -398,9 +398,9 @@ Public Class frmFAMSMain
             Select Case activeForm.GetType().Name
                 Case "frmCashBankAccountManage"
                     Dim cashbbMaster As frmCashBankAccountManage = DirectCast(Me.ActiveMdiChild, frmCashBankAccountManage)
-                    cashbbMaster.SetToolStripMode("AddNew")
                     cashbbMaster.EnableDisableControls(True)
                     cashbbMaster.TextBoxDayBookCode.Enabled = True
+                    cashbbMaster.SetToolStripMode("AddNew")
                     toolstripSave.Enabled = True
                     DisableNavToolBar(NavSettings.Add)
                 Case "frmAddVoucher"
@@ -428,6 +428,7 @@ Public Class frmFAMSMain
                     Dim ledgerAcc As frmLedgerAccountManage = DirectCast(activeForm, frmLedgerAccountManage)
                     ledgerAcc.EnableDisableControls(True)
                     ledgerAcc.LblLinkedTo.Text = "Not Linked"
+                    ledgerAcc.SetControls("add")
                     toolstripSave.Enabled = True
                     DisableNavToolBar(NavSettings.Add)
             End Select
@@ -453,6 +454,7 @@ Public Class frmFAMSMain
                     cashbankContra.SetControls("clear")
                     EnableNavToolBar()
                     EnableToolStripForVouchers("clear")
+
                 Case "frmCashBankAccountManage", "frmLedgerAccountManage"
                     If TypeOf (activeForm) Is frmLedgerAccountManage Then
                         DirectCast(activeForm, frmLedgerAccountManage).EnableDisableControls(False)
@@ -712,9 +714,6 @@ Public Class frmFAMSMain
         'LoadDayBookSelection("TrialBalance")
     End Sub
 
-    Private Sub ReportToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReportToolStripMenuItem.Click
-        'LoadDayBookSelection("")
-    End Sub
 
     Private Sub LoadDayBookSelection(ByVal reportMode As String)
         lblActivity.Text = "View"
@@ -724,4 +723,6 @@ Public Class frmFAMSMain
         ShowNewForm(objSelectDaybook, Nothing)
     End Sub
 
+  
+ 
 End Class
