@@ -12,7 +12,10 @@
     End Sub
 
     Private Sub dgvusername_CellClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvusername.CellClick
-        Val = dgvusername.Rows(e.RowIndex).Cells(0).Value
-        Me.Close()
+        If dgvusername.Rows(e.RowIndex).Cells(0).Value Is DBNull.Value Then
+        Else
+            Val = dgvusername.Rows(e.RowIndex).Cells(0).Value
+            Me.Close()
+        End If
     End Sub
 End Class

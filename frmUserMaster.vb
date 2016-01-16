@@ -48,7 +48,7 @@
             End If
 
             If Not mandatoryFields = String.Empty Then
-                MessageBox.Show(mandatoryFields + " are compulsory for saving voucher")
+                MessageBox.Show(mandatoryFields + " are compulsory for saving User")
             Else
                 user.UserId = txtUserID.Text
                 user.UserName = txtusername.Text.ToString()
@@ -200,10 +200,30 @@
         'ddlInstitutionType.Text = "Select"
         ddlInstitutionType.Items.Add("UR")
         ddlInstitutionType.Items.Add("UP")
-        ddlInstitutionType.Items.Add("JA")
-        ddlInstitutionType.Items.Add("JU")
-        ddlInstitutionType.Items.Add("VC")
+        ddlInstitutionType.Items.Add("JR")
         ddlInstitutionType.Items.Add("PG")
+        ddlInstitutionType.Items.Add("VO")
+        ddlInstitutionType.Items.Add("PO")
+        ddlInstitutionType.Items.Add("EN")
+        ddlInstitutionType.Items.Add("PP")
+        ddlInstitutionType.Items.Add("PR")
+        ddlInstitutionType.Items.Add("SE")
+        ddlInstitutionType.Items.Add("SO")
+        ddlInstitutionType.Items.Add("CG")
+
+        'UR – Undergraduate Regular Section
+        'UP – Undergraduate Professional Section
+        'JR – Junior College Section
+        'PG – Post Graduate Section
+        'VO – Vocational (MCVC) Section
+        'PO – Polytechnic
+        'EN – Engineering College Section
+        'PP – Pre-Primary Section
+        'PR – Primary Section
+        'SE – Secondary Section
+        'SO – Society Section
+        'AB – Apex Body (Education Trust)
+
     End Sub
 
     Public Sub SetControls(ByVal pMode As String)
@@ -253,16 +273,16 @@
             End If
             End If
 
-        If (txtUserID.Text = "") Then
-        Else
-            If MessageBox.Show("do you want to save changes?", " User", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                SaveUserDetails()
-                Return True
-            Else
-                Return False
-                Me.Close()
-            End If
-        End If
+        'If (txtUserID.Text = "") Then
+        'Else
+        '    If MessageBox.Show("do you want to save changes?", " User", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+        '        SaveUserDetails()
+        '        Return True
+        '    Else
+        '        Return False
+        '        Me.Close()
+        '    End If
+        'End If
     End Function
 
     Private Sub btnsearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnsearch.Click

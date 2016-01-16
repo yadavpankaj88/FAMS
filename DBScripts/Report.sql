@@ -20,13 +20,140 @@ AS
 		declare @opnBalance as money
 		declare @opnQuery as nvarchar(max)
 
-		select @opnBalance=AM_Opn_Bal from CG_Accounts where AM_Acc_Cd=@lgrCode                
-
 		declare @monthAmt as money
 		declare @monthQuery as nvarchar(max)
 
+		--Institution Type
+		--UR – Undergraduate Regular Section
+		--UP – Undergraduate Professional Section
+		--JR – Junior College Section
+		--PG – Post Graduate Section
+		--VO – Vocational (MCVC) Section
+		--PO – Polytechnic
+		--EN – Engineering College Section
+		--PP – Pre-Primary Section
+		--PR – Primary Section
+		--SE – Secondary Section
+		--SO – Society Section
+		--AB – Apex Body (Education Trust)
+
+		IF @instType = 'CG'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from CG_Accounts where AM_Acc_Cd=@lgrCode
+
 		select @monthAmt=SUM(Lgr_Amt) from CG_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
 							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'UR'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from UR_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from UR_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'UP'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from UP_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from UP_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'JR'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from JR_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from JR_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'PG'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from PG_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from PG_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'VO'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from VO_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from VO_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'PO'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from PO_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from PO_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'EN'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from EN_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from EN_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'PP'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from PP_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from PP_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'PR'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from PR_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from PR_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'SE'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from SE_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from SE_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'SO'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from SO_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from SO_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
+		ELSE IF @instType = 'AB'
+		BEGIN
+		
+		select @opnBalance=AM_Opn_Bal from AB_Accounts where AM_Acc_Cd=@lgrCode
+
+		select @monthAmt=SUM(Lgr_Amt) from AB_Ledger where Lgr_Vch_Dt>= convert(varchar(50),@firstDate) and Lgr_Vch_Dt<= convert(varchar(50),@vchDate)
+							and Lgr_Acc_Cd= @lgrCode            
+
+		END
 
 		--if month is april,return opening balance+month calculation
 		If @processingMonth=4
@@ -51,6 +178,9 @@ AS
 			declare @paddedString as varchar(2)
 		set @paddedString=right('0'+ rtrim(convert(varchar(5),@startCount)), 2)
 
+		IF @instType = 'CG'
+		BEGIN
+		
 		SELECT @queryOut = case 
 							when @paddedString = '01' then AM_Net_01
 							when @paddedString = '02' then AM_Net_02
@@ -65,7 +195,248 @@ AS
 							when @paddedString = '11' then AM_Net_11
 							when @paddedString = '12' then AM_Net_12
 						end
-						FROM CG_Accounts where AM_Acc_Cd=@lgrCode
+						FROM CG_Accounts where AM_Acc_Cd=@lgrCode           
+
+		END
+		ELSE IF @instType = 'UR'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM UR_Accounts where AM_Acc_Cd=@lgrCode            
+
+		END
+		ELSE IF @instType = 'UP'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM UP_Accounts where AM_Acc_Cd=@lgrCode            
+
+		END
+		ELSE IF @instType = 'JR'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM JR_Accounts where AM_Acc_Cd=@lgrCode           
+
+		END
+		ELSE IF @instType = 'PG'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM PG_Accounts where AM_Acc_Cd=@lgrCode            
+
+		END
+		ELSE IF @instType = 'VO'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM VO_Accounts where AM_Acc_Cd=@lgrCode 
+		END
+		ELSE IF @instType = 'PO'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM PO_Accounts where AM_Acc_Cd=@lgrCode            
+
+		END
+		ELSE IF @instType = 'EN'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM EN_Accounts where AM_Acc_Cd=@lgrCode          
+
+		END
+		ELSE IF @instType = 'PP'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM PP_Accounts where AM_Acc_Cd=@lgrCode           
+
+		END
+		ELSE IF @instType = 'PR'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM PR_Accounts where AM_Acc_Cd=@lgrCode            
+
+		END
+		ELSE IF @instType = 'SE'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM SE_Accounts where AM_Acc_Cd=@lgrCode           
+
+		END
+		ELSE IF @instType = 'SO'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM SO_Accounts where AM_Acc_Cd=@lgrCode         
+
+		END
+		ELSE IF @instType = 'AB'
+		BEGIN
+		
+		SELECT @queryOut = case 
+							when @paddedString = '01' then AM_Net_01
+							when @paddedString = '02' then AM_Net_02
+							when @paddedString = '03' then AM_Net_03
+							when @paddedString = '04' then AM_Net_04
+							when @paddedString = '05' then AM_Net_05
+							when @paddedString = '06' then AM_Net_06
+							when @paddedString = '07' then AM_Net_07
+							when @paddedString = '08' then AM_Net_08
+							when @paddedString = '09' then AM_Net_09
+							when @paddedString = '10' then AM_Net_10
+							when @paddedString = '11' then AM_Net_11
+							when @paddedString = '12' then AM_Net_12
+						end
+						FROM AB_Accounts where AM_Acc_Cd=@lgrCode 
+
+		END
  
 			set @balanceAdd=isnull(@balanceAdd,0)+ @queryOut
 			set @startCount=@startCount+1
@@ -249,6 +620,85 @@ BEGIN
 	exec(@strQuery)
 
 END
+
+Print '---------------------------------------------------------------------------------'
+
+ALTER FUNCTION dbo.OpeningBalance
+	(
+	@lgrCode varchar(10),
+@vchDate datetime,
+@instType varchar(5)
+	)
+RETURNS money
+AS
+	BEGIN
+
+declare @firstDate as datetime
+set @firstDate=(SELECT CONVERT(VARCHAR(25),DATEADD(dd,-(DAY(@vchDate)-1),@vchDate),101))
+
+declare @processingMonth as int
+set @processingMonth=DATEPART(mm,@vchDate)
+
+declare @totalBalance as money
+declare @balanceAdd as money
+
+declare @opnBalance as money
+declare @opnQuery as nvarchar(max)
+
+set @opnQuery='select @obal=AM_Opn_Bal from '+@instType+'_Accounts where AM_Acc_Cd='''+@lgrCode+''''
+
+EXECUTE sp_executesql @opnQuery, N'@obal money OUTPUT', @obal=@opnBalance OUTPUT                  
+
+declare @monthAmt as money
+declare @monthQuery as nvarchar(max)
+set @monthQuery='select @mthAmt=SUM(Lgr_Amt) from '+@instType+'_Ledger where Lgr_Vch_Dt>='''+convert(varchar(50),@firstDate)+''' and Lgr_Vch_Dt<='''+convert(varchar(50),@vchDate)+'''
+                  and Lgr_Acc_Cd='''+@lgrCode+'''' 
+                  
+EXECUTE sp_executesql @monthQuery, N'@mthAmt money OUTPUT', @mthAmt=@monthAmt OUTPUT                  
+
+
+--if month is april,return opening balance+month calculation
+If @processingMonth=4
+Begin
+set @balanceAdd=@monthAmt  
+
+set @totalBalance=isnull(@opnBalance,0)+isnull(@balanceAdd,0)
+
+End
+Else
+Begin
+--any other month than april
+
+declare @startCount as int
+set @startCount=4
+
+--while loop to calculate balance addition of previous months
+While(@startCount<@processingMonth)
+Begin
+ declare @strQuery as nvarchar(max)
+ declare @queryOut as money
+ declare @paddedString as varchar(2)
+set @paddedString=right('0'+ rtrim(convert(varchar(5),@startCount)), 2)
+
+ set @strQuery='select @bal=AM_Net_'+@paddedString+' from '+@instType+'_Accounts where AM_Acc_Cd='''+@lgrCode+''''
+ EXECUTE sp_executesql @strQuery, N'@bal money OUTPUT', @bal=@queryOut OUTPUT
+ 
+ set @balanceAdd=isnull(@balanceAdd,0)+ @queryOut
+ set @startCount=@startCount+1
+End
+
+--add current month amounts
+set @balanceAdd=isnull(@balanceAdd,0)+isnull(@monthAmt,0) 
+
+                 
+--calculate total balance by adding all calculations to opening balance
+set @totalBalance=ISNULL(@opnBalance,0)+isnull(@balanceAdd,0)
+End
+
+SET @totalBalance= ISNULL(@totalBalance,0)
+
+	RETURN @totalBalance
+	END
 
 
 

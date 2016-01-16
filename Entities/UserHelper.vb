@@ -63,7 +63,7 @@ Public Class UserHelper
         Dim query As StringBuilder
         Try
             query = New StringBuilder()
-            query.Append(String.Format("select [Usr_Id] as UserID,[Usr_Nm] as UserName from User_Master"))
+            query.Append(String.Format("select [Usr_Id] as UserID,[Usr_Nm] as UserName from User_Master WHERE Usr_Inst_Typ='" + InstitutionMasterData.XInstType + "'"))
             dt = dataHelper.ExecuteQuery(query.ToString, CommandType.Text)
             Return dt
         Catch ex As Exception
@@ -77,9 +77,9 @@ Public Class UserHelper
         Try
             query = New StringBuilder()
             If String.IsNullOrEmpty(userID) Then
-                query.Append(String.Format("SELECT [Usr_Id],[Usr_Mdl_Cd],[Usr_Inst_Typ],[Usr_Nm],[Usr_Role],[Usr_Pwd],[Usr_Lst_Login], [Usr_Lst_Wrk_Stn],[Usr_Lckd]  FROM User_Master"))
+                query.Append(String.Format("SELECT [Usr_Id],[Usr_Mdl_Cd],[Usr_Inst_Typ],[Usr_Nm],[Usr_Role],[Usr_Pwd],[Usr_Lst_Login], [Usr_Lst_Wrk_Stn],[Usr_Lckd]  FROM User_Master WHERE Usr_Inst_Typ='" + InstitutionMasterData.XInstType + "'"))
             Else
-                query.Append(String.Format("SELECT [Usr_Id],[Usr_Mdl_Cd],[Usr_Inst_Typ],[Usr_Nm],[Usr_Role],[Usr_Pwd],[Usr_Lst_Login], [Usr_Lst_Wrk_Stn],[Usr_Lckd]  FROM User_Master  where Usr_Id='{0}' ", userID))
+                query.Append(String.Format("SELECT [Usr_Id],[Usr_Mdl_Cd],[Usr_Inst_Typ],[Usr_Nm],[Usr_Role],[Usr_Pwd],[Usr_Lst_Login], [Usr_Lst_Wrk_Stn],[Usr_Lckd]  FROM User_Master  where Usr_Id='{0}' AND Usr_Inst_Typ='{1}'", userID, InstitutionMasterData.XInstType))
             End If
             Return datahelper.ExecuteQuery(query.ToString(), CommandType.Text, Nothing)
         Catch ex As Exception
@@ -92,8 +92,8 @@ Public Class UserHelper
         Dim datahelper As New DataHelper
         Dim query As StringBuilder
         Try
-            query = New StringBuilder() 
-            query.Append(String.Format("SELECT [Usr_Id],[Usr_Mdl_Cd],[Usr_Inst_Typ],[Usr_Nm],[Usr_Role],[Usr_Pwd],[Usr_Lst_Login], [Usr_Lst_Wrk_Stn] ,[Usr_Lckd] FROM User_Master  where Usr_Id='{0}' ", userID))
+            query = New StringBuilder()
+            query.Append(String.Format("SELECT [Usr_Id],[Usr_Mdl_Cd],[Usr_Inst_Typ],[Usr_Nm],[Usr_Role],[Usr_Pwd],[Usr_Lst_Login], [Usr_Lst_Wrk_Stn] ,[Usr_Lckd] FROM User_Master  where Usr_Id='{0}' AND Usr_Inst_Typ='{1}'", userID, InstitutionMasterData.XInstType))
             Return datahelper.ExecuteQuery(query.ToString(), CommandType.Text, Nothing)
         Catch ex As Exception
             Throw
@@ -105,7 +105,7 @@ Public Class UserHelper
         Dim query As String
         Dim cnt As String
         Dim datahelper As New DataHelper
-        query = "select count(Usr_Id) from User_Master"
+        query = "select count(Usr_Id) from User_Master WHERE Usr_Inst_Typ='" + InstitutionMasterData.XInstType + "'"
         cnt = datahelper.ExecuteScalar(query, CommandType.Text)
         Return cnt
     End Function
