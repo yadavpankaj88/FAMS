@@ -278,12 +278,6 @@
     <Compile Include="popupHelper.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Reports\rptBankBook.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rptBankBook.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reports\rptCashBook.vb">
       <DependentUpon>rptCashBook.rpt</DependentUpon>
       <SubType>Component</SubType>
@@ -404,10 +398,6 @@
       <DependentUpon>popupHelper.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\rptBankBook.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptBankBook.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reports\rptCashBook.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptCashBook.vb</LastGenOutput>
@@ -453,6 +443,7 @@
     <None Include="Images\search.jpg" />
     <None Include="Images\delete.jpg" />
     <Content Include="DBScripts\FAMS.sql" />
+    <Content Include="DBScripts\Report.sql" />
     <Content Include="FAMS.vbproj.vspscc" />
     <Content Include="FAM_SchemaData_Script27012014.sql" />
     <Content Include="Images\searchIcon.png" />

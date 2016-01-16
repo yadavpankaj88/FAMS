@@ -591,7 +591,7 @@
                     Else
                         Return False
                     End If
-                    End If
+                End If
             End If
             ClearControls()
             Return True
@@ -777,7 +777,7 @@
     End Sub
 
     Sub SetVoucherLinkControls(ByVal Visibility As Boolean)
-       
+
 
     End Sub
 

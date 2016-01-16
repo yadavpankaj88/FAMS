@@ -15,7 +15,7 @@ Public Class DayBooksHelper
                             & " End" _
                             & " Else BEGIN" _
                             & " Update " + InstitutionMasterData.XInstType + "_Daybooks" _
-                            & " Set AM_Acc_Cd=@acccd ,DM_Dbk_Typ=@dbkTyp,DM_Bnk_Brn=@bnkBrn,DM_Dbk_Nm=@dbkNm,DM_Bnk_AcNo=@bnkAcNo,DM_Bnk_Nm=@bnkNm,DM_Bnk_OD=@bnkOd,DM_Upd_By=@UpdateBy,DM_Upd_Dt=GetDate()" _
+                            & " Set DM_Acc_Cd=@acccd ,DM_Dbk_Typ=@dbkTyp,DM_Bnk_Brn=@bnkBrn,DM_Dbk_Nm=@dbkNm,DM_Bnk_AcNo=@bnkAcNo,DM_Bnk_Nm=@bnkNm,DM_Bnk_OD=@bnkOd,DM_Upd_By=@UpdateBy,DM_Upd_Dt=GetDate()" _
                             & " Where DM_Dbk_Cd=@dbkcd and DM_Fin_Yr=@finYear and DM_Inst_Cd=@instCode and DM_Inst_Typ=@instTyp" _
                             & " UPDATE " + InstitutionMasterData.XInstType + "_Accounts SET AM_Calls=@dbkcd WHERE AM_Acc_Cd=@acccd AND AM_Inst_Typ='" + InstitutionMasterData.XInstType + "' AND AM_Inst_Cd='" + InstitutionMasterData.XInstCode + "' AND AM_Fin_Yr='" + InstitutionMasterData.XFinYr + "'" _
                             & " End"
