@@ -727,6 +727,10 @@ Public Class frmFAMSMain
     End Sub
 
     Private Sub mnu_CashBankAcc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnu_CashBankAcc.Click
-        LoadDayBookSelection("GeneralLedger")
+        LoadDayBookSelection("GeneralLedgerCASHBank")
+    End Sub
+
+    Private Sub mnu_otherAcc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnu_otherAcc.Click
+        LoadDayBookSelection("GeneralLedgerOther")
     End Sub
 End Class

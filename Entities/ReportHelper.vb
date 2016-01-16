@@ -3,7 +3,7 @@
     Dim Query As String
     Dim dataHelper As DataHelper = New DataHelper()
 
-    Function GetLedgerReportCount(Optional ByVal Fromdate? As DateTime = Nothing, Optional ByVal ToDate? As DateTime = Nothing) As Integer
+    Function GetLedgerReportCount(Optional ByVal Fromdate? As DateTime = Nothing, Optional ByVal ToDate? As DateTime = Nothing, Optional ByVal pIsCashBank As Boolean = True) As Integer
         Dim query As String
         Dim count As Integer = 0
         Dim dtCount As DataTable
@@ -13,6 +13,7 @@
             parameters.Add("@instType", InstitutionMasterData.XInstType)
             parameters.Add("@Fromdate", Fromdate.Value)
             parameters.Add("@ToDate", ToDate.Value)
+            parameters.Add("@IsCashBank", pIsCashBank)
             dtCount = dataHelper.ExecuteQuery(query, CommandType.StoredProcedure, parameters)
             If dtCount Is Nothing Then
             Else

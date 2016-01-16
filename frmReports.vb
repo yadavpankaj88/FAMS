@@ -34,8 +34,10 @@ Public Class frmReports
                     ShowCashBookReport()
                 Case "BankBook"
                     ShowCashBookReport()
-                Case "GeneralLedger"
-                    ShowGeneralLedger()
+                Case "GeneralLedgerCASHBank"
+                    ShowGeneralLedger(True)
+                Case "GeneralLedgerOther"
+                    ShowGeneralLedger(False)
                 Case "TrialBalance"
                     ShowTrialBalance()
             End Select
@@ -65,7 +67,7 @@ Public Class frmReports
 
     End Sub
 
-    Private Sub ShowGeneralLedger()
+    Private Sub ShowGeneralLedger(ByVal pIsCashBank As Boolean)
         Dim view As New rptGeneralLedger
         Dim user As String = System.Configuration.ConfigurationSettings.AppSettings("Username")
         Dim pwd As String = System.Configuration.ConfigurationSettings.AppSettings("Password")
@@ -73,6 +75,8 @@ Public Class frmReports
         view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
         view.SetParameterValue("@Fromdate", _fromDate.ToShortDateString())
         view.SetParameterValue("@ToDate", _toDate.ToShortDateString())
+        view.SetParameterValue("@ToDate", _toDate.ToShortDateString())
+        view.SetParameterValue("@IsCashBank", pIsCashBank)
         crystalRptVwr.ReportSource = view
     End Sub
 

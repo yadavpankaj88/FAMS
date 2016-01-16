@@ -37,9 +37,9 @@
                 Else
                     MessageBox.Show("Please select date from current financial year")
                 End If
-                Else
-                    MessageBox.Show("Please select all neccessary parameters")
-                End If
+            Else
+                MessageBox.Show("Please select all neccessary parameters")
+            End If
         Catch ex As Exception
         End Try
     End Sub
@@ -52,8 +52,10 @@
                 count = reportCountHelper.GetCashBankBookReportCount(dtpfromdate.Value, dtptodate.Value, ddldaybookcode.SelectedValue)
             Case "BankBook"
                 count = reportCountHelper.GetCashBankBookReportCount(dtpfromdate.Value, dtptodate.Value, ddldaybookcode.SelectedValue)
-            Case "GeneralLedger"
-                count = reportCountHelper.GetLedgerReportCount(dtpfromdate.Value,dtptodate.Value)
+            Case "GeneralLedgerCASHBank"
+                count = reportCountHelper.GetLedgerReportCount(dtpfromdate.Value, dtptodate.Value, True)
+            Case "GeneralLedgerOther"
+                count = reportCountHelper.GetLedgerReportCount(dtpfromdate.Value, dtptodate.Value, False)
             Case "TrialBalance"
                 count = reportCountHelper.GetTrialBalanceReportCount(dtpfromdate.Value, dtptodate.Value)
         End Select

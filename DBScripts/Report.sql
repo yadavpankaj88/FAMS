@@ -531,7 +531,8 @@ ALTER PROCEDURE [dbo].[GetGeneralLedgerReportDetails]
 	-- Add the parameters for the stored procedure here
 	@instType varchar(2),
 	@Fromdate as datetime,-- vh confirm date
-	@ToDate as datetime
+	@ToDate as datetime,
+	@IsCashBank as bit
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -539,6 +540,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 	declare @strQuery as nvarchar(max)
+
 	set @strQuery = 'SELECT		Acc.AM_ACC_Nm,
 								dbo.OpeningBalanceValue(Lgr.Lgr_Acc_cd,'''+CONVERT(VARCHAR(25),DATEADD(DAY,-1,@Fromdate),101)+''','''+@instType+''') as OpeningBalance,
 								Lgr.Lgr_VCH_Dt,
@@ -570,12 +572,23 @@ BEGIN
 					FROM '+@instType+'_Accounts Acc
 					LEFT OUTER JOIN '+@instType+'_Ledger Lgr
 					ON Acc.AM_ACC_Cd=Lgr.Lgr_Acc_Cd
-					WHERE Acc.AM_Calls Is NULL 
-					and Lgr.Lgr_Vch_Dt >= '''+CONVERT(VARCHAR(10),@Fromdate,110)+''' and Lgr.Lgr_Vch_Dt <= '''+CONVERT(VARCHAR(10),@ToDate,110)+''''
-	 
+					WHERE Lgr.Lgr_Vch_Dt >= '''+CONVERT(VARCHAR(10),@Fromdate,110)+''' and Lgr.Lgr_Vch_Dt <= '''+CONVERT(VARCHAR(10),@ToDate,110)+''''
+
+	IF (@IsCashBank = 'True')
+	BEGIN
+	SET  @strQuery = @strQuery + 'AND Acc.AM_Calls IS NOT NULL'
+	Print 'in @strQ@strQueryuery'
+	END
+	ELSE
+	BEGIN
+	SET  @strQuery = @strQuery + 'AND Acc.AM_Calls IS NULL'
+	END
+
 	exec(@strQuery)
 
 END
+
+
 
 print'----------------------------------------------------------------------------------------------'
 
@@ -621,7 +634,8 @@ BEGIN
 
 END
 
-Print '---------------------------------------------------------------------------------'
+
+print'----------------------------------------------------------------------------------------------'
 
 ALTER FUNCTION dbo.OpeningBalance
 	(
@@ -699,9 +713,3 @@ SET @totalBalance= ISNULL(@totalBalance,0)
 
 	RETURN @totalBalance
 	END
-
-
-
-
-
-
