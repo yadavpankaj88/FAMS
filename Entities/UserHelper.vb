@@ -114,7 +114,7 @@ Public Class UserHelper
         Dim query As String
         Dim cnt As String
         Dim datahelper As New DataHelper
-        query = "select count(*) from User_Master where Usr_Nm= '" + userid + "' and Usr_Mdl_Cd='FAM' and Usr_Inst_Typ='" + InstitutionMasterData.XInstType + "'"
+        query = "select count(*) from User_Master where Usr_Id= '" + userid + "' and Usr_Mdl_Cd='FAM' and Usr_Inst_Typ='" + InstitutionMasterData.XInstType + "'"
         cnt = datahelper.ExecuteScalar(query, CommandType.Text)
         Return cnt
     End Function
@@ -123,7 +123,7 @@ Public Class UserHelper
         Dim query As New StringBuilder
         Dim dt As DataTable
         Dim helper As New DataHelper
-        query.Append(String.Format("select Usr_Lst_Login, Usr_Id,Usr_Nm,Usr_Pwd ,Usr_Lckd,Usr_Role from User_Master where Usr_Nm= '{0}' and Usr_Pwd='{1}' and Usr_Mdl_Cd='FAM' and Usr_Inst_Typ='" + InstitutionMasterData.XInstType + "'", userid, password))
+        query.Append(String.Format("select Usr_Lst_Login, Usr_Id,Usr_Nm,Usr_Pwd ,Usr_Lckd,Usr_Role from User_Master where Usr_Id= '{0}' and Usr_Pwd='{1}' and Usr_Mdl_Cd='FAM' and Usr_Inst_Typ='" + InstitutionMasterData.XInstType + "'", userid, password))
         dt = helper.ExecuteQuery(query.ToString(), CommandType.Text)
         Return dt
     End Function

@@ -107,7 +107,7 @@ Partial Class frmLedgerAccountManage
         '
         Me.txtAccOpenBalance.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtAccOpenBalance.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAccOpenBalance.Location = New System.Drawing.Point(149, 121)
+        Me.txtAccOpenBalance.Location = New System.Drawing.Point(149, 117)
         Me.txtAccOpenBalance.Name = "txtAccOpenBalance"
         Me.txtAccOpenBalance.Size = New System.Drawing.Size(177, 22)
         Me.txtAccOpenBalance.TabIndex = 3

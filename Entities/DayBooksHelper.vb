@@ -114,4 +114,16 @@ Public Class DayBooksHelper
         End Try
     End Function
 
+    Function GetCount(ByVal DaybookCode As String) As Integer
+        Dim query As StringBuilder
+        Dim datahelper As New DataHelper
+        Try
+            query = New StringBuilder()
+            query.Append(String.Format("select count(*) from " + InstitutionMasterData.XInstType + "_Daybooks where DM_Dbk_Cd='" + DaybookCode + "' and DM_Inst_Cd= '" + InstitutionMasterData.XInstCode + "' and DM_Inst_Typ='" + InstitutionMasterData.XInstType + "' and DM_Fin_Yr='" + InstitutionMasterData.XFinYr + "'"))
+            Return datahelper.ExecuteScalar(query.ToString, CommandType.Text, Nothing)
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
 End Class

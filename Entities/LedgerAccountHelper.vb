@@ -83,9 +83,10 @@ Public Class LedgerAccountHelper
 
     Function FillAccountCode() As DataTable
         Dim query As StringBuilder
+        Dim CrDr As String = "DR"
         Try
             query = New StringBuilder()
-            query.Append(String.Format("SELECT [AM_Acc_Cd],Ltrim(Rtrim([AM_Acc_Nm])) as AM_Acc_Nm, Ltrim(Rtrim([AM_Acc_Nm])) +'_'+[AM_Acc_Cd] as name  FROM " + InstitutionMasterData.XInstType + "_Accounts where AM_Inst_Cd='{0}' and AM_Inst_Typ='{1}' and AM_Fin_Yr='{2}' order by [AM_Acc_Nm] asc", InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, InstitutionMasterData.XFinYr))
+            query.Append(String.Format("SELECT [AM_Acc_Cd],Ltrim(Rtrim([AM_Acc_Nm])) as AM_Acc_Nm,[AM_Acc_Cd] +'_'+ Ltrim(Rtrim([AM_Acc_Nm])) as name  FROM " + InstitutionMasterData.XInstType + "_Accounts where AM_Inst_Cd='{0}' and AM_Inst_Typ='{1}' and AM_Fin_Yr='{2}' and AM_OB_Cr_Dr='" + CrDr + "' order by [AM_Acc_Nm] asc", InstitutionMasterData.XInstCode, InstitutionMasterData.XInstType, InstitutionMasterData.XFinYr))
             Return dataHelper.ExecuteQuery(query.ToString, CommandType.Text, Nothing)
         Catch ex As Exception
             Throw
@@ -215,5 +216,17 @@ Public Class LedgerAccountHelper
             Throw
         End Try
     End Function
+
+    Function GetCount(ByVal AccountCode As String) As Integer
+        Dim query As StringBuilder
+        Try
+            query = New StringBuilder()
+            query.Append(String.Format("select count(*) from " + InstitutionMasterData.XInstType + "_Accounts where AM_Acc_Cd='" + AccountCode + "' and AM_Inst_Cd= '" + InstitutionMasterData.XInstCode + "' and AM_Inst_Typ='" + InstitutionMasterData.XInstType + "' and AM_Fin_Yr='" + InstitutionMasterData.XFinYr + "'"))
+            Return dataHelper.ExecuteScalar(query.ToString, CommandType.Text, Nothing)
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
 
 End Class

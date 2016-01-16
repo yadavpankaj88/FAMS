@@ -7,7 +7,7 @@
         Dim userhelper As New UserHelper
         Dim i As Integer = 0
         If (txtuserID.Text = "") Then
-            mandatoryFields = "User Name"
+            mandatoryFields = "User ID"
             i = i + 1
         End If
         If (txtpassword.Text = "") Then
@@ -32,19 +32,19 @@
             Else
                 dt = userhelper.CheckUser(txtuserID.Text, txtpassword.Text)
                 If dt.Rows.Count() = 0 Then
-                    MessageBox.Show("user name or password is wrong")
+                    MessageBox.Show("User ID or password is wrong")
                     'End If
                 Else
-                    Dim userlocked As String = dt.Rows(0)("Usr_Lckd")
-                    If userlocked = "Y" Then
-                        MessageBox.Show("User locked")
-                    Else
-                        Me.DialogResult = Windows.Forms.DialogResult.OK
-                        Me.Close()
-                        InstitutionMasterData.XUsrId = dt.Rows(0)("Usr_Id")
-                        InstitutionMasterData.XUsrName = dt.Rows(0)("Usr_Nm")
-                        InstitutionMasterData.XUsrRole = dt.Rows(0)("Usr_Role")
-                    End If
+                    'Dim userlocked As String = dt.Rows(0)("Usr_Lckd")
+                    'If userlocked = "Y" Then
+                    '    MessageBox.Show("User locked")
+                    'Else
+                    Me.DialogResult = Windows.Forms.DialogResult.OK
+                    Me.Close()
+                    InstitutionMasterData.XUsrId = dt.Rows(0)("Usr_Id")
+                    InstitutionMasterData.XUsrName = dt.Rows(0)("Usr_Nm")
+                    InstitutionMasterData.XUsrRole = dt.Rows(0)("Usr_Role")
+                    ' End If
                 End If
                 'Next
             End If

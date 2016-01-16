@@ -3,6 +3,7 @@
     Dim enableControls As Boolean = True
     Private ledgeAccHelper As LedgerAccountHelper
     Private daybookHelper As DayBooksHelper
+    Private _mode As String
 
     Sub New()
         ' This call is required by the designer.
@@ -88,9 +89,7 @@
         Dim dt As DataTable = daybookHelper.GetDaybooks()
 
         ClearDataBindings()
-        BindingSource1.DataSource = Nothing
-        BindingSource1.DataSource = dt
-
+        BindPaginationControl(dt)
 
         sourceDatatable = New DataTable()
         sourceDatatable = dt
@@ -116,22 +115,22 @@
         End If
     End Sub
 
-    Private Sub ClearControls()
-        TextBoxDayBookCode.Text = String.Empty
-        TextBoxDaybookName.Text = String.Empty
-        ComboBoxDaybookType.SelectedIndex = 0
-        ComboBoxLedgerAccountCode.SelectedIndex = 0
-        TextBoxBankName.Text = String.Empty
-        TextBoxBranchName.Text = String.Empty
-        TextBoxAccountNumber.Text = String.Empty
-        TextBoxBankOD.Text = String.Empty
-        EnableBankDetails()
-    End Sub
+    'Private Sub ClearControls()
+    '    TextBoxDayBookCode.Text = String.Empty
+    '    TextBoxDaybookName.Text = String.Empty
+    '    ComboBoxDaybookType.SelectedIndex = 0
+    '    ComboBoxLedgerAccountCode.SelectedIndex = 0
+    '    TextBoxBankName.Text = String.Empty
+    '    TextBoxBranchName.Text = String.Empty
+    '    TextBoxAccountNumber.Text = String.Empty
+    '    TextBoxBankOD.Text = String.Empty
+    '    EnableBankDetails()
+    'End Sub
 
     Public Sub SetToolStripMode(ByVal mode As String)
 
         Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
-
+        _mode = mode
         Select Case mode
             Case "View"
                 frmMain.ToolStripButtonView.Enabled = True
@@ -145,6 +144,7 @@
                 frmMain.toolstripedit.Enabled = False
                 frmMain.toolstripDeleteItem.Enabled = False
                 frmMain.toolstripAdd.Enabled = False
+                
         End Select
 
     End Sub
@@ -236,12 +236,14 @@
                 daybook.DMInstTyp = InstitutionMasterData.XInstType.Trim()
                 daybook.DMFinYear = InstitutionMasterData.XFinYr.Trim()
                 daybook.DMBranchCode = "01"
-                daybookHelper.SaveDaybooks(daybook)
-                MessageBox.Show("Data updated Successfully")
-                Me.Close()
-                FillRecords()
-
-                EnableDisableControls(False)
+                If (_mode = "AddNew" And daybookHelper.GetCount(TextBoxDayBookCode.Text) > 0) Then
+                    MessageBox.Show("Daybook code already exist")
+                Else
+                    daybookHelper.SaveDaybooks(daybook)
+                    MessageBox.Show("Data updated successfully")
+                    FillRecords()
+                    ClearData()
+                End If
             Else
                 MessageBox.Show(errorStr)
             End If
@@ -397,22 +399,40 @@
                 If (ComboBoxDaybookType.SelectedValue = Nothing) Then
                     ComboBoxDaybookType.SelectedValue = dt.Rows(0)("DM_Dbk_Typ").ToString()
                 End If
+                
+            End If
+            If (IsAccountLinked()) Then
                 If (ComboBoxLedgerAccountCode.SelectedValue = Nothing) Then
                     ComboBoxLedgerAccountCode.SelectedValue = dt.Rows(0)("DM_Acc_Cd").ToString()
                 End If
-            End If
-            If dt.Rows(0)("DM_Dbk_Typ").ToString().Trim() <> ComboBoxDaybookType.SelectedValue.Trim() Or dt.Rows(0)("DM_Acc_Cd").ToString().Trim() <> ComboBoxLedgerAccountCode.SelectedValue.Trim() Or (dt.Rows(0)("DM_Bnk_Nm").ToString().Trim() <> TextBoxBankName.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_Brn").ToString().Trim() <> TextBoxBranchName.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_AcNo").ToString().Trim() <> TextBoxAccountNumber.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_OD").ToString().Trim() <> TextBoxBankOD.Text.Trim()) Then
-                If MessageBox.Show("Do you want to save changes?", " Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                    SaveDaybooks()
-                    Return True
+                If dt.Rows(0)("DM_Dbk_Typ").ToString().Trim() <> ComboBoxDaybookType.SelectedValue.Trim() Or dt.Rows(0)("DM_Acc_Cd").ToString().Trim() <> ComboBoxLedgerAccountCode.SelectedValue.Trim() Or (dt.Rows(0)("DM_Bnk_Nm").ToString().Trim() <> TextBoxBankName.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_Brn").ToString().Trim() <> TextBoxBranchName.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_AcNo").ToString().Trim() <> TextBoxAccountNumber.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_OD").ToString().Trim() <> TextBoxBankOD.Text.Trim()) Then
+                    If MessageBox.Show("Do you want to save changes?", " Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                        SaveDaybooks()
+                        Return True
+                    Else
+                        Return False
+                        Me.Close()
+                    End If
                 Else
                     Return False
                     Me.Close()
                 End If
             Else
-                Return False
-                Me.Close()
+
+                If dt.Rows(0)("DM_Dbk_Typ").ToString().Trim() <> ComboBoxDaybookType.SelectedValue.Trim() Or (dt.Rows(0)("DM_Bnk_Nm").ToString().Trim() <> TextBoxBankName.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_Brn").ToString().Trim() <> TextBoxBranchName.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_AcNo").ToString().Trim() <> TextBoxAccountNumber.Text.Trim()) Or (dt.Rows(0)("DM_Bnk_OD").ToString().Trim() <> TextBoxBankOD.Text.Trim()) Then
+                    If MessageBox.Show("Do you want to save changes?", " Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                        SaveDaybooks()
+                        Return True
+                    Else
+                        Return False
+                        Me.Close()
+                    End If
+                Else
+                    Return False
+                    Me.Close()
+                End If
             End If
+            
         Else
 
             If (TextBoxDayBookCode.Text = "true" Or TextBoxDayBookCode.Text = "" Or TextBoxDaybookName.Text = "") Then
@@ -446,25 +466,27 @@
     'End Sub
 
     Private Function IsAccountLinked() As Boolean
-        Dim pAccountCode, pDaybook As String
+        If (_mode <> "edit") Then
+            Dim pAccountCode, pDaybook As String
+            Try
+                pAccountCode = ComboBoxLedgerAccountCode.SelectedValue.ToString
+                pDaybook = TextBoxDayBookCode.Text
+                If ledgeAccHelper.IsAccountLinked(pAccountCode, pDaybook) Then
+                    lblAcccodeErr.Visible = True
+                Else
+                    lblAcccodeErr.Visible = False
+                End If
+            Catch ex As Exception
 
-        Try
-            pAccountCode = ComboBoxLedgerAccountCode.SelectedValue.ToString
-            pDaybook = TextBoxDayBookCode.Text
-            If ledgeAccHelper.IsAccountLinked(pAccountCode, pDaybook) Then
-                lblAcccodeErr.Visible = True
-            Else
-                lblAcccodeErr.Visible = False
-            End If
-        Catch ex As Exception
-
-        End Try
-        Return lblAcccodeErr.Visible
+            End Try
+            Return lblAcccodeErr.Visible
+        Else
+            Return False
+        End If
     End Function
 
 #Region "validation"
     '------------------------------------------------------------validation---------------------------------------------------------------------------
-
 
     Function Validation() As String
         Dim result As String = ""
@@ -532,6 +554,13 @@
         TextBoxBankName.Text = ""
         TextBoxBranchName.Text = ""
         TextBoxAccountNumber.Text = ""
-        TextBoxBankOD.Text = ""
+        TextBoxBankOD.Text = "0"
+        TextBoxDayBookCode.Focus()
+    End Sub
+
+    Sub BindPaginationControl(ByVal dt As DataTable)
+        BindingSource1.DataSource = Nothing
+        BindingSource1.DataSource = dt
+
     End Sub
 End Class

@@ -4,6 +4,7 @@
     Dim accCode As String
     Dim account As New Accounts
     Public val As String = ""
+    Private _mode As String
     Public textboxval As String
     Public WithEvents bindingSourceCtrl As BindingSource
     Dim dtAccounts As DataTable
@@ -47,6 +48,7 @@
         If IsDecimal(e, txtLYBudget) Then
             Return
         End If
+       
         e.Handled = True
     End Sub
 
@@ -55,6 +57,7 @@
         If IsDecimal(e, txtLYActual) Then
             Return
         End If
+        
         e.Handled = True
     End Sub
 
@@ -63,6 +66,7 @@
         If IsDecimal(e, txtLLYBudget) Then
             Return
         End If
+       
         e.Handled = True
     End Sub
 
@@ -79,14 +83,15 @@
         If IsDecimal(e, txtCYBudget) Then
             Return
         End If
+      
         e.Handled = True
     End Sub
 
     Private Sub txtAccOpenBalance_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles txtAccOpenBalance.KeyPress
-
         If IsDecimal(e, txtAccOpenBalance) Then
             Return
         End If
+        
         e.Handled = True
     End Sub
 
@@ -104,18 +109,7 @@
 
         Try
             dtAccounts = ledgerAcc.GetAccountDetails(String.Empty)
-
-            For Each row As DataRow In dtAccounts.Rows
-                If row("AM_Calls") Is DBNull.Value Then
-                    row("AM_Calls") = "Not Linked"
-                    row.AcceptChanges()
-                End If
-            Next
-
-            dtAccounts.AcceptChanges()
-            bindingSourceCtrl.DataSource = dtAccounts
-            bindingSourceCtrl.Sort = "AM_Acc_Cd Asc"
-
+            BindPaginationControl(dtAccounts)
 
             txtAccCode.DataBindings.Add("Text", bindingSourceCtrl, "AM_Acc_Cd", True)
             txtAccName.DataBindings.Add("Text", bindingSourceCtrl, "AM_Acc_Nm", True)
@@ -141,6 +135,10 @@
 
     End Sub
 
+    Public Sub SetControls(ByVal pMode As String)
+        _mode = pMode
+    End Sub
+
     Public Sub SaveData()
         Try
             If Not ValidateClass.CheckAccountCode(txtAccCode.Text) Then
@@ -160,17 +158,22 @@
                     account.AccLYbudget = decimal_Notnull(txtLYBudget.Text)
                     account.AccLYactual = decimal_Notnull(txtLYActual.Text)
                     account.AccCYbudget = decimal_Notnull(txtCYBudget.Text)
-                    ledgerAcc.AddLedgerAccount(account)
+                    If (_mode = "add" And ledgerAcc.GetCount(txtAccCode.Text) > 0) Then
+                        MessageBox.Show("Account code already exist")
+                    Else
+                        ledgerAcc.AddLedgerAccount(account)
+                        dtAccounts = ledgerAcc.GetAccountDetails(String.Empty)
+                        BindPaginationControl(dtAccounts)
+                        ClearData()
+                        MessageBox.Show("Data updated successfully")
 
-                    MessageBox.Show("Data updated successfully")
-                    Me.Close()
-                    EnableDisableControls(False)
+                    End If
                 Else
-                    EnableDisableControls(True)
-                    MessageBox.Show(errorStr)
-                End If
+                EnableDisableControls(True)
+                MessageBox.Show(errorStr)
             End If
-         
+            End If
+
         Catch ex As Exception
             MessageBox.Show(ex.ToString())
         End Try
@@ -491,13 +494,43 @@
     Sub ClearData()
         txtAccCode.Text = ""
         txtAccName.Text = ""
-        txtAccOpenBalance.Text = ""
-        txtCYBudget.Text = ""
-        txtLLYActual.Text = ""
-        txtLLYBudget.Text = ""
-        txtLYActual.Text = ""
-        txtLYBudget.Text = ""
-        txtCYBudget.Text = ""
+        txtAccOpenBalance.Text = "0"
+        txtCYBudget.Text = "0"
+        txtLLYActual.Text = "0"
+        txtLLYBudget.Text = "0"
+        txtLYActual.Text = "0"
+        txtLYBudget.Text = "0"
+        txtCYBudget.Text = "0"
+        txtAccCode.Enabled = True
+        txtAccCode.Focus()
+        LblLinkedTo.Text = ""
+
+    End Sub
+
+    Sub BindPaginationControl(ByVal dtAccounts As DataTable)
+        For Each row As DataRow In dtAccounts.Rows
+            If row("AM_Calls") Is DBNull.Value Then
+                row("AM_Calls") = "Not Linked"
+                row.AcceptChanges()
+            End If
+        Next
+
+        dtAccounts.AcceptChanges()
+        bindingSourceCtrl.DataSource = dtAccounts
+        bindingSourceCtrl.Sort = "AM_Acc_Cd Asc"
+
+    End Sub
+
+    Private Sub txtAccCode_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtAccCode.Leave
+        If (_mode = "add") Then
+
+
+            If txtAccCode.Text.Contains("A") Or txtAccCode.Text.Contains("E") Then
+                drpOpenBalEff.Text = "Debit"
+            Else
+                drpOpenBalEff.Text = "Credit"
+            End If
+        End If
     End Sub
 
 End Class

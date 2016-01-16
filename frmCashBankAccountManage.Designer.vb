@@ -81,14 +81,14 @@ Partial Class frmCashBankAccountManage
         Me.ComboBoxLedgerAccountCode.Items.AddRange(New Object() {"select"})
         Me.ComboBoxLedgerAccountCode.Location = New System.Drawing.Point(175, 137)
         Me.ComboBoxLedgerAccountCode.Name = "ComboBoxLedgerAccountCode"
-        Me.ComboBoxLedgerAccountCode.Size = New System.Drawing.Size(135, 22)
+        Me.ComboBoxLedgerAccountCode.Size = New System.Drawing.Size(181, 22)
         Me.ComboBoxLedgerAccountCode.TabIndex = 4
         '
         'lblAcccodeErr
         '
         Me.lblAcccodeErr.AutoSize = True
         Me.lblAcccodeErr.ForeColor = System.Drawing.Color.Red
-        Me.lblAcccodeErr.Location = New System.Drawing.Point(316, 127)
+        Me.lblAcccodeErr.Location = New System.Drawing.Point(362, 134)
         Me.lblAcccodeErr.Name = "lblAcccodeErr"
         Me.lblAcccodeErr.Size = New System.Drawing.Size(88, 28)
         Me.lblAcccodeErr.TabIndex = 15
