@@ -73,6 +73,7 @@
             If _mode.ToLower() = "edit" Or _mode.ToLower() = "delete" Or _mode = "confirm" Or _mode = "view" Then
                 If txtLinkVoucherNumber.Text <> String.Empty Then
                     Dim flgEnable As String = BindVoucherDetails()
+                    Me.pnlConfirm.Visible = True
 
                     'populate voucher details
                     If String.IsNullOrEmpty(flgEnable) Then
@@ -137,10 +138,11 @@
                                 txtLinkVoucherNumber.Enabled = False
                                 DatePickerVoucherLinkDate.Visible = True
                                 DatePickerVoucherLinkDate.Enabled = False
-                                Me.pnlConfirm.Visible = True
                                 Me.pnlConfirm.Enabled = True
 
                                 lblConfirmNumber.Text = "-"
+                                lblConfirmNumber.BackColor = Color.Transparent
+
                                 lblConfirmedVoucherNumber.Visible = False
 
                                 Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
@@ -189,22 +191,18 @@
         TextBoxChequeNo.Text = String.Empty
         TextBoxNameOfPayee.Text = String.Empty
         TextBoxAmount.Text = String.Empty
-        'ComboBoxCreditDebit.SelectedIndex = 0
         lblConfirmedVoucherNumber.Text = String.Empty
-        pnlConfirm.Visible = False
+        pnlConfirm.Enabled = False
         panelVoucherControls.Visible = False
         SplitContainer1.Panel2Collapsed = True
         SplitContainer1.Panel1Collapsed = False
-
+        lblConfirmNumber.Text = "-"
+        lblConfirmNumber.BackColor = Color.Transparent
         If _mode IsNot Nothing Then
             If _mode.ToLower() = "clear" Then
                 ComboBoxDaybookSelect.Enabled = True
-                'ButtonNext.Enabled = True
-
             End If
-
         End If
-
 
         Try
             dgvVoucherDetails.Rows.Clear()
@@ -316,7 +314,7 @@
                     End If
                     lblConfirmedVoucherNumber.Visible = True
                     If (lblConfirmNumber.Text.Trim() <> "-") Then
-                        helper.ConfirmCashAndBankVoucher(txtLinkVoucherNumber.Text, datepickerVoucherDateConfirm.Value.ToString(), lblConfirmNumber.Text.Trim())
+                        helper.ConfirmVoucher(txtLinkVoucherNumber.Text, datepickerVoucherDateConfirm.Value.ToString(), lblConfirmNumber.Text.Trim())
                     End If
 
                     Dim lgdr As Ledger = New Ledger()
@@ -420,19 +418,19 @@
         Dim referenceDateValidation As String = String.Empty
         Dim voucherConfirmationDateValidation As String = String.Empty
 
-        If (DatePickerVoucherLinkDate.Visible And Not ValidateClass.CheckVoucherDate(DatePickerVoucherLinkDate.Value.Date, voucherlinkDateValidation)) Then
+        If (DatePickerVoucherLinkDate.Enabled And Not ValidateClass.CheckVoucherDate(DatePickerVoucherLinkDate.Value.Date, voucherlinkDateValidation)) Then
             messageToShow += Environment.NewLine + "- " + voucherlinkDateValidation
         End If
 
-        If (DateTimeReferenceDate.Visible And Not ValidateClass.CheckReferenceDate(DateTimeReferenceDate.Value.Date, referenceDateValidation, DatePickerVoucherLinkDate.Value.Date)) Then
+        If (DateTimeReferenceDate.Enabled And Not ValidateClass.CheckReferenceDate(DateTimeReferenceDate.Value.Date, referenceDateValidation, DatePickerVoucherLinkDate.Value.Date)) Then
             messageToShow += Environment.NewLine + "- " + referenceDateValidation
         End If
 
-        If (datepickerVoucherDateConfirm.Visible And Not ValidateClass.CheckConfirmationdate(datepickerVoucherDateConfirm.Value.Date, voucherConfirmationDateValidation, DatePickerVoucherLinkDate.Value.Date)) Then
+        If (datepickerVoucherDateConfirm.Enabled And Not ValidateClass.CheckConfirmationdate(datepickerVoucherDateConfirm.Value.Date, voucherConfirmationDateValidation, DatePickerVoucherLinkDate.Value.Date)) Then
             messageToShow += Environment.NewLine + "- " + voucherConfirmationDateValidation
         End If
 
-        If (datepickerChequeDate.Visible And datepickerChequeDate.Value.Date.CompareTo(InstitutionMasterData.XDate) > 0) Then
+        If (datepickerChequeDate.Enabled And datepickerChequeDate.Value.Date.CompareTo(InstitutionMasterData.XDate) > 0) Then
             messageToShow += Environment.NewLine + "- " + "Cheque date cannot be greater that processing date"
         End If
         Return messageToShow
@@ -521,13 +519,16 @@
 
                         header.VH_VCH_Ref_No = vchRefNo.ToString().PadLeft(6, "0")
 
+                        helper.SaveVoucherHeader(header)
+
+
                         Dim i As Integer = 0
                         If dgvVoucherDetails.Rows.Count > 0 Then
                             For Each dgRows As DataGridViewRow In dgvVoucherDetails.Rows
                                 Try
                                     If Not dgRows.Cells("DebitCr").Value = String.Empty And Not dgRows.Cells("Amount").EditedFormattedValue = String.Empty And Not dgRows.Cells("LedgerAccount").Value = String.Empty And Not dgRows.Cells("RefDate").EditedFormattedValue = String.Empty And Not dgRows.Cells("RefNo").EditedFormattedValue = String.Empty Then
                                         i = i + 1
-                                        Dim drcr As String = dgRows.Cells("DebitCr").Value.ToString()
+                                        Dim drcr As String = dgRows.Cells("DebitCr").EditedFormattedValue.ToString()
                                         Dim amount As String = dgRows.Cells("Amount").EditedFormattedValue
                                         Dim ledgerAccount As String = dgRows.Cells("LedgerAccount").EditedFormattedValue
                                         Dim seqNo As String = dgRows.Cells("SeqNo").EditedFormattedValue
@@ -572,7 +573,6 @@
                         End If
 
                         If (IsSuccessFull And i > 0) Then
-                            helper.SaveVoucherHeader(header)
 
                             If Me._mode = "add" Then
                                 instMaster.UpdateLinkNumber(txtLinkVoucherNumber.Text.Trim(), vchRefNo, InstitutionMasterData.XInstCode)
@@ -662,6 +662,9 @@
             AddHandler tb.KeyPress, AddressOf Amount_KeyPress
         End If
 
+        If TypeOf e.Control Is TextBox Then
+            DirectCast(e.Control, TextBox).CharacterCasing = CharacterCasing.Upper
+        End If
 
     End Sub
 
@@ -719,7 +722,16 @@
         dgvVoucherDetails.Rows(e.RowIndex).Cells("RefDate").Value = DateTimeReferenceDate.Value.ToShortDateString()
 
         If (String.IsNullOrEmpty(dgvVoucherDetails.Rows(e.RowIndex).Cells("SeqNo").Value)) Then
-            dgvVoucherDetails.Rows(e.RowIndex).Cells("SeqNo").Value = (e.RowIndex + 1).ToString().PadLeft(3, "0")
+            'dgvVoucherDetails.Rows(e.RowIndex).Cells("SeqNo").Value = (e.RowIndex + 1).ToString().PadLeft(3, "0")
+            Dim newSeqNo As Integer = 0
+            For x As Integer = 0 To dgvVoucherDetails.Rows.Count - 1
+                If newSeqNo = 0 Then
+                    newSeqNo = Convert.ToInt32(dgvVoucherDetails.Rows(x).Cells("SeqNo").Value)
+                Else
+                    If newSeqNo < Convert.ToInt32(dgvVoucherDetails.Rows(x).Cells("SeqNo").Value) Then newSeqNo = Convert.ToInt32(dgvVoucherDetails.Rows(x).Cells("SeqNo").Value)
+                End If
+            Next
+            dgvVoucherDetails.Rows(e.RowIndex).Cells("SeqNo").Value = (newSeqNo + 1).ToString().PadLeft(3, "0")
         End If
 
         If (String.IsNullOrEmpty(dgvVoucherDetails.Rows(e.RowIndex).Cells("DebitCr").Value)) Then
@@ -790,14 +802,15 @@
         Else
             SetChequeControlVisibility(False)
         End If
-
+        Me.pnlConfirm.Visible = False
         Select Case _mode
             Case "view"
                 'Me.SplitContainer1.Panel1Collapsed = True
                 Me.SplitContainer1.Panel2Collapsed = False
                 Me.panelVoucherControls.Visible = False
                 Me.dgvVoucherDetails.Visible = False
-                Me.pnlConfirm.Visible = False
+                'Me.pnlConfirm.Visible = False
+                Me.pnlConfirm.Enabled = False
                 Me.Text = Me.Text.Split("(")(0).Trim() + " (Operation: View)"
                 ComboBoxDaybookSelect.Enabled = False
                 Me.txtLinkVoucherNumber.Enabled = True
@@ -821,7 +834,7 @@
                 Me.txtLinkVoucherNumber.Enabled = True
 
                 Me.dgvVoucherDetails.Visible = False
-                Me.pnlConfirm.Visible = False
+                Me.pnlConfirm.Enabled = False
                 ComboBoxDaybookSelect.Enabled = False
                 'ButtonNext.Enabled = False
                 DatePickerVoucherLinkDate.Visible = False
@@ -842,7 +855,7 @@
                 Me.txtLinkVoucherNumber.Enabled = True
 
                 Me.dgvVoucherDetails.Visible = False
-                Me.pnlConfirm.Visible = False
+                Me.pnlConfirm.Enabled = False
                 ComboBoxDaybookSelect.Enabled = False
                 'ButtonNext.Enabled = False
 
@@ -869,6 +882,8 @@
                 DateTimeReferenceDate.Value = InstitutionMasterData.XDate
                 datepickerChequeDate.Value = InstitutionMasterData.XDate
                 dgvVoucherDetails.Enabled = True
+                Me.pnlConfirm.Visible = True
+
                 Me.Text = Me.Text.Split("(")(0).Trim() + " (Operation: Add New)"
 
             Case "edit"
@@ -898,10 +913,10 @@
     End Sub
 
     Sub SetChequeControlVisibility(ByVal Visibility As Boolean)
-        TextBoxChequeNo.Visible = Visibility
-        datepickerChequeDate.Visible = Visibility
-        LabelChequeNo.Visible = Visibility
-        LabelChequeDate.Visible = Visibility
+        TextBoxChequeNo.Enabled = Visibility
+        datepickerChequeDate.Enabled = Visibility
+        LabelChequeNo.Enabled = Visibility
+        LabelChequeDate.Enabled = Visibility
     End Sub
 
     Sub SetOperationMode(ByVal pMode As String)
@@ -932,7 +947,6 @@
                         flgEnable = "Voucher is already confirmed"
                         Return flgEnable
                     End If
-                    pnlConfirm.Visible = True
                     pnlConfirm.Enabled = False
                     datepickerVoucherDateConfirm.Value = voucherHeader.VH_VCH_Dt
                     datepickerVoucherDateConfirm.Enabled = False
@@ -953,7 +967,14 @@
                 DatePickerVoucherLinkDate.Value = voucherHeader.VH_Lnk_Dt
                 DateTimeReferenceDate.Value = voucherHeader.VH_Ref_Dt
                 TextBoxChequeNo.Text = voucherHeader.VH_Chq_No
-                datepickerChequeDate.Value = voucherHeader.VH_Chq_Dt
+
+                If (voucherHeader.VH_Chq_Dt.HasValue) Then
+                    datepickerChequeDate.Value = voucherHeader.VH_Chq_Dt
+                Else
+                    datepickerChequeDate.Format = DateTimePickerFormat.Custom
+                    datepickerChequeDate.CustomFormat = " "
+                End If
+
                 TextBoxNameOfPayee.Text = voucherHeader.VH_Pty_Nm
                 TextBoxAmount.Text = voucherHeader.VH_ABS_Amt.ToString
                 ComboBoxCreditDebit.SelectedItem = voucherHeader.VH_Cr_Dr
@@ -1033,6 +1054,22 @@
             End If
         End If
 
+    End Sub
+    Private rowIndex As Integer = 0
+    Private Sub DeleteToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeleteToolStripMenuItem.Click
+        If Not dgvVoucherDetails.Rows(Me.rowIndex).IsNewRow Then
+            dgvVoucherDetails.Rows.RemoveAt(Me.rowIndex)
+        End If
+    End Sub
+
+    Private Sub dgvVoucherDetails_CellMouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvVoucherDetails.CellMouseUp
+        If e.Button = MouseButtons.Right Then
+            dgvVoucherDetails.Rows(e.RowIndex).Selected = True
+            rowIndex = e.RowIndex
+            dgvVoucherDetails.CurrentCell = dgvVoucherDetails.Rows(e.RowIndex).Cells(1)
+            VoucherDetailsDeleteMenu.Show(dgvVoucherDetails, e.Location)
+            VoucherDetailsDeleteMenu.Show(Cursor.Position)
+        End If
     End Sub
 
 End Class

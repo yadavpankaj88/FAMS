@@ -44,7 +44,7 @@ Public Class LedgerHelper
                             " SELECT " + _
                             "vh.VH_Vch_Dt" + _
                             ",vh.VH_Lnk_Dt" + _
-                            ",VD_Fin_Yr,VD_Seq_No,VD_Inst_Cd,VD_Inst_Typ,VD_Brn_Cd,VD_Lnk_No,VD_Dbk_Cd,VD_Trn_Typ ,VD_Vch_No ,VD_Vch_Ref_No ,VD_Narr,VD_Ref_No,VD_Ref_Dt,VD_Acc_Cd,VD_Amt,VD_Cr_Dr,VD_ABS_Amt,'11111',GETDATE(),'11111',GETDATE(),'11111',GETDATE() " + _
+                            ",VD_Fin_Yr,VD_Seq_No,VD_Inst_Cd,VD_Inst_Typ,VD_Brn_Cd,VD_Lnk_No,VD_Dbk_Cd,VD_Trn_Typ ,VD_Vch_No ,VD_Vch_Ref_No ,VD_Narr,VD_Ref_No,VD_Ref_Dt,VD_Acc_Cd,VD_Amt,VD_Cr_Dr,VD_ABS_Amt,'" + InstitutionMasterData.XUsrId + "',GETDATE(),'" + InstitutionMasterData.XUsrId + "',GETDATE(),'" + InstitutionMasterData.XUsrId + "',GETDATE() " + _
                             "from dbo." + InstitutionMasterData.XInstType + "_Voucher_Detail VD " + _
                             "INNER JOIN " + InstitutionMasterData.XInstType + "_Voucher_Header VH " + _
                             "ON VD.VD_Lnk_No=vh.VH_Lnk_No " + _

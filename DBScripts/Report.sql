@@ -1,3 +1,4 @@
+go
 ALTER FUNCTION dbo.OpeningBalanceValue
 (
 	@lgrCode varchar(10),
@@ -454,10 +455,10 @@ AS
 
 RETURN @totalBalance
 END
-
+go
 
 print'----------------------------------------------------------------------------------------------'
-
+go
 ALTER PROCEDURE [dbo].[GetCashBankReportDetails]
 	-- Add the parameters for the stored procedure here
 	@instType varchar(2),
@@ -481,36 +482,38 @@ BEGIN
 					Acc.AM_Acc_Nm, 
 					VD.VD_Narr, 
 					VH.VH_Pty_Nm, 
-					VD.VD_Ref_Dt,
+					CASE WHEN VH.VH_Chq_No > 0 THEN VH.VH_Chq_Dt
+					ELSE [VD_Ref_Dt] END AS [VD_Ref_Dt],
 					VD.VD_Fin_Yr,
 					VD.VD_Cr_Dr,
 					VD.VD_Seq_No,
 					VH.VH_Trn_Typ,
 					CASE 
-					WHEN VH.VH_Trn_Typ in(''CR'',''BR'') THEN VD.VD_ABS_Amt
+					WHEN LOWER(VH.VH_Cr_Dr)=''dr'' THEN VD.VD_ABS_Amt
 					END as Receipt,
 					CASE 
-					WHEN VH.VH_Trn_Typ in(''CP'',''BP'') THEN VD.VD_ABS_Amt
+					WHEN LOWER(VH.VH_Cr_Dr)=''cr'' THEN VD.VD_ABS_Amt
 					END as Payment,
 					CASE 
-					WHEN VH.VH_Trn_Typ in(''CR'',''BR'') THEN VD.VD_Cr_Dr
+					WHEN LOWER(VH.VH_Cr_Dr)=''dr'' THEN VD.VD_Cr_Dr
 					END as ReceiptCRDR,
 					CASE 
-					WHEN VH.VH_Trn_Typ in(''CP'',''BP'') THEN VD.VD_Cr_Dr 
+					WHEN LOWER(VH.VH_Cr_Dr)=''cr'' THEN VD.VD_Cr_Dr 
 					END as PaymentCRDR,
 					CASE WHEN VH.VH_Chq_No > 0 THEN VH.VH_Chq_No
 					ELSE ''Cash''
 					END as TransactionType,
 					VH.VH_ABS_Amt,
 					CASE 
-					WHEN VH.VH_Trn_Typ in(''CR'',''BR'') THEN VH.VH_Amt
+					WHEN LOWER(VH.VH_Cr_Dr)=''dr'' THEN VH.VH_Amt
 					END as ReceiptSum,
 					CASE 
-					WHEN VH.VH_Trn_Typ in(''CP'',''BP'') THEN VH.VH_Amt
+					WHEN LOWER(VH.VH_Cr_Dr)=''cr'' THEN VH.VH_Amt
 					END as PaymentSum,
 					VH.VH_Amt,
 					VD.VD_Amt,
 					VD.VD_Acc_Cd,
+					VH.VH_Vch_Dt,
 					dbo.OpeningBalanceValue(VH.VH_acc_cd,'''+CONVERT(VARCHAR(25),DATEADD(DAY,0,@ToDate),101)+''','''+@instType+''') as ClosingBalance
 
 					FROM '+@instType+'_Voucher_Detail AS VD 
@@ -524,9 +527,9 @@ BEGIN
 	exec(@strQuery)
 
 END
-
+go
 print'----------------------------------------------------------------------------------------------'
-
+go
 ALTER PROCEDURE [dbo].[GetGeneralLedgerReportDetails]
 	-- Add the parameters for the stored procedure here
 	@instType varchar(2),
@@ -587,11 +590,11 @@ BEGIN
 	exec(@strQuery)
 
 END
-
+go
 
 
 print'----------------------------------------------------------------------------------------------'
-
+go
 ALTER PROCEDURE [dbo].[GetTrialBalanceReportDetails]
 	-- Add the parameters for the stored procedure here
 	@instType varchar(2),
@@ -634,9 +637,9 @@ BEGIN
 
 END
 
-
+go
 print'----------------------------------------------------------------------------------------------'
-
+go
 ALTER FUNCTION dbo.OpeningBalance
 	(
 	@lgrCode varchar(10),
@@ -713,3 +716,4 @@ SET @totalBalance= ISNULL(@totalBalance,0)
 
 	RETURN @totalBalance
 	END
+	go

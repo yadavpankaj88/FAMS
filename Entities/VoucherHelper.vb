@@ -36,7 +36,8 @@ Public Class VoucherHelper
         "Insert into " + InstitutionMasterData.XInstType + "_Voucher_Header(VH_Fin_Yr,VH_Inst_Cd,VH_Inst_Typ,VH_Brn_Cd,VH_Lnk_No,VH_Lnk_Dt,VH_Pty_Nm," & _
         "VH_Dbk_Cd,VH_Trn_Typ,VH_Chq_No,VH_Chq_Dt,VH_Ref_No,VH_VCH_Ref_No,VH_Ref_Dt,VH_Lgr_Cd,VH_Acc_Cd,VH_Amt,VH_Cr_Dr,VH_ABS_Amt,VH_Ent_Dt," & _
         "VH_Ent_By)values(@VH_Fin_Yr,@VH_Inst_Cd,@VH_Inst_Typ,@VH_Brn_Cd,@VH_Lnk_No,@VH_Lnk_Dt,@VH_Pty_Nm,@VH_Dbk_Cd,@VH_Trn_Typ," & _
-        "@VH_Chq_No,@VH_Chq_Dt,@VH_Ref_No,@VH_VCH_Ref_No,@VH_Ref_Dt,@VH_Lgr_Cd,@VH_Acc_Cd,@VH_Amt,@VH_Cr_Dr,@VH_Abs_Amt,GetDate(),@VH_Ent_By)"
+        "@VH_Chq_No,@VH_Chq_Dt,@VH_Ref_No,@VH_VCH_Ref_No,@VH_Ref_Dt,@VH_Lgr_Cd,@VH_Acc_Cd,@VH_Amt,@VH_Cr_Dr,@VH_Abs_Amt,GetDate(),@VH_Ent_By)" & _
+        " delete from " + InstitutionMasterData.XInstType + "_Voucher_Detail where Vd_Lnk_No=@VH_Lnk_No AND Vd_Inst_Cd=@VH_Inst_Cd"
 
         Dim dataHelper As DataHelper = New DataHelper()
 
@@ -51,7 +52,7 @@ Public Class VoucherHelper
         params.Add("@VH_Dbk_Cd", voucherHead.VH_Dbk_Cd)
         params.Add("@VH_Trn_Typ", voucherHead.VH_Trn_Typ)
         params.Add("@VH_Chq_No", IIf(String.IsNullOrEmpty(voucherHead.VH_Chq_No), DBNull.Value, voucherHead.VH_Chq_No))
-        If voucherHead.VH_Chq_Dt.HasValue And (voucherHead.VH_Trn_Typ = "BR" Or voucherHead.VH_Trn_Typ = "BP") Then
+        If voucherHead.VH_Chq_Dt.HasValue And Not String.IsNullOrEmpty(voucherHead.VH_Chq_No) Then
             params.Add("@VH_Chq_Dt", voucherHead.VH_Chq_Dt.Value.ToString("MM-dd-yyyy"))
         Else
             params.Add("@VH_Chq_Dt", DBNull.Value)
@@ -115,15 +116,19 @@ Public Class VoucherHelper
     End Sub
 
     Public Sub SaveVoucherDetail(ByVal voucherdetail As VoucherDetails)
-        Dim detailSaveQuery = "If(Exists(select 'x' from " + InstitutionMasterData.XInstType + "_Voucher_Detail where VD_Lnk_No=@VD_Lnk_No and VD_Seq_No=@VD_Seq_No)) " &
-        " Begin " &
-        "Update " + InstitutionMasterData.XInstType + "_Voucher_Detail Set VD_Ref_No=@VD_Ref_No,VD_Ref_Dt=@VD_Ref_Dt,VD_Narr=@VD_Narr,VD_Acc_Cd=@VD_Acc_Cd,VD_Amt=@VD_Amt," &
-        " VD_Cr_Dr=@VD_Cr_Dr,VD_Abs_Amt=@VD_Abs_Amt,VD_Upd_By=@VD_Upd_By,VD_Upd_Dt=GetDate() where VD_Lnk_No=@VD_Lnk_No and VD_Seq_No=@VD_Seq_No" &
-        " End " &
-        " Else " &
-            "Insert into " + InstitutionMasterData.XInstType + "_Voucher_Detail(VD_Fin_Yr,VD_Inst_Cd,VD_Inst_Typ,VD_Brn_Cd,VD_Lnk_No,VD_Dbk_Cd,VD_Trn_Typ,VD_Seq_No,VD_Ref_No,VD_VCH_Ref_No,VD_Ref_Dt,VD_Narr,VD_Lgr_Cd,VD_Acc_Cd,VD_Amt,VD_Cr_Dr," &
-                               "VD_ABS_Amt,VD_Ent_By,VD_Ent_Dt)values(@VD_Fin_Yr,@VD_Inst_Cd,@VD_Inst_Typ,@VD_Brn_Cd,@VD_Lnk_No,@VD_Dbk_Cd,@VD_Trn_Typ,@VD_Seq_No,@VD_Ref_No,@VD_VCH_Ref_No,@VD_Ref_Dt,@VD_Narr,@VD_Lgr_Cd,@VD_Acc_Cd,@VD_Amt,@VD_Cr_Dr," &
-                                "@VD_Abs_Amt,@VD_Ent_By,GETDATE())"
+        'Dim detailSaveQuery = "If(Exists(select 'x' from " + InstitutionMasterData.XInstType + "_Voucher_Detail where VD_Lnk_No=@VD_Lnk_No and VD_Seq_No=@VD_Seq_No)) " &
+        '" Begin " &
+        '"Update " + InstitutionMasterData.XInstType + "_Voucher_Detail Set VD_Ref_No=@VD_Ref_No,VD_Ref_Dt=@VD_Ref_Dt,VD_Narr=@VD_Narr,VD_Acc_Cd=@VD_Acc_Cd,VD_Amt=@VD_Amt," &
+        '" VD_Cr_Dr=@VD_Cr_Dr,VD_Abs_Amt=@VD_Abs_Amt,VD_Upd_By=@VD_Upd_By,VD_Upd_Dt=GetDate() where VD_Lnk_No=@VD_Lnk_No and VD_Seq_No=@VD_Seq_No" &
+        '" End " &
+        '" Else " &
+        '    "Insert into " + InstitutionMasterData.XInstType + "_Voucher_Detail(VD_Fin_Yr,VD_Inst_Cd,VD_Inst_Typ,VD_Brn_Cd,VD_Lnk_No,VD_Dbk_Cd,VD_Trn_Typ,VD_Seq_No,VD_Ref_No,VD_VCH_Ref_No,VD_Ref_Dt,VD_Narr,VD_Lgr_Cd,VD_Acc_Cd,VD_Amt,VD_Cr_Dr," &
+        '                       "VD_ABS_Amt,VD_Ent_By,VD_Ent_Dt)values(@VD_Fin_Yr,@VD_Inst_Cd,@VD_Inst_Typ,@VD_Brn_Cd,@VD_Lnk_No,@VD_Dbk_Cd,@VD_Trn_Typ,@VD_Seq_No,@VD_Ref_No,@VD_VCH_Ref_No,@VD_Ref_Dt,@VD_Narr,@VD_Lgr_Cd,@VD_Acc_Cd,@VD_Amt,@VD_Cr_Dr," &
+        '                        "@VD_Abs_Amt,@VD_Ent_By,GETDATE())"
+
+        Dim detailSaveQuery = "Insert into " + InstitutionMasterData.XInstType + "_Voucher_Detail(VD_Fin_Yr,VD_Inst_Cd,VD_Inst_Typ,VD_Brn_Cd,VD_Lnk_No,VD_Dbk_Cd,VD_Trn_Typ,VD_Seq_No,VD_Ref_No,VD_VCH_Ref_No,VD_Ref_Dt,VD_Narr,VD_Lgr_Cd,VD_Acc_Cd,VD_Amt,VD_Cr_Dr," &
+                       "VD_ABS_Amt,VD_Ent_By,VD_Ent_Dt,VD_Upd_By,VD_Upd_Dt)values(@VD_Fin_Yr,@VD_Inst_Cd,@VD_Inst_Typ,@VD_Brn_Cd,@VD_Lnk_No,@VD_Dbk_Cd,@VD_Trn_Typ,@VD_Seq_No,@VD_Ref_No,@VD_VCH_Ref_No,@VD_Ref_Dt,@VD_Narr,@VD_Lgr_Cd,@VD_Acc_Cd,@VD_Amt,@VD_Cr_Dr," &
+                        "@VD_Abs_Amt,@VD_Ent_By,GETDATE(),@VD_Upd_By,GetDate())"
 
         Dim params As Dictionary(Of String, Object) = New Dictionary(Of String, Object)()
         params.Add("@VD_Fin_Yr", voucherdetail.VD_Fin_Yr)
@@ -179,6 +184,9 @@ Public Class VoucherHelper
 
                     If item("VH_Chq_Dt") IsNot Nothing Then
                         voucherHeader.VH_Chq_Dt = Convert.ToDateTime(item("VH_Chq_Dt").ToString())
+                        If (voucherHeader.VH_Chq_Dt.Value = Convert.ToDateTime("1/1/1900")) Then
+                            voucherHeader.VH_Chq_Dt = Nothing
+                        End If
                     End If
                     voucherHeader.VH_Pty_Nm = item("VH_Pty_Nm").ToString()
                     voucherHeader.VH_Amt = Convert.ToDecimal(item("VH_Amt").ToString)
@@ -259,7 +267,7 @@ Public Class VoucherHelper
         Return dt
     End Function
 
-    Sub ConfirmCashAndBankVoucher(ByVal linkVoucherNo As String, ByVal voucherDate As DateTime, ByVal confirmVoucherNumber As String)
+    Sub ConfirmVoucher(ByVal linkVoucherNo As String, ByVal voucherDate As DateTime, ByVal confirmVoucherNumber As String)
         Dim query As String = String.Empty
 
         query = "Update " + InstitutionMasterData.XInstType + "_Voucher_Header set VH_Vch_No=@voucherNumber,VH_VCH_Dt=@vchDt,VH_Conf_Dt=GetDate(),VH_Conf_By=@CnfBy " &
@@ -277,36 +285,35 @@ Public Class VoucherHelper
         dataHelper.ExecuteNonQuery(query, CommandType.Text, params)
     End Sub
 
-    Sub ConfirmVoucher(ByVal daybookGoesOut As String, ByVal daybookGoesInto As String, ByVal linkVoucherNo As String, ByVal voucherDate As DateTime, ByVal confirmVoucherNumber As String, ByVal nextcount As String)
-        Dim query As String = String.Empty
+    'Sub ConfirmVoucher(ByVal daybookGoesOut As String, ByVal daybookGoesInto As String, ByVal linkVoucherNo As String, ByVal voucherDate As DateTime, ByVal confirmVoucherNumber As String, ByVal nextcount As String)
+    '    Dim query As String = String.Empty
 
-        query = "Begin Tran " &
-        "Begin Try " &
-            "Update " + InstitutionMasterData.XInstType + "_Voucher_Header set VH_Vch_No=@voucherNumber,VH_VCH_Dt=@vchDt,VH_Conf_Dt=GetDate(),VH_Conf_By=@CnfBy " &
-            "where VH_Lnk_No=@linkNo " &
-            "Update " + InstitutionMasterData.XInstType + "_Voucher_Detail set VD_Dbk_Cd=@dbkCdIn,VD_Vch_No=@voucherNumber,VD_Conf_Dt=GetDate(),VD_Conf_By=@CnfBy " &
-            "where VD_Lnk_No=@linkNo " &
-            "Update " + InstitutionMasterData.XInstType + "_Daybooks set DM_Vch_" + DateTime.Now.Month.ToString().PadLeft(2, "0") + "=@nextVoucherNumber where DM_Dbk_Cd=@dbkCd " &
-        "Commit " &
-        "End Try " &
-        "Begin Catch " &
-        "RollBack " &
-        "End Catch "
+    '    query = "Begin Tran " &
+    '    "Begin Try " &
+    '        "Update " + InstitutionMasterData.XInstType + "_Voucher_Header set VH_Vch_No=@voucherNumber,VH_VCH_Dt=@vchDt,VH_Conf_Dt=GetDate(),VH_Conf_By=@CnfBy " &
+    '        "where VH_Lnk_No=@linkNo " &
+    '        "Update " + InstitutionMasterData.XInstType + "_Voucher_Detail set VD_Dbk_Cd=@dbkCdIn,VD_Vch_No=@voucherNumber,VD_Conf_Dt=GetDate(),VD_Conf_By=@CnfBy " &
+    '        "where VD_Lnk_No=@linkNo " &
+    '    "Commit " &
+    '    "End Try " &
+    '    "Begin Catch " &
+    '    "RollBack " &
+    '    "End Catch "
 
-        '"declare @currDate as DateTime " &
-        '    "set @currDate=GETDATE() " &
+    '    '"declare @currDate as DateTime " &
+    '    '    "set @currDate=GETDATE() " &
 
-        Dim params As Dictionary(Of String, Object) = New Dictionary(Of String, Object)()
-        params.Add("@voucherNumber", confirmVoucherNumber)
-        params.Add("@nextVoucherNumber", nextcount)
-        params.Add("@linkNo", linkVoucherNo)
-        params.Add("@dbkCd", daybookGoesOut)
-        params.Add("@dbkCdIn", daybookGoesInto)
-        params.Add("@CnfBy", InstitutionMasterData.XUsrId)
-        params.Add("@vchDt", voucherDate.ToString("yyyy-MM-dd"))
-        Dim dataHelper As DataHelper = New DataHelper()
-        dataHelper.ExecuteNonQuery(query, CommandType.Text, params)
-    End Sub
+    '    Dim params As Dictionary(Of String, Object) = New Dictionary(Of String, Object)()
+    '    params.Add("@voucherNumber", confirmVoucherNumber)
+    '    params.Add("@nextVoucherNumber", nextcount)
+    '    params.Add("@linkNo", linkVoucherNo)
+    '    params.Add("@dbkCd", daybookGoesOut)
+    '    params.Add("@dbkCdIn", daybookGoesInto)
+    '    params.Add("@CnfBy", InstitutionMasterData.XUsrId)
+    '    params.Add("@vchDt", voucherDate.ToString("yyyy-MM-dd"))
+    '    Dim dataHelper As DataHelper = New DataHelper()
+    '    dataHelper.ExecuteNonQuery(query, CommandType.Text, params)
+    'End Sub
 
     Function GetVoucherCount(ByVal LinkNo As String) As Integer
         Dim query As String

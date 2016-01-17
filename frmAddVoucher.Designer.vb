@@ -22,7 +22,8 @@ Partial Class frmAddVoucher
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.LabelNarration = New System.Windows.Forms.Label()
         Me.TextBoxNarration = New System.Windows.Forms.TextBox()
         Me.LabelVoucherDate = New System.Windows.Forms.Label()
@@ -66,12 +67,15 @@ Partial Class frmAddVoucher
         Me.txtNextCount = New System.Windows.Forms.TextBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.lableVoucherStatus = New System.Windows.Forms.Label()
+        Me.VoucherDetailsDeleteMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.panelVoucherControls.SuspendLayout()
         CType(Me.dgvVoucherDetails, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlConfirm.SuspendLayout()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        Me.VoucherDetailsDeleteMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'LabelNarration
@@ -195,9 +199,9 @@ Partial Class frmAddVoucher
         'Amount
         '
         Me.Amount.DataPropertyName = "Amount"
-        DataGridViewCellStyle1.Format = "N2"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.Amount.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Format = "N2"
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.Amount.DefaultCellStyle = DataGridViewCellStyle3
         Me.Amount.HeaderText = "Amount"
         Me.Amount.Name = "Amount"
         '
@@ -283,6 +287,7 @@ Partial Class frmAddVoucher
         '
         'ComboBoxCreditDebit
         '
+        Me.ComboBoxCreditDebit.Enabled = False
         Me.ComboBoxCreditDebit.FormattingEnabled = True
         Me.ComboBoxCreditDebit.Location = New System.Drawing.Point(288, 126)
         Me.ComboBoxCreditDebit.Name = "ComboBoxCreditDebit"
@@ -352,7 +357,6 @@ Partial Class frmAddVoucher
         Me.pnlConfirm.Name = "pnlConfirm"
         Me.pnlConfirm.Size = New System.Drawing.Size(912, 46)
         Me.pnlConfirm.TabIndex = 20
-        Me.pnlConfirm.Visible = False
         '
         'lblConfirmNumber
         '
@@ -476,6 +480,18 @@ Partial Class frmAddVoucher
         Me.lableVoucherStatus.Size = New System.Drawing.Size(0, 14)
         Me.lableVoucherStatus.TabIndex = 9
         '
+        'VoucherDetailsDeleteMenu
+        '
+        Me.VoucherDetailsDeleteMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DeleteToolStripMenuItem})
+        Me.VoucherDetailsDeleteMenu.Name = "VoucherDetailsDeleteMenu"
+        Me.VoucherDetailsDeleteMenu.Size = New System.Drawing.Size(108, 26)
+        '
+        'DeleteToolStripMenuItem
+        '
+        Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.DeleteToolStripMenuItem.Text = "Delete"
+        '
         'frmAddVoucher
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -498,6 +514,7 @@ Partial Class frmAddVoucher
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         Me.SplitContainer1.Panel2.PerformLayout()
         Me.SplitContainer1.ResumeLayout(False)
+        Me.VoucherDetailsDeleteMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -544,5 +561,7 @@ Partial Class frmAddVoucher
     Friend WithEvents RefNo As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents RefDate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents VoucherDesc As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents VoucherDetailsDeleteMenu As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents DeleteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
