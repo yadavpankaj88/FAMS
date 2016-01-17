@@ -79,7 +79,6 @@ Public Class frmReports
         view.SetParameterValue("@instType", InstitutionMasterData.XInstType)
         view.SetParameterValue("@Fromdate", _fromDate.ToShortDateString())
         view.SetParameterValue("@ToDate", _toDate.ToShortDateString())
-        view.SetParameterValue("@ToDate", _toDate.ToShortDateString())
         view.SetParameterValue("@IsCashBank", pIsCashBank)
         crystalRptVwr.ReportSource = view
     End Sub

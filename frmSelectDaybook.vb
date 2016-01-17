@@ -23,14 +23,18 @@
 
     Private Sub ShowReport()
         Try
-            If (Not String.IsNullOrEmpty(_mode) And Not String.IsNullOrEmpty(ddldaybookcode.SelectedValue) And Not String.IsNullOrEmpty(dtpfromdate.Value.ToString()) And Not String.IsNullOrEmpty(dtptodate.Value.ToString())) Then
+            If (Not String.IsNullOrEmpty(_mode) And Not String.IsNullOrEmpty(dtpfromdate.Value.ToString()) And Not String.IsNullOrEmpty(dtptodate.Value.ToString())) Then
                 If ((dtpfromdate.Value >= InstitutionMasterData.XStartFinYr And dtpfromdate.Value <= InstitutionMasterData.XEndFinYr) And (dtptodate.Value >= InstitutionMasterData.XStartFinYr And dtptodate.Value <= InstitutionMasterData.XEndFinYr)) Then
                     If (LoadReportCount() > 0) Then
-                        objCashReceipt = New frmReports
-                        objCashReceipt.SetControls(_mode, ddldaybookcode.SelectedValue, dtpfromdate.Value, dtptodate.Value)
-                        Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
-                        frmMain.ShowNewForm(objCashReceipt, Nothing)
-                        Me.Hide()
+                        If ((_mode = "CashBook" Or _mode = "BankBook") And String.IsNullOrEmpty(ddldaybookcode.SelectedValue)) Then
+                            MessageBox.Show("Please select all neccessary parameters")
+                        Else
+                            objCashReceipt = New frmReports
+                            objCashReceipt.SetControls(_mode, ddldaybookcode.SelectedValue, dtpfromdate.Value, dtptodate.Value)
+                            Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
+                            frmMain.ShowNewForm(objCashReceipt, Nothing)
+                            Me.Hide()
+                        End If
                     Else
                         MessageBox.Show("No data available for selected parameters")
                     End If
@@ -79,10 +83,36 @@
     End Sub
 
     Private Sub frmSelectDaybook_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        BindDaybookCode()
+        ShowDayBookOption()
     End Sub
 
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
         Me.Hide()
     End Sub
+
+    Private Sub ShowDayBookOption()
+        Dim showDayBookOption As Boolean = False
+        Select Case _mode
+            Case "CashBook"
+                showDayBookOption = True
+            Case "BankBook"
+                showDayBookOption = True
+            Case "GeneralLedgerCASHBank"
+                showDayBookOption = False
+            Case "GeneralLedgerOther"
+                showDayBookOption = False
+            Case "TrialBalance"
+                showDayBookOption = False
+        End Select
+        If (showDayBookOption = True) Then
+            ddldaybookcode.Enabled = True
+            lblDaybook.Enabled = True
+        Else
+            ddldaybookcode.Enabled = False
+            lblDaybook.Enabled = False
+        End If
+        BindDaybookCode()
+
+    End Sub
+
 End Class

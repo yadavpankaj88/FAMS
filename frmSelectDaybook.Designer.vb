@@ -22,7 +22,7 @@ Partial Class frmSelectDaybook
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblDaybook = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btncontinue = New System.Windows.Forms.Button()
@@ -32,14 +32,14 @@ Partial Class frmSelectDaybook
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'Label1
+        'lblDaybook
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 19)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(84, 14)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Daybook Code"
+        Me.lblDaybook.AutoSize = True
+        Me.lblDaybook.Location = New System.Drawing.Point(13, 19)
+        Me.lblDaybook.Name = "lblDaybook"
+        Me.lblDaybook.Size = New System.Drawing.Size(84, 14)
+        Me.lblDaybook.TabIndex = 0
+        Me.lblDaybook.Text = "Daybook Code"
         '
         'Label2
         '
@@ -115,7 +115,7 @@ Partial Class frmSelectDaybook
         Me.Controls.Add(Me.btncontinue)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblDaybook)
         Me.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
@@ -127,7 +127,7 @@ Partial Class frmSelectDaybook
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lblDaybook As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents btncontinue As System.Windows.Forms.Button
