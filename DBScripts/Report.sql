@@ -484,6 +484,7 @@ BEGIN
 					VD.VD_Ref_Dt,
 					VD.VD_Fin_Yr,
 					VD.VD_Cr_Dr,
+					VD.VD_Seq_No,
 					VH.VH_Trn_Typ,
 					CASE 
 					WHEN VH.VH_Trn_Typ in(''CR'',''BR'') THEN VD.VD_ABS_Amt
@@ -509,10 +510,9 @@ BEGIN
 					END as PaymentSum,
 					VH.VH_Amt,
 					VD.VD_Amt,
-					VD.VD_Acc_Cd
-					,(SELECT SUM(Lgr_amt) FROM [dbo].['+@instType+'_Ledger]
-						WHERE Lgr_acc_cd= VH.VH_Acc_Cd
-						AND Lgr_vch_dt < getdate()) as RunningBalance
+					VD.VD_Acc_Cd,
+					dbo.OpeningBalanceValue(VH.VH_acc_cd,'''+CONVERT(VARCHAR(25),DATEADD(DAY,0,@ToDate),101)+''','''+@instType+''') as ClosingBalance
+
 					FROM '+@instType+'_Voucher_Detail AS VD 
 	INNER JOIN		'+@instType+'_Voucher_Header AS VH 
 	ON				VD.VD_Vch_Ref_No = VH.VH_Vch_Ref_No 
@@ -549,6 +549,7 @@ BEGIN
 								Lgr.Lgr_Ref_No,
 								Lgr.Lgr_Ref_Dt,
 								Lgr.Lgr_Amt,
+								Lgr.Lgr_Seq_No,
 								Lgr.Lgr_Narr,
 								Lgr.Lgr_Fin_Yr,
 								Lgr.Lgr_Acc_Cd,
@@ -577,7 +578,6 @@ BEGIN
 	IF (@IsCashBank = 'True')
 	BEGIN
 	SET  @strQuery = @strQuery + 'AND Acc.AM_Calls IS NOT NULL'
-	Print 'in @strQ@strQueryuery'
 	END
 	ELSE
 	BEGIN
