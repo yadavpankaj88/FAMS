@@ -23,6 +23,7 @@ Partial Class frmCashBankContraV
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.lblStatus = New System.Windows.Forms.Label()
         Me.lblVchRefNo = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ComboBoxGoesOut = New System.Windows.Forms.ComboBox()
@@ -58,16 +59,18 @@ Partial Class frmCashBankContraV
         '
         Me.SplitContainer1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SplitContainer1.IsSplitterFixed = True
-        Me.SplitContainer1.Location = New System.Drawing.Point(14, 2)
+        Me.SplitContainer1.Location = New System.Drawing.Point(12, 2)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lblStatus)
         Me.SplitContainer1.Panel1.Controls.Add(Me.lblVchRefNo)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.ComboBoxGoesOut)
         Me.SplitContainer1.Panel1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SplitContainer1.Panel1MinSize = 50
         '
         'SplitContainer1.Panel2
         '
@@ -77,10 +80,17 @@ Partial Class frmCashBankContraV
         Me.SplitContainer1.Panel2.Controls.Add(Me.DatePickerVoucherDate)
         Me.SplitContainer1.Panel2.Controls.Add(Me.LabelVoucherDate)
         Me.SplitContainer1.Panel2Collapsed = True
-        Me.SplitContainer1.Size = New System.Drawing.Size(757, 428)
-        Me.SplitContainer1.SplitterDistance = 41
+        Me.SplitContainer1.Size = New System.Drawing.Size(760, 291)
         Me.SplitContainer1.SplitterWidth = 5
         Me.SplitContainer1.TabIndex = 0
+        '
+        'lblStatus
+        '
+        Me.lblStatus.AutoSize = True
+        Me.lblStatus.Location = New System.Drawing.Point(471, 15)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(0, 14)
+        Me.lblStatus.TabIndex = 24
         '
         'lblVchRefNo
         '
@@ -94,7 +104,7 @@ Partial Class frmCashBankContraV
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(15, 15)
+        Me.Label2.Location = New System.Drawing.Point(15, 12)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(113, 14)
         Me.Label2.TabIndex = 7
@@ -103,7 +113,7 @@ Partial Class frmCashBankContraV
         'ComboBoxGoesOut
         '
         Me.ComboBoxGoesOut.FormattingEnabled = True
-        Me.ComboBoxGoesOut.Location = New System.Drawing.Point(135, 15)
+        Me.ComboBoxGoesOut.Location = New System.Drawing.Point(174, 12)
         Me.ComboBoxGoesOut.Name = "ComboBoxGoesOut"
         Me.ComboBoxGoesOut.Size = New System.Drawing.Size(234, 22)
         Me.ComboBoxGoesOut.TabIndex = 0
@@ -123,13 +133,13 @@ Partial Class frmCashBankContraV
         Me.panelVoucherControls.Controls.Add(Me.pnlConfirm)
         Me.panelVoucherControls.Location = New System.Drawing.Point(10, 29)
         Me.panelVoucherControls.Name = "panelVoucherControls"
-        Me.panelVoucherControls.Size = New System.Drawing.Size(744, 190)
+        Me.panelVoucherControls.Size = New System.Drawing.Size(744, 204)
         Me.panelVoucherControls.TabIndex = 25
         '
         'ComboBoxGoesInto
         '
         Me.ComboBoxGoesInto.FormattingEnabled = True
-        Me.ComboBoxGoesInto.Location = New System.Drawing.Point(156, 122)
+        Me.ComboBoxGoesInto.Location = New System.Drawing.Point(164, 122)
         Me.ComboBoxGoesInto.Name = "ComboBoxGoesInto"
         Me.ComboBoxGoesInto.Size = New System.Drawing.Size(234, 22)
         Me.ComboBoxGoesInto.TabIndex = 3
@@ -145,7 +155,7 @@ Partial Class frmCashBankContraV
         '
         'TextBoxAmount
         '
-        Me.TextBoxAmount.Location = New System.Drawing.Point(156, 87)
+        Me.TextBoxAmount.Location = New System.Drawing.Point(164, 87)
         Me.TextBoxAmount.Name = "TextBoxAmount"
         Me.TextBoxAmount.Size = New System.Drawing.Size(122, 22)
         Me.TextBoxAmount.TabIndex = 2
@@ -155,14 +165,14 @@ Partial Class frmCashBankContraV
         Me.LabelNameOfPayee.AutoSize = True
         Me.LabelNameOfPayee.Location = New System.Drawing.Point(10, 157)
         Me.LabelNameOfPayee.Name = "LabelNameOfPayee"
-        Me.LabelNameOfPayee.Size = New System.Drawing.Size(69, 14)
+        Me.LabelNameOfPayee.Size = New System.Drawing.Size(64, 14)
         Me.LabelNameOfPayee.TabIndex = 4
-        Me.LabelNameOfPayee.Text = "Description"
+        Me.LabelNameOfPayee.Text = "Particulars"
         '
         'TextBoxNameOfPayee
         '
         Me.TextBoxNameOfPayee.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBoxNameOfPayee.Location = New System.Drawing.Point(156, 157)
+        Me.TextBoxNameOfPayee.Location = New System.Drawing.Point(164, 157)
         Me.TextBoxNameOfPayee.Name = "TextBoxNameOfPayee"
         Me.TextBoxNameOfPayee.Size = New System.Drawing.Size(501, 22)
         Me.TextBoxNameOfPayee.TabIndex = 4
@@ -170,7 +180,7 @@ Partial Class frmCashBankContraV
         'datepickerChequeDate
         '
         Me.datepickerChequeDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datepickerChequeDate.Location = New System.Drawing.Point(543, 52)
+        Me.datepickerChequeDate.Location = New System.Drawing.Point(610, 52)
         Me.datepickerChequeDate.Name = "datepickerChequeDate"
         Me.datepickerChequeDate.Size = New System.Drawing.Size(114, 22)
         Me.datepickerChequeDate.TabIndex = 1
@@ -178,7 +188,7 @@ Partial Class frmCashBankContraV
         'LabelChequeDate
         '
         Me.LabelChequeDate.AutoSize = True
-        Me.LabelChequeDate.Location = New System.Drawing.Point(454, 52)
+        Me.LabelChequeDate.Location = New System.Drawing.Point(461, 52)
         Me.LabelChequeDate.Name = "LabelChequeDate"
         Me.LabelChequeDate.Size = New System.Drawing.Size(76, 14)
         Me.LabelChequeDate.TabIndex = 9
@@ -195,7 +205,7 @@ Partial Class frmCashBankContraV
         '
         'TextBoxChequeNo
         '
-        Me.TextBoxChequeNo.Location = New System.Drawing.Point(156, 52)
+        Me.TextBoxChequeNo.Location = New System.Drawing.Point(164, 52)
         Me.TextBoxChequeNo.MaxLength = 6
         Me.TextBoxChequeNo.Name = "TextBoxChequeNo"
         Me.TextBoxChequeNo.Size = New System.Drawing.Size(278, 22)
@@ -221,22 +231,25 @@ Partial Class frmCashBankContraV
         Me.pnlConfirm.Name = "pnlConfirm"
         Me.pnlConfirm.Size = New System.Drawing.Size(736, 31)
         Me.pnlConfirm.TabIndex = 25
-        Me.pnlConfirm.Visible = False
         '
         'lblVoucherConfNo
         '
         Me.lblVoucherConfNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblVoucherConfNo.Location = New System.Drawing.Point(149, 5)
+        Me.lblVoucherConfNo.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblVoucherConfNo.Location = New System.Drawing.Point(159, 6)
         Me.lblVoucherConfNo.Name = "lblVoucherConfNo"
+        Me.lblVoucherConfNo.Padding = New System.Windows.Forms.Padding(0, 3, 0, 0)
         Me.lblVoucherConfNo.Size = New System.Drawing.Size(172, 22)
         Me.lblVoucherConfNo.TabIndex = 23
-        Me.lblVoucherConfNo.Text = "Will Appear After Confirmation"
         '
         'lblConfirmedVoucherNumber
         '
+        Me.lblConfirmedVoucherNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
         Me.lblConfirmedVoucherNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblConfirmedVoucherNumber.Location = New System.Drawing.Point(343, 5)
+        Me.lblConfirmedVoucherNumber.Location = New System.Drawing.Point(337, 6)
+        Me.lblConfirmedVoucherNumber.Margin = New System.Windows.Forms.Padding(0)
         Me.lblConfirmedVoucherNumber.Name = "lblConfirmedVoucherNumber"
+        Me.lblConfirmedVoucherNumber.Padding = New System.Windows.Forms.Padding(0, 3, 0, 0)
         Me.lblConfirmedVoucherNumber.Size = New System.Drawing.Size(100, 22)
         Me.lblConfirmedVoucherNumber.TabIndex = 22
         '
@@ -252,7 +265,7 @@ Partial Class frmCashBankContraV
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(461, 8)
+        Me.Label3.Location = New System.Drawing.Point(456, 7)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(104, 14)
         Me.Label3.TabIndex = 18
@@ -261,7 +274,7 @@ Partial Class frmCashBankContraV
         'datepickerVoucherConfirm
         '
         Me.datepickerVoucherConfirm.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datepickerVoucherConfirm.Location = New System.Drawing.Point(617, 6)
+        Me.datepickerVoucherConfirm.Location = New System.Drawing.Point(605, 5)
         Me.datepickerVoucherConfirm.Name = "datepickerVoucherConfirm"
         Me.datepickerVoucherConfirm.Size = New System.Drawing.Size(114, 22)
         Me.datepickerVoucherConfirm.TabIndex = 1
@@ -269,7 +282,7 @@ Partial Class frmCashBankContraV
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(15, 7)
+        Me.Label1.Location = New System.Drawing.Point(15, 6)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(121, 14)
         Me.Label1.TabIndex = 23
@@ -278,17 +291,17 @@ Partial Class frmCashBankContraV
         'txtLinkVoucherNumber
         '
         Me.txtLinkVoucherNumber.AcceptsReturn = True
-        Me.txtLinkVoucherNumber.Location = New System.Drawing.Point(161, 6)
+        Me.txtLinkVoucherNumber.Location = New System.Drawing.Point(174, 6)
         Me.txtLinkVoucherNumber.Name = "txtLinkVoucherNumber"
-        Me.txtLinkVoucherNumber.Size = New System.Drawing.Size(172, 22)
+        Me.txtLinkVoucherNumber.Size = New System.Drawing.Size(234, 22)
         Me.txtLinkVoucherNumber.TabIndex = 0
         '
         'DatePickerVoucherDate
         '
         Me.DatePickerVoucherDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DatePickerVoucherDate.Location = New System.Drawing.Point(627, 6)
+        Me.DatePickerVoucherDate.Location = New System.Drawing.Point(620, 6)
         Me.DatePickerVoucherDate.Name = "DatePickerVoucherDate"
-        Me.DatePickerVoucherDate.Size = New System.Drawing.Size(110, 22)
+        Me.DatePickerVoucherDate.Size = New System.Drawing.Size(114, 22)
         Me.DatePickerVoucherDate.TabIndex = 1
         '
         'LabelVoucherDate
@@ -350,4 +363,5 @@ Partial Class frmCashBankContraV
     Friend WithEvents datepickerVoucherConfirm As System.Windows.Forms.DateTimePicker
     Friend WithEvents lblVchRefNo As System.Windows.Forms.Label
     Friend WithEvents lblVoucherConfNo As System.Windows.Forms.Label
+    Friend WithEvents lblStatus As System.Windows.Forms.Label
 End Class
