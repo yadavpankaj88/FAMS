@@ -607,32 +607,18 @@ BEGIN
 	SET NOCOUNT ON;
 
 	declare @strQuery as nvarchar(max)
-	set @strQuery = 'SELECT		Acc.AM_ACC_Nm,
-								dbo.OpeningBalanceValue(Lgr.Lgr_Acc_cd,'''+CONVERT(VARCHAR(25),DATEADD(DAY,-1,@Fromdate),101)+''','''+@instType+''') as OpeningBalance,
-								Lgr.Lgr_Amt,
-								Lgr.Lgr_Acc_Cd,
-								Lgr.Lgr_Cr_Dr,
-								Lgr.Lgr_Trn_Typ,
-								CASE 
-								WHEN LOWER(Lgr.Lgr_Cr_Dr)=''cr'' THEN Lgr.Lgr_ABS_Amt
-								END as Credit,
-								CASE 
-								WHEN LOWER(Lgr.Lgr_Cr_Dr)=''dr'' THEN Lgr.Lgr_ABS_Amt
-								END as Debit,
-								CASE 
-								WHEN LOWER(Lgr.Lgr_Cr_Dr)=''cr'' THEN Lgr.Lgr_Cr_Dr
-								END as CreditCRDR,
-								CASE 
-								WHEN LOWER(Lgr.Lgr_Cr_Dr)=''dr'' THEN Lgr.Lgr_Cr_Dr
-								END as DebitCRDR
-								,(Select Top 1 sum(Lgr_Amt) from '+ @instType +'_Ledger Lgr
-								where Lgr_acc_cd= Acc.AM_Acc_Cd AND Lgr_vch_dt < getdate()) as RunningBalance								
-								,dbo.OpeningBalanceValue(Lgr.Lgr_Acc_Cd,'''+CONVERT(VARCHAR(25),DATEADD(DAY,0,@ToDate),101)+''','''+@instType+''') as ClosingBalance
-					FROM '+@instType+'_Accounts Acc
-					LEFT OUTER JOIN '+@instType+'_Ledger Lgr
-					ON Acc.AM_ACC_Cd=Lgr.Lgr_Acc_Cd
-					WHERE Lgr.Lgr_Vch_Dt >= '''+CONVERT(VARCHAR(10),@Fromdate,110)+''' and Lgr.Lgr_Vch_Dt <= '''+CONVERT(VARCHAR(10),@ToDate,110)+''''
-	 
+	
+set @strQuery = 'SELECT
+				AM_Acc_Nm
+				,dbo.OpeningBalanceValue(AM_Acc_Cd,'''+CONVERT(VARCHAR(25),DATEADD(DAY,-1,@Fromdate),101)+''','''+@instType+''') as OpeningBalance
+				,AM_Acc_Cd
+				,ISNULL((SELECT SUM(Lgr_Amt) FROM '+@instType+'_Ledger WHERE Lgr_Vch_Dt >= '''+CONVERT(VARCHAR(10),@Fromdate,110)+''' 
+				and Lgr_Vch_Dt <= '''+CONVERT(VARCHAR(10),@ToDate,110)+''' AND Lgr_Acc_Cd=AM_Acc_Cd AND LOWER(Lgr_Cr_Dr)=''cr''),0) AS Credit
+				,ISNULL((SELECT SUM(Lgr_Amt) FROM '+@instType+'_Ledger WHERE Lgr_Vch_Dt >= '''+CONVERT(VARCHAR(10),@Fromdate,110)+''' 
+				and Lgr_Vch_Dt <= '''+CONVERT(VARCHAR(10),@ToDate,110)+''' AND Lgr_Acc_Cd=AM_Acc_Cd AND LOWER(Lgr_Cr_Dr)=''dr''),0) AS Debit
+				,dbo.OpeningBalanceValue(AM_Acc_Cd,'''+CONVERT(VARCHAR(25),DATEADD(DAY,0,@ToDate),101)+''','''+@instType+''') as ClosingBalance
+			FROM '+@instType+'_Accounts'
+
 	exec(@strQuery)
 
 END
