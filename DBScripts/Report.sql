@@ -464,7 +464,9 @@ ALTER PROCEDURE [dbo].[GetCashBankReportDetails]
 	@instType varchar(2),
 	@Fromdate as datetime = NULL,-- vh confirm date
 	@ToDate as datetime = NULL,
-	@VH_Dbk_Cd char(4)
+	@VH_Dbk_Cd char(4),
+	@AccountFrom as char(6),
+	@AccountTo as char(6)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -515,13 +517,12 @@ BEGIN
 					VD.VD_Acc_Cd,
 					VH.VH_Vch_Dt,
 					dbo.OpeningBalanceValue(VH.VH_acc_cd,'''+CONVERT(VARCHAR(25),DATEADD(DAY,0,@ToDate),101)+''','''+@instType+''') as ClosingBalance
-
 					FROM '+@instType+'_Voucher_Detail AS VD 
 	INNER JOIN		'+@instType+'_Voucher_Header AS VH 
 	ON				VD.VD_Vch_Ref_No = VH.VH_Vch_Ref_No 
 	LEFT OUTER JOIN	'+@instType+'_Accounts AS Acc 
 	ON				VD.VD_Acc_Cd = Acc.AM_Acc_Cd
-	WHERE			VH.VH_Dbk_Cd = '''+@VH_Dbk_Cd+''' AND VH.VH_Vch_No IS NOT NULL and VH.VH_Vch_Dt >= '''+CONVERT(VARCHAR(10),@Fromdate,110)+''' and VH.VH_Vch_Dt <= '''+CONVERT(VARCHAR(10),@ToDate,110)+'''
+	WHERE			VH.VH_Dbk_Cd = '''+@VH_Dbk_Cd+''' AND VH.VH_Vch_No IS NOT NULL and VH.VH_Vch_Dt >= '''+CONVERT(VARCHAR(10),@Fromdate,110)+''' and VH.VH_Vch_Dt <= '''+CONVERT(VARCHAR(10),@ToDate,110)+''' and Acc.AM_ACC_Cd between '''+@AccountFrom+''' and '''+@AccountTo+'''
 	ORDER BY		VD.VD_Lnk_No ASC'
 
 	exec(@strQuery)
@@ -535,7 +536,9 @@ ALTER PROCEDURE [dbo].[GetGeneralLedgerReportDetails]
 	@instType varchar(2),
 	@Fromdate as datetime,-- vh confirm date
 	@ToDate as datetime,
-	@IsCashBank as bit
+	@IsCashBank as bit,
+	@AccountFrom as char(6),
+	@AccountTo as char(6)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -576,20 +579,25 @@ BEGIN
 					FROM '+@instType+'_Accounts Acc
 					LEFT OUTER JOIN '+@instType+'_Ledger Lgr
 					ON Acc.AM_ACC_Cd=Lgr.Lgr_Acc_Cd
-					WHERE Lgr.Lgr_Vch_Dt >= '''+CONVERT(VARCHAR(10),@Fromdate,110)+''' and Lgr.Lgr_Vch_Dt <= '''+CONVERT(VARCHAR(10),@ToDate,110)+''''
+					WHERE Lgr.Lgr_Vch_Dt >= '''+CONVERT(VARCHAR(10),@Fromdate,110)+''' 
+					and Lgr.Lgr_Vch_Dt <= '''+CONVERT(VARCHAR(10),@ToDate,110)+''''
+					
 
 	IF (@IsCashBank = 'True')
 	BEGIN
-	SET  @strQuery = @strQuery + 'AND Acc.AM_Calls IS NOT NULL'
+	SET  @strQuery = @strQuery + ' AND Acc.AM_Calls IS NOT NULL'
 	END
 	ELSE
 	BEGIN
-	SET  @strQuery = @strQuery + 'AND Acc.AM_Calls IS NULL'
+	SET  @strQuery = @strQuery + ' AND Acc.AM_Calls IS NULL'
 	END
+
+	SET  @strQuery = @strQuery +' and Acc.AM_ACC_Cd between '''+@AccountFrom+''' and '''+@AccountTo+''''
 
 	exec(@strQuery)
 
 END
+
 go
 
 
