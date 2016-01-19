@@ -25,18 +25,22 @@
         Try
             If (Not String.IsNullOrEmpty(_mode) And Not String.IsNullOrEmpty(dtpfromdate.Value.ToString()) And Not String.IsNullOrEmpty(dtptodate.Value.ToString())) Then
                 If ((dtpfromdate.Value >= InstitutionMasterData.XStartFinYr And dtpfromdate.Value <= InstitutionMasterData.XEndFinYr) And (dtptodate.Value >= InstitutionMasterData.XStartFinYr And dtptodate.Value <= InstitutionMasterData.XEndFinYr)) Then
-                    If (LoadReportCount() > 0) Then
-                        If ((_mode = "CashBook" Or _mode = "BankBook") And String.IsNullOrEmpty(ddldaybookcode.SelectedValue)) Then
-                            MessageBox.Show("Please select all neccessary parameters")
-                        Else
-                            objCashReceipt = New frmReports
-                            objCashReceipt.SetControls(_mode, ddldaybookcode.SelectedValue, dtpfromdate.Value, dtptodate.Value)
-                            Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
-                            frmMain.ShowNewForm(objCashReceipt, Nothing)
-                            Me.Hide()
-                        End If
+                    If (Not String.Equals(_mode, "TrialBalance") And String.IsNullOrEmpty(txtAccountFrom.Text) And String.IsNullOrEmpty(txtAccountTo.Text)) Then
+                        MessageBox.Show("Please select all neccessary parameters")
                     Else
-                        MessageBox.Show("No data available for selected parameters")
+                        If (LoadReportCount() > 0) Then
+                            If ((_mode = "CashBook" Or _mode = "BankBook") And String.IsNullOrEmpty(ddldaybookcode.SelectedValue)) Then
+                                MessageBox.Show("Please select all neccessary parameters")
+                            Else
+                                objCashReceipt = New frmReports
+                                objCashReceipt.SetControls(_mode, ddldaybookcode.SelectedValue, dtpfromdate.Value, dtptodate.Value, txtAccountFrom.Text, txtAccountTo.Text)
+                                Dim frmMain As frmFAMSMain = DirectCast(Me.MdiParent, frmFAMSMain)
+                                frmMain.ShowNewForm(objCashReceipt, Nothing)
+                                Me.Hide()
+                            End If
+                        Else
+                            MessageBox.Show("No data available for selected parameters")
+                        End If
                     End If
                 Else
                     MessageBox.Show("Please select date from current financial year")
@@ -53,13 +57,13 @@
         Dim count As Integer = 0
         Select Case _mode
             Case "CashBook"
-                count = reportCountHelper.GetCashBankBookReportCount(dtpfromdate.Value, dtptodate.Value, ddldaybookcode.SelectedValue)
+                count = reportCountHelper.GetCashBankBookReportCount(dtpfromdate.Value, dtptodate.Value, ddldaybookcode.SelectedValue, txtAccountFrom.Text, txtAccountTo.Text)
             Case "BankBook"
-                count = reportCountHelper.GetCashBankBookReportCount(dtpfromdate.Value, dtptodate.Value, ddldaybookcode.SelectedValue)
+                count = reportCountHelper.GetCashBankBookReportCount(dtpfromdate.Value, dtptodate.Value, ddldaybookcode.SelectedValue, txtAccountFrom.Text, txtAccountTo.Text)
             Case "GeneralLedgerCASHBank"
-                count = reportCountHelper.GetLedgerReportCount(dtpfromdate.Value, dtptodate.Value, True)
+                count = reportCountHelper.GetLedgerReportCount(dtpfromdate.Value, dtptodate.Value, True, txtAccountFrom.Text, txtAccountTo.Text)
             Case "GeneralLedgerOther"
-                count = reportCountHelper.GetLedgerReportCount(dtpfromdate.Value, dtptodate.Value, False)
+                count = reportCountHelper.GetLedgerReportCount(dtpfromdate.Value, dtptodate.Value, False, txtAccountFrom.Text, txtAccountTo.Text)
             Case "TrialBalance"
                 count = reportCountHelper.GetTrialBalanceReportCount(dtpfromdate.Value, dtptodate.Value)
         End Select
@@ -92,27 +96,35 @@
 
     Private Sub ShowDayBookOption()
         Dim showDayBookOption As Boolean = False
+        Dim showAccountCodeOption As Boolean = False
         Select Case _mode
             Case "CashBook"
                 showDayBookOption = True
+                showAccountCodeOption = True
             Case "BankBook"
+                showAccountCodeOption = True
                 showDayBookOption = True
             Case "GeneralLedgerCASHBank"
                 showDayBookOption = False
+                showAccountCodeOption = True
             Case "GeneralLedgerOther"
                 showDayBookOption = False
+                showAccountCodeOption = True
             Case "TrialBalance"
                 showDayBookOption = False
+                showAccountCodeOption = False
         End Select
-        If (showDayBookOption = True) Then
-            ddldaybookcode.Enabled = True
-            lblDaybook.Enabled = True
-        Else
-            ddldaybookcode.Enabled = False
-            lblDaybook.Enabled = False
-        End If
+
+        EnabledPanelContents(pnlDaybook, showDayBookOption)
+        EnabledPanelContents(pnlAccountRange, showAccountCodeOption)
         BindDaybookCode()
 
+    End Sub
+
+    Private Sub EnabledPanelContents(ByVal panel As Panel, ByVal enabled As Boolean)
+        For Each ctrl As Control In panel.Controls
+            ctrl.Enabled = enabled
+        Next
     End Sub
 
 End Class
